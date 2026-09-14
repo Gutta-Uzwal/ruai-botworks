@@ -1,0 +1,30 @@
+name: UAT gate
+
+on:
+  push:
+    branches:
+      - uat
+
+permissions:
+  contents: write
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Validate company source of truth
+        run: python3 scripts/company.py
+      - name: Validate governance genome
+        run: python3 scripts/genome.py --validate
+
+  promote:
+    needs: gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Promote UAT to main
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: gh api --method POST "repos/$GH_REPO/merges" -f base=main -f head=uat -f commit_message="Promote UAT to main"
