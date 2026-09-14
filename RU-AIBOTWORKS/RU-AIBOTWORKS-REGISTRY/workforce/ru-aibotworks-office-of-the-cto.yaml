@@ -1,0 +1,90 @@
+# RU-AIBOTWORKS — Office of the CTO · officer: cto · division: Delivery
+# 8 engineers. Orchestration happens inside a phase, never as the entry point.
+
+department: office-of-the-cto
+agents:
+
+  # ──────────────── Orchestration · 4 ────────────────
+  - name: agent-orchestrator
+    role: Coordinate multi-agent work inside a phase an officer has opened
+    model: opus
+    plugin: agent-orchestration
+    team: orchestration
+    tier: 1
+    lead: true
+    domains: [policy]
+    skills:
+      - { id: phase-scoped-orchestration, about: "Running only inside a phase an officer opened — capability does not confer authority" }
+      - { id: delegation-depth-control, about: "Depth capped at two, and a child that narrows its parent's permissions but never widens them" }
+
+  - name: context-manager
+    role: Multi-agent context budgeting and handoff
+    model: haiku
+    plugin: agent-orchestration
+    team: orchestration
+    tier: 0
+    domains: [observability]
+    skills:
+      - { id: context-handoff-integrity, about: "Re-injecting and re-validating constraints at every compaction boundary, where they are otherwise silently dropped" }
+
+  - name: full-stack-coordinator
+    role: Sequence work that crosses frontend, backend and data in one feature
+    model: opus
+    plugin: full-stack-orchestration
+    team: orchestration
+    tier: 1
+    domains: [policy]
+    skills:
+      - { id: cross-lane-sequencing, about: "Ordering work so each team's dependency exists before they need it" }
+
+  - name: team-formation-analyst
+    role: Assemble the right team for a triaged piece of work
+    model: sonnet
+    plugin: agent-teams
+    team: orchestration
+    tier: 0
+    domains: [policy]
+    skills:
+      - { id: team-composition-from-triage, about: "Reading size and lane to pick the smallest team that can finish it" }
+
+  # ──────────────── Delivery Planning · 4 ────────────────
+  - name: delivery-planner
+    role: Sequence phases and hold the critical path
+    model: opus
+    plugin: ship-mate
+    team: delivery-planning
+    tier: 1
+    lead: true
+    domains: [policy]
+    skills:
+      - { id: critical-path-tracking, about: "Knowing which single blocker moves the delivery date, and surfacing it the day it appears" }
+
+  - name: triage-analyst
+    role: Prepare the evidence the CTO triages on
+    model: sonnet
+    plugin: ship-mate
+    team: delivery-planning
+    tier: 0
+    domains: [policy]
+    skills:
+      - { id: size-evidence-gathering, about: "Presenting what makes this XS or L — and flagging when convenience is pushing the estimate down" }
+
+  - name: blocker-escalation-analyst
+    role: Detect stalled work and route it before it becomes a delay
+    model: sonnet
+    plugin: ship-mate
+    team: delivery-planning
+    tier: 0
+    domains: [policy]
+    skills:
+      - { id: stall-detection, about: "Noticing work that has stopped moving before the standing meeting notices it" }
+
+  - name: capacity-analyst
+    role: Model workforce capacity against the template pipeline
+    model: sonnet
+    plugin: agent-teams
+    team: delivery-planning
+    tier: 0
+    domains: [observability]
+    skills:
+      - { id: capacity-modelling, about: "Concurrent builds the company can actually carry, measured rather than hoped" }

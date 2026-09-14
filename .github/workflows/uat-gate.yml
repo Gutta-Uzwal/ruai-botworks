@@ -1,34 +1,133 @@
 name: UAT gate
 
+# Promotion depends on job SUCCESS, never on a pass percentage. A cancelled,
+# timed-out or unscheduled job is a failure. There is no failure allowance.
+
 on:
   push:
     branches:
       - uat
+  pull_request:
+    branches:
+      - uat
+      - main
 
 permissions:
   contents: write
 
 jobs:
-  gate:
+  governance:
+    name: Governance genome
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-      - name: Validate company source of truth
-        run: python3 scripts/company.py
-      - name: Validate governance genome
-        run: python3 scripts/genome.py --validate
-      - name: Validate agent tool contracts
-        run: python3 scripts/agent_harness.py validate
-      - name: Verify agent receipts
-        run: python3 scripts/agent_harness.py verify-receipts
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install registry dependencies
+        run: pip install --quiet pyyaml
+
+      - name: Company figures compute
+        run: python RU-AIBOTWORKS/RU-AIBOTWORKS-PLATFORM/ru_aibotworks_registry.py --table
+
+      - name: Everyone is named
+        run: python RU-AIBOTWORKS/RU-AIBOTWORKS-PLATFORM/ru_aibotworks_names.py --check
+
+      # 13 company invariants plus the STD-AGENT-001 controls, over every agent.
+      # An ungoverned agent fails the build here.
+      - name: Governance genome
+        run: python RU-AIBOTWORKS/RU-AIBOTWORKS-PLATFORM/ru_aibotworks_genome.py --validate --verbose
+
+      # Catches the failure mode where someone edits a generated AGENT.md instead
+      # of the registry, and the next generation silently reverts it.
+      - name: Generated tree is current
+        run: python RU-AIBOTWORKS/RU-AIBOTWORKS-PLATFORM/ru_aibotworks_generate.py --check
+
+      - name: Charter regenerates without drift
+        run: |
+          python RU-AIBOTWORKS/RU-AIBOTWORKS-PLATFORM/ru_aibotworks_charter.py
+          if ! git diff --quiet -- RU-AIBOTWORKS/RU-AIBOTWORKS-DOCS/charter; then
+            echo "::error::charter is stale - run ru_aibotworks_charter.py and commit"
+            git diff --stat -- RU-AIBOTWORKS/RU-AIBOTWORKS-DOCS/charter
+            exit 1
+          fi
+
+      - name: Document consistency
+        run: python scripts/check_consistency.py RU-AIBOTWORKS/RU-AIBOTWORKS-DOCS
+
+      - name: Authorship
+        run: python scripts/check_authorship.py
+
+  tooling:
+    name: Tool contracts and receipts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install --quiet pyyaml
+
+      - name: Agent tool contracts
+        run: python scripts/agent_harness.py validate
+
+      # The chain must verify without the system that produced it, or it proves nothing.
+      - name: Receipt chain verifies offline
+        run: python scripts/agent_harness.py verify-receipts
+
+  database:
+    name: Control database
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install --quiet pyyaml
+
+      # The seed must regenerate identically. A hand-edited seed is a second
+      # source of truth, which is the defect invariant 11 exists to prevent.
+      - name: Seed regenerates without drift
+        shell: pwsh
+        run: |
+          $before = Get-FileHash RU-AIBOTWORKS/RU-AIBOTWORKS-DATABASE/RU-AIBOTWORKS-seed.sql
+          python RU-AIBOTWORKS/RU-AIBOTWORKS-PLATFORM/ru_aibotworks_seed_sql.py
+          $after = Get-FileHash RU-AIBOTWORKS/RU-AIBOTWORKS-DATABASE/RU-AIBOTWORKS-seed.sql
+          if ($before.Hash -ne $after.Hash) {
+            Write-Error "seed is stale - run ru_aibotworks_seed_sql.py and commit the result"
+            exit 1
+          }
+
+  portal:
+    name: CEO portal
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install --quiet pyyaml
+
+      - name: Portal regenerates without drift
+        run: |
+          python RU-AIBOTWORKS/RU-AIBOTWORKS-PLATFORM/ru_aibotworks_portal.py
+          if ! git diff --quiet -- RU-AIBOTWORKS/RU-AIBOTWORKS-PORTAL; then
+            echo "::error::portal is stale - run ru_aibotworks_portal.py and commit the result"
+            git diff --stat -- RU-AIBOTWORKS/RU-AIBOTWORKS-PORTAL
+            exit 1
+          fi
 
   promote:
-    needs: gate
+    name: Promote to main
+    # Depends on SUCCESS of every gate job, not on a percentage.
+    needs: [governance, tooling, database, portal]
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - name: Promote UAT to main
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
-        run: gh api --method POST "repos/$GH_REPO/merges" -f base=main -f head=uat -f commit_message="Promote UAT to main"
+        run: >
+          gh api --method POST "repos/$GH_REPO/merges"
+          -f base=main -f head=uat -f commit_message="Promote UAT to main"

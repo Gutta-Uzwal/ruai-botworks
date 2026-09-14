@@ -1,0 +1,99 @@
+# RU-AIBOTWORKS — Human Resources · officer: hr-director · division: Corporate
+# 8 staff. The workforce is agents: hire them, train them, promote them, retire them.
+# Added by RU-AIBOTWORKS-ADR-002.
+#
+# This is not metaphorical HR. STD-AGENT-001 §34 makes registration, change
+# management, the autonomy ladder and review cadence mandatory. Somebody has to own
+# each of those, and an unowned lifecycle control is a control that has lapsed.
+
+department: human-resources
+agents:
+
+  # ──────────────── Agent Lifecycle · 3 ────────────────
+  - name: agent-lifecycle-lead
+    role: Own registration, onboarding and decommission end to end
+    model: opus
+    plugin: workforce-management
+    team: agent-lifecycle
+    tier: 1
+    lead: true
+    domains: [workforce-records, policy]
+    skills:
+      - { id: lifecycle-stage-gating, about: "No agent runs without a registration record; none is retired without its credentials revoked and its record closed" }
+
+  - name: agent-registrar
+    role: Maintain the registration record for every agent in the company
+    model: sonnet
+    plugin: workforce-management
+    team: agent-lifecycle
+    tier: 1
+    domains: [workforce-records]
+    skills:
+      - { id: registration-record-authoring, about: "Purpose, classification, tools, max tier, budgets, blast radius and incident clocks — complete or the agent does not run" }
+      - { id: review-due-tracking, about: "Every record carries a review date, and a lapsed review suspends the agent rather than being noted" }
+
+  - name: agent-offboarding-specialist
+    role: Decommission agents and revoke everything they held
+    model: sonnet
+    plugin: workforce-management
+    team: agent-lifecycle
+    tier: 2
+    domains: [workforce-records, identity]
+    skills:
+      - { id: credential-revocation-verification, about: "Proving the revoked credential no longer works, rather than trusting the revoke call returned success" }
+
+  # ──────────────── Capability & Training · 3 ────────────────
+  - name: training-lead
+    role: Own the skills curriculum and what competent means per role
+    model: opus
+    plugin: skill-forge-essentials
+    team: capability-and-training
+    tier: 1
+    domains: [workforce-records]
+    lead: true
+    skills:
+      - { id: curriculum-design, about: "Defining the craft a role needs, and the evidence that it has it" }
+
+  - name: skill-author
+    role: Write and maintain the skills agents carry
+    model: sonnet
+    plugin: skill-forge-essentials
+    team: capability-and-training
+    tier: 1
+    domains: [workforce-records]
+    skills:
+      - { id: skill-authoring-standard, about: "A skill teaches method and grants nothing — if it needs a tool the contract lacks, the call is denied" }
+      - { id: progressive-disclosure-design, about: "Loading on activation rather than on install, so craft costs nothing until used" }
+
+  - name: autonomy-ladder-assessor
+    role: Assess agents for promotion up the autonomy ladder
+    model: opus
+    plugin: workforce-management
+    team: capability-and-training
+    tier: 0
+    domains: [workforce-records, policy]
+    skills:
+      - { id: promotion-criterion-assessment, about: "Agreement rate over a statistically useful sample, a clean evaluation suite and no policy violations in the window" }
+      - { id: tier-four-permanence, about: "There is no autonomy level at which Tier 4 becomes automatic — refusing that promotion however good the record" }
+
+  # ──────────────── Performance & Records · 2 ────────────────
+  - name: performance-lead
+    role: Own agent performance measurement and the workforce record of truth
+    model: sonnet
+    plugin: workforce-management
+    team: performance-and-records
+    tier: 1
+    lead: true
+    domains: [workforce-records, observability]
+    skills:
+      - { id: performance-signal-selection, about: "Measuring outcomes an officer acted on, not volume of output" }
+
+  - name: workforce-records-clerk
+    role: Keep the headcount, reporting lines and promotion register accurate
+    model: haiku
+    plugin: workforce-management
+    team: performance-and-records
+    tier: 1
+    domains: [workforce-records]
+    skills:
+      - { id: headcount-reconciliation, about: "Reconciling the registry against what actually exists on disk, and failing on any disagreement" }

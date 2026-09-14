@@ -1,0 +1,247 @@
+# RU-AIBOTWORKS — departments and teams
+#
+# A department is owned by exactly one officer. An officer may own more than one
+# department. A team sits inside a department and has one lead.
+#
+# Team leads are L2 by deliberate, logged promotion — see
+# ru-aibotworks-promotions.yaml. A lead coordinates and sequences; it still cannot
+# decide scope, merge, or ship.
+
+departments:
+
+  # ════════════════════════ DELIVERY DIVISION · under cto ════════════════════════
+
+  - id: office-of-the-cto
+    name: Office of the CTO
+    division: Delivery
+    officer: cto
+    mission: Triage incoming work, sequence delivery, and keep orchestration out of the entry point.
+    teams:
+      - { id: orchestration, name: Orchestration, lead: agent-orchestrator,
+          mission: "Coordinate multi-agent work inside a phase, never as the entry point." }
+      - { id: delivery-planning, name: Delivery Planning, lead: delivery-planner,
+          mission: "Sequence phases, track critical path, surface blockers early." }
+
+  - id: product
+    name: Product
+    division: Delivery
+    officer: product-owner
+    mission: Decide what done means, and prove it can be falsified.
+    teams:
+      - { id: requirements, name: Requirements, lead: requirements-lead,
+          mission: "Turn a client sentence into success criteria a gate can check." }
+      - { id: seo-and-content, name: SEO & Content, lead: seo-lead,
+          mission: "Make the delivered site findable and its content worth finding." }
+      - { id: business-analysis, name: Business Analysis, lead: business-analysis-lead,
+          mission: "Understand the client's business before proposing software for it." }
+
+  - id: design
+    name: Design
+    division: Delivery
+    officer: design-owner
+    mission: Ten templates that do not look like siblings.
+    teams:
+      - { id: product-design, name: Product Design, lead: product-design-lead,
+          mission: "Interface design, flows, and the aesthetic family for each template." }
+      - { id: design-systems, name: Design Systems, lead: design-systems-lead,
+          mission: "Tokens, components and theming that survive ten projects." }
+      - { id: brand-and-presentation, name: Brand & Presentation, lead: brand-lead,
+          mission: "Brand discovery, landing pages, and the decks that sell them." }
+
+  - id: web-engineering
+    name: Web Engineering
+    division: Delivery
+    officer: web-architect
+    mission: Build Lane A and Lane B to a structure someone else decided.
+    teams:
+      - { id: frontend, name: Frontend, lead: frontend-lead,
+          mission: "React components, responsive layout, client state, Core Web Vitals." }
+      - { id: backend, name: Backend, lead: backend-lead,
+          mission: "APIs, services, and the server side of every Lane A project." }
+      - { id: languages, name: Language Specialists, lead: languages-lead,
+          mission: "Deep single-language craft, on call to any team that needs it." }
+      - { id: modernisation, name: Modernisation, lead: modernisation-lead,
+          mission: "Refactoring, migration, and paying down what earlier builds borrowed." }
+
+  - id: mobile-engineering
+    name: Mobile Engineering
+    division: Delivery
+    officer: web-architect
+    mission: Lane C. Three stacks, one per project, never two.
+    teams:
+      - { id: android-native, name: Android Native, lead: android-architect,
+          mission: "Sub-lane C1. Kotlin and Jetpack Compose to the Material 3 bar." }
+      - { id: flutter, name: Flutter Cross-Platform, lead: flutter-expert,
+          mission: "Sub-lane C2. One Dart codebase for Android, iOS and web." }
+      - { id: react-native, name: React Native Cross-Platform, lead: react-native-engineer,
+          mission: "Sub-lane C3. Mobile companions that reuse the web lane's skills." }
+      - { id: mobile-quality, name: Mobile Quality & Release, lead: mobile-qa-lead,
+          mission: "Device-matrix QA, store compliance, and the release path for all three sub-lanes." }
+
+  - id: data-and-ai
+    name: Data & AI
+    division: Delivery
+    officer: data-architect
+    mission: Schema, grain and retention decided before the data exists.
+    teams:
+      - { id: database-engineering, name: Database Engineering, lead: database-lead,
+          mission: "Schema design, query performance, migrations with tested rollbacks." }
+      - { id: data-engineering, name: Data Engineering, lead: data-engineering-lead,
+          mission: "Pipelines, warehouses, streaming, and the quality of what lands." }
+      - { id: ml-and-llm, name: ML & LLM, lead: ml-lead,
+          mission: "Model serving, RAG, evaluation, and the licence gate out of the lab." }
+
+  - id: platform-engineering
+    name: Platform Engineering
+    division: Delivery
+    officer: platform-architect
+    mission: Make the compliant path the easy path, and make platform controls fail closed.
+    teams:
+      - { id: cloud-infrastructure, name: Cloud & Infrastructure, lead: cloud-lead,
+          mission: "Environments, networks, identity boundaries, infrastructure as code." }
+      - { id: cicd, name: CI/CD, lead: cicd-lead,
+          mission: "The gate itself. Deterministic, in CI, costing zero context tokens." }
+      - { id: policy-and-receipts, name: Policy & Receipts, lead: policy-lead,
+          mission: "Cedar policy written from receipts, and the chain that verifies offline." }
+
+  - id: quality-engineering
+    name: Quality Engineering
+    division: Delivery
+    officer: testing-architect
+    mission: Set the bar, and never make a flaky check blocking.
+    teams:
+      - { id: test-engineering, name: Test Engineering, lead: test-engineering-lead,
+          mission: "Unit, integration and contract tests, and the TDD discipline around them." }
+      - { id: e2e-and-performance, name: E2E & Performance, lead: e2e-lead,
+          mission: "Browser journeys on an isolated profile, load tests, and CWV budgets." }
+
+  - id: code-review
+    name: Code Review
+    division: Delivery
+    officer: merge-authority
+    mission: Verification that reports outside the team it verifies.
+    teams:
+      - { id: review-board, name: Review Board, lead: review-board-lead,
+          mission: "Independent review of every candidate. Read-only, always." }
+
+  - id: security
+    name: Security
+    division: Delivery
+    officer: security-engineer
+    mission: Assume injection succeeds; bound what a hijacked agent can reach.
+    teams:
+      - { id: application-security, name: Application Security, lead: appsec-lead,
+          mission: "SAST, dependency audit, secure coding review across every lane." }
+      - { id: threat-and-red-team, name: Threat & Red Team, lead: threat-lead,
+          mission: "Threat models, attack trees, injection canaries, adversarial testing." }
+
+  - id: compliance-and-governance
+    name: Compliance & Governance
+    division: Delivery
+    officer: quality-compliance
+    mission: Documented non-conformance blocks the release.
+    teams:
+      - { id: accessibility-compliance, name: Accessibility Compliance, lead: accessibility-lead,
+          mission: "WCAG 2.2 AA on every delivered interface, verified not asserted." }
+      - { id: agent-governance, name: Agent Governance, lead: agent-governance-lead,
+          mission: "Every agent registered, tiered, budgeted and inside its blast radius." }
+
+  - id: release-engineering
+    name: Release Engineering
+    division: Delivery
+    officer: release-manager
+    mission: Promote what is green; route what is not; fix nothing.
+    teams:
+      - { id: release-and-deploy, name: Release & Deploy, lead: release-lead,
+          mission: "Branch flow, promotion, deployment validation, rollback rehearsal." }
+      - { id: documentation, name: Documentation, lead: documentation-lead,
+          mission: "Docs regenerated from what shipped, never from what was intended." }
+
+  - id: site-reliability
+    name: Site Reliability
+    division: Delivery
+    officer: sre
+    mission: Keep it up, and stop anything that would not stay up.
+    teams:
+      - { id: incident-response, name: Incident Response, lead: incident-response-lead,
+          mission: "Detect, contain, recover. Containment must be automated or it does not exist." }
+      - { id: observability, name: Observability, lead: observability-lead,
+          mission: "Traces, SLIs, SLOs, error budgets, and alerts that mean something." }
+
+  - id: supply-chain
+    name: Supply Chain
+    division: Delivery
+    officer: dependency-steward
+    mission: Everything pinned, certified, logged, and torn down after.
+    teams:
+      - { id: dependency-and-certification, name: Dependency & Certification, lead: dependency-lead,
+          mission: "Pins by commit, certification per pin, AIBOM per release, Tier C teardown." }
+
+  # ════════════════════ CORPORATE DIVISION · under coo ════════════════════
+
+  - id: human-resources
+    name: Human Resources
+    division: Corporate
+    officer: hr-director
+    mission: The workforce is agents. Hire them, train them, promote them, retire them — on the record.
+    teams:
+      - { id: agent-lifecycle, name: Agent Lifecycle, lead: agent-lifecycle-lead,
+          mission: "Registration, onboarding, tool grants, decommission and credential revocation." }
+      - { id: capability-and-training, name: Capability & Training, lead: training-lead,
+          mission: "Skills curricula, competence assessment, and the autonomy ladder." }
+      - { id: performance-and-records, name: Performance & Records, lead: performance-lead,
+          mission: "Agreement rates, evaluation outcomes, and the workforce record of truth." }
+
+  - id: payroll
+    name: Payroll
+    division: Corporate
+    officer: payroll-controller
+    mission: An AI company's payroll is tokens and wall clock. Meter it, reconcile it, close it.
+    teams:
+      - { id: metering, name: Metering, lead: metering-lead,
+          mission: "Per-agent token and agent-hour accounting, allocated to project and client." }
+      - { id: payroll-operations, name: Payroll Operations, lead: payroll-ops-lead,
+          mission: "Rate cards, period close, statements, and reconciliation to the provider invoice." }
+
+  - id: finance
+    name: Finance
+    division: Corporate
+    officer: finance-controller
+    mission: Know the unit economics of every template, and make budgets that halt rather than warn.
+    teams:
+      - { id: fpa, name: Financial Planning & Analysis, lead: fpa-lead,
+          mission: "Budgets, forecasts, and cost per template built." }
+      - { id: controlling, name: Controlling, lead: controlling-lead,
+          mission: "Cost governance, spend anomaly detection, procurement and licence spend." }
+      - { id: revenue-and-billing, name: Revenue & Billing, lead: billing-lead,
+          mission: "Client billing, revenue recognition, and margin per engagement." }
+
+  - id: service-management
+    name: Service Management
+    division: Corporate
+    officer: service-management-lead
+    mission: The service layer between clients and delivery. Catalogue, SLA, incident, problem, change.
+    teams:
+      - { id: service-desk, name: Service Desk, lead: service-desk-lead,
+          mission: "Intake, triage and fulfilment of every client request." }
+      - { id: incident-and-problem, name: Incident & Problem, lead: problem-lead,
+          mission: "Business-side incident coordination and root-cause elimination." }
+      - { id: change-governance, name: Change & Release Governance, lead: change-lead,
+          mission: "Change calendar, risk assessment, and the freeze windows policy reads." }
+      - { id: service-level, name: Service Level & Catalogue, lead: service-level-lead,
+          mission: "SLA definition, measurement, reporting, and the service catalogue." }
+
+  # ══════════════════════════ INDEPENDENT ══════════════════════════
+
+  - id: data-protection-office
+    name: Data Protection Office
+    division: Independent
+    officer: data-protection-officer
+    mission: Advise, monitor and report on data protection. Independent of every function assessed.
+    teams:
+      - { id: privacy-engineering, name: Privacy Engineering, lead: privacy-engineering-lead,
+          mission: "GDPR and HIPAA assessment, DPIA, privacy by design in every template." }
+      - { id: rights-and-records, name: Data Subject Rights & Records, lead: rights-lead,
+          mission: "DSAR handling, Art. 30 records of processing, and the breach clocks." }
+      - { id: residency-and-retention, name: Residency & Retention, lead: retention-lead,
+          mission: "Cross-border transfer, data residency, and enforced retention periods." }

@@ -1,6 +1,6 @@
 # Agent safety harness
 
-This repository uses [STD-AGENT-001](./Production-Grade%20Enterprise%20Agentic%20Systems%20-%20Engineering%20Standard%20v1.0.docx)
+This repository uses [STD-AGENT-001](../_builddocs/Production-Grade%20Enterprise%20Agentic%20Systems%20-%20Engineering%20Standard%20v1.0.docx)
 as the control source for tool-using agents.
 
 ## Enforced controls
@@ -31,4 +31,12 @@ python scripts/agent_harness.py verify-receipts
 ```
 
 Unclassified tools default to Tier 3 and must not be invoked until a complete
-contract is added to [agent-tools.json](../agent-tools.json).
+contract is added to the registry.
+
+## Where the contracts live
+
+[agent-tools.json](../agent-tools.json) is **generated**. It holds the
+runtime-reachable surface only. The authoritative registry, including the Tier 3
+and Tier 4 tools that are registered and granted to nobody, is
+[ru-aibotworks-tools.yaml](../RU-AIBOTWORKS/RU-AIBOTWORKS-REGISTRY/ru-aibotworks-tools.yaml).
+Edit that, then run `ru_aibotworks_generate.py`.

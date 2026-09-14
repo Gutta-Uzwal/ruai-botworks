@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reporting · RU-AIBOTWORKS</title>
+<script>
+(function(){
+  try{
+    var t=localStorage.getItem('ruai-theme');
+    if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);
+  }catch(e){}
+  window.ruaiToggle=function(){
+    var r=document.documentElement,
+        cur=r.getAttribute('data-theme'),
+        sysDark=window.matchMedia('(prefers-color-scheme: dark)').matches,
+        now=cur?cur:(sysDark?'dark':'light'),
+        next=now==='dark'?'light':'dark';
+    r.setAttribute('data-theme',next);
+    try{localStorage.setItem('ruai-theme',next);}catch(e){}
+  };
+})();
+</script>
+<link rel="stylesheet" href="RU-AIBOTWORKS-portal.css">
+</head>
+<body>
+<header class="mast">
+  <div class="mast-in">
+    <div class="brand">RU<span>-</span>AIBOTWORKS</div>
+    <nav class="tabs">
+      <a href="RU-AIBOTWORKS-index.html">Overview</a>
+      <a href="RU-AIBOTWORKS-org-chart.html" aria-current="page">Reporting</a>
+      <a href="RU-AIBOTWORKS-workforce.html">Workforce</a>
+      <a href="RU-AIBOTWORKS-workflow.html">Workflow</a>
+      <a href="RU-AIBOTWORKS-architecture.html">Architecture</a>
+      <a href="RU-AIBOTWORKS-governance.html">Governance</a>
+      <button class="theme-btn" onclick="ruaiToggle()" aria-label="Toggle theme">◐ theme</button>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+<div class="phead"><p class="eyebrow">Reporting structure</p><h1>Who reports to whom, and who can stop a release</h1><p class="lede">Three lines leave the CEO. One builds, one runs the company, and one assesses data protection independently of both.</p></div><div class="chart"><svg viewBox="0 0 548 1120" role="img" aria-label="RU-AIBOTWORKS reporting structure, CEO to officer"><path class="edge" d="M30 56 V88.0 H62"/><path class="edge" d="M76 108 V140.0 H108"/><path class="edge" d="M76 108 V192.0 H108"/><path class="edge" d="M76 108 V244.0 H108"/><path class="edge" d="M76 108 V296.0 H108"/><path class="edge" d="M76 108 V348.0 H108"/><path class="edge" d="M122 368 V400.0 H154"/><path class="edge" d="M122 368 V452.0 H154"/><path class="edge" d="M122 368 V504.0 H154"/><path class="edge" d="M122 368 V556.0 H154"/><path class="edge" d="M76 108 V608.0 H108"/><path class="edge" d="M122 628 V660.0 H154"/><path class="edge" d="M76 108 V712.0 H108"/><path class="edge" d="M30 56 V764.0 H62"/><path class="edge" d="M76 784 V816.0 H108"/><path class="edge" d="M76 784 V868.0 H108"/><path class="edge" d="M76 784 V920.0 H108"/><path class="edge" d="M76 784 V972.0 H108"/><path class="edge" d="M30 56 V1024.0 H62"/><g><rect class="node-box acc" x="16" y="16" width="258" height="40" rx="7"/><text class="node-t" x="28" y="34">CEO · Uzwal Gutta</text><text class="node-s" x="28" y="48">L5 · human · 4 reserved decisions</text></g><g><rect class="node-box acc" x="62" y="68" width="258" height="40" rx="7"/><text class="node-t" x="74" y="86">Aarav</text><text class="node-s" x="74" y="100">cto · L4 · Direct · 8 staff</text></g><g><rect class="node-box " x="108" y="120" width="258" height="40" rx="7"/><text class="node-t" x="120" y="138">Arjun</text><text class="node-s" x="120" y="152">product-owner · L3 · Direct · 20 staff</text></g><g><rect class="node-box " x="108" y="172" width="258" height="40" rx="7"/><text class="node-t" x="120" y="190">Ayaan</text><text class="node-s" x="120" y="204">design-owner · L3 · Direct · 10 staff</text></g><g><rect class="node-box " x="108" y="224" width="258" height="40" rx="7"/><text class="node-t" x="120" y="242">Advik</text><text class="node-s" x="120" y="256">web-architect · L3 · Build · 69 staff</text></g><g><rect class="node-box " x="108" y="276" width="258" height="40" rx="7"/><text class="node-t" x="120" y="294">Akash</text><text class="node-s" x="120" y="308">data-architect · L3 · Build · 26 staff</text></g><g><rect class="node-box " x="108" y="328" width="258" height="40" rx="7"/><text class="node-t" x="120" y="346">Amit</text><text class="node-s" x="120" y="360">platform-architect · L3 · Build · 17 staff</text></g><g><rect class="node-box veto" x="154" y="380" width="258" height="40" rx="7"/><text class="node-t" x="166" y="398">Anil</text><text class="node-s" x="166" y="412">security-engineer · L2 · Verify · VETO · 9 staff</text></g><g><rect class="node-box veto" x="154" y="432" width="258" height="40" rx="7"/><text class="node-t" x="166" y="450">Ansh</text><text class="node-s" x="166" y="464">sre · L2 · Ship · VETO · 10 staff</text></g><g><rect class="node-box " x="154" y="484" width="258" height="40" rx="7"/><text class="node-t" x="166" y="502">Aryan</text><text class="node-s" x="166" y="516">release-manager · L2 · Ship · 14 staff</text></g><g><rect class="node-box " x="154" y="536" width="258" height="40" rx="7"/><text class="node-t" x="166" y="554">Atharv</text><text class="node-s" x="166" y="568">dependency-steward · L2 · Ship · 10 staff</text></g><g><rect class="node-box " x="108" y="588" width="258" height="40" rx="7"/><text class="node-t" x="120" y="606">Ajay</text><text class="node-s" x="120" y="620">testing-architect · L3 · Verify · 11 staff</text></g><g><rect class="node-box acc" x="154" y="640" width="258" height="40" rx="7"/><text class="node-t" x="166" y="658">Ashwin</text><text class="node-s" x="166" y="672">merge-authority · L2 · Verify · READ-ONLY · 7 staff</text></g><g><rect class="node-box veto" x="108" y="692" width="258" height="40" rx="7"/><text class="node-t" x="120" y="710">Alok</text><text class="node-s" x="120" y="724">quality-compliance · L3 · Verify · VETO · 8 staff</text></g><g><rect class="node-box corp" x="62" y="744" width="258" height="40" rx="7"/><text class="node-t" x="74" y="762">Aditya</text><text class="node-s" x="74" y="776">coo · L4 · Corporate · NEW</text></g><g><rect class="node-box corp" x="108" y="796" width="258" height="40" rx="7"/><text class="node-t" x="120" y="814">Aanya</text><text class="node-s" x="120" y="828">hr-director · L3 · Corporate · 8 staff · NEW</text></g><g><rect class="node-box corp" x="108" y="848" width="258" height="40" rx="7"/><text class="node-t" x="120" y="866">Aadhya</text><text class="node-s" x="120" y="880">payroll-controller · L3 · Corporate · 6 staff · NEW</text></g><g><rect class="node-box corp" x="108" y="900" width="258" height="40" rx="7"/><text class="node-t" x="120" y="918">Anika</text><text class="node-s" x="120" y="932">finance-controller · L3 · Corporate · 8 staff · NEW</text></g><g><rect class="node-box corp" x="108" y="952" width="258" height="40" rx="7"/><text class="node-t" x="120" y="970">Ananya</text><text class="node-s" x="120" y="984">service-management-lead · L3 · Corporate · 10 staff · NEW</text></g><g><rect class="node-box indep" x="62" y="1004" width="258" height="40" rx="7"/><text class="node-t" x="74" y="1022">Anjali</text><text class="node-s" x="74" y="1036">data-protection-officer · L3 · Privacy · 8 staff · NEW</text></g><rect class="node-box" x="16" y="1064" width="378" height="40" rx="7"/><text class="node-t" x="28" y="1082">259 agents below the officer layer</text><text class="node-s" x="28" y="1096">19 departments · 49 teams · 49 leads</text><path class="edge dash" d="M30 1044 V1064"/></svg></div>
+<div class="note"><strong>Why <code>merge-authority</code> reports to
+<code>testing-architect</code>.</strong> It reviews the architects' work, so it must not
+report to them. That single edge is why verification cannot be overruled by the team it
+verifies &mdash; and it is why the reviewer holds no <code>Write</code> tool at all.</div>
+
+<div class="note"><strong>Why the Data Protection Officer reports to you directly.</strong>
+GDPR Art. 38(3) requires the DPO to reach the highest management level and to take no
+instruction on how to perform the role. Routing it through <code>coo</code> or
+<code>cto</code> would make the independence nominal. It raises findings;
+<code>quality-compliance</code> blocks on them; only you unblock.</div>
+
+<h2>The 19 officers</h2>
+<p class="sub">Six of these are new. The column on the right says which.</p>
+<div class="tw"><table><thead><tr><th>Officer</th><th>Level</th><th>Reports to</th><th>Function</th><th>Decides</th><th>Staff</th><th>Model</th><th>Added</th></tr></thead><tbody><tr><td class="name"><strong>Aarav</strong></td><td class="name">cto <span class="chip l4">chief</span></td><td>L4</td><td class="name">CEO</td><td>Direct</td><td>Triage size, dispatch, off-stack proposals</td><td>8</td><td>inherit</td><td>original</td></tr><tr><td class="name"><strong>Aditya</strong></td><td class="name">coo <span class="chip l4">chief</span><span class="chip new">new</span></td><td>L4</td><td class="name">CEO</td><td>Corporate</td><td>Corporate service direction, department budgets, workforce policy</td><td>0</td><td>inherit</td><td>ADR-002</td></tr><tr><td class="name"><strong>Arjun</strong></td><td class="name">product-owner </td><td>L3</td><td class="name">cto</td><td>Direct</td><td>Success criteria, scope, the Requirements gate</td><td>20</td><td>sonnet</td><td>original</td></tr><tr><td class="name"><strong>Ayaan</strong></td><td class="name">design-owner </td><td>L3</td><td class="name">cto</td><td>Direct</td><td>DESIGN.md, aesthetic family, the Design gate</td><td>10</td><td>inherit</td><td>original</td></tr><tr><td class="name"><strong>Advik</strong></td><td class="name">web-architect </td><td>L3</td><td class="name">cto</td><td>Build</td><td>Lane choice (A/B/C1/C2/C3), component structure, API shape</td><td>69</td><td>opus</td><td>original</td></tr><tr><td class="name"><strong>Akash</strong></td><td class="name">data-architect </td><td>L3</td><td class="name">cto</td><td>Build</td><td>Schema, grain, retention, service contracts</td><td>26</td><td>opus</td><td>original</td></tr><tr><td class="name"><strong>Amit</strong></td><td class="name">platform-architect </td><td>L3</td><td class="name">cto</td><td>Build</td><td>CI shape, environments, Cedar policy, plugin architecture</td><td>17</td><td>opus</td><td>original</td></tr><tr><td class="name"><strong>Ajay</strong></td><td class="name">testing-architect </td><td>L3</td><td class="name">cto</td><td>Verify</td><td>Quality bar, gate contents, blocking vs advisory</td><td>11</td><td>sonnet</td><td>original</td></tr><tr><td class="name"><strong>Alok</strong></td><td class="name">quality-compliance <span class="chip veto">veto</span></td><td>L3</td><td class="name">cto</td><td>Verify</td><td>Documented non-conformance blocks the release</td><td>8</td><td>opus</td><td>original</td></tr><tr><td class="name"><strong>Ashwin</strong></td><td class="name">merge-authority <span class="chip ro">read-only</span></td><td>L2</td><td class="name">testing-architect</td><td>Verify</td><td>Whether this merges</td><td>7</td><td>opus</td><td>original</td></tr><tr><td class="name"><strong>Anil</strong></td><td class="name">security-engineer <span class="chip veto">veto</span></td><td>L2</td><td class="name">platform-architect</td><td>Verify</td><td>Vulnerabilities, receipt-chain verification</td><td>9</td><td>opus</td><td>original</td></tr><tr><td class="name"><strong>Ansh</strong></td><td class="name">sre <span class="chip veto">veto</span></td><td>L2</td><td class="name">platform-architect</td><td>Ship</td><td>Production instability blocks the release</td><td>10</td><td>opus</td><td>original</td></tr><tr><td class="name"><strong>Aryan</strong></td><td class="name">release-manager </td><td>L2</td><td class="name">platform-architect</td><td>Ship</td><td>Promotion and failure routing</td><td>14</td><td>sonnet</td><td>original</td></tr><tr><td class="name"><strong>Atharv</strong></td><td class="name">dependency-steward </td><td>L2</td><td class="name">platform-architect</td><td>Ship</td><td>Pins, certification records, fork log, Tier C teardown</td><td>10</td><td>sonnet</td><td>original</td></tr><tr><td class="name"><strong>Aanya</strong></td><td class="name">hr-director <span class="chip new">new</span></td><td>L3</td><td class="name">coo</td><td>Corporate</td><td>Agent registration, onboarding, the autonomy ladder, decommission</td><td>8</td><td>sonnet</td><td>ADR-002</td></tr><tr><td class="name"><strong>Aadhya</strong></td><td class="name">payroll-controller <span class="chip new">new</span></td><td>L3</td><td class="name">coo</td><td>Corporate</td><td>Token and agent-hour metering, rate cards, period close</td><td>6</td><td>sonnet</td><td>ADR-002</td></tr><tr><td class="name"><strong>Anika</strong></td><td class="name">finance-controller <span class="chip new">new</span></td><td>L3</td><td class="name">coo</td><td>Corporate</td><td>Budgets, cost governance, unit economics, client billing</td><td>8</td><td>sonnet</td><td>ADR-002</td></tr><tr><td class="name"><strong>Ananya</strong></td><td class="name">service-management-lead <span class="chip new">new</span></td><td>L3</td><td class="name">coo</td><td>Corporate</td><td>Service catalogue, SLAs, incident/problem/change governance</td><td>10</td><td>sonnet</td><td>ADR-002</td></tr><tr><td class="name"><strong>Anjali</strong></td><td class="name">data-protection-officer <span class="chip new">new</span></td><td>L3</td><td class="name">CEO</td><td>Privacy</td><td>GDPR and HIPAA assessment, DPIA, breach clocks, records of processing</td><td>8</td><td>opus</td><td>ADR-002</td></tr></tbody></table></div>
+<h2>The authority ladder</h2>
+<div class="tw"><table>
+<thead><tr><th>Level</th><th>Held by</th><th>May decide</th><th>May not</th></tr></thead>
+<tbody>
+<tr><td class="name">L5</td><td>CEO &mdash; human, 1</td><td>Commercial direction, veto override</td><td>Ship code</td></tr>
+<tr><td class="name">L4</td><td><code>cto</code>, <code>coo</code> &mdash; 2</td><td>Triage, dispatch, corporate direction</td><td>Override a veto</td></tr>
+<tr><td class="name">L3</td><td>12 officers</td><td>Anything binding their function</td><td>Cross into another function</td></tr>
+<tr><td class="name">L2</td><td>5 named authorities + 41 team leads</td><td>One named call, or one team's sequencing</td><td>Anything outside that call</td></tr>
+<tr><td class="name">L1</td><td>every engineer</td><td>Implementation approach inside an assigned task</td><td>Decide scope, merge, or ship</td></tr>
+</tbody></table></div>
+
+<div class="note"><strong>Team leads are promoted deliberately, and logged.</strong>
+41 of the 49 team leads hold L2, each with a written
+reason, a date, and the requesting officer's name in the promotion register. The other
+8 stay at L1 because their department's officer is itself
+L2 &mdash; there is no room above them, and an L2 reporting to an L2 inverts authority.
+Those departments are flat: everyone reports to the officer, and the lead coordinates
+without a reporting line beneath it.</div>
+
+<footer class="foot">
+  <span>Generated 2026-09-14 from RU-AIBOTWORKS-REGISTRY · every figure computed, none asserted</span>
+  <span>278 agents · 19 officers · 3 vetoes</span>
+</footer>
+</main>
+
+</body>
+</html>

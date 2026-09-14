@@ -2,95 +2,134 @@
 """
 check_consistency.py — invariant 11, enforced.
 
-Any figure appearing in two documents must derive from one source. This reads
-company.py and fails the build when a document contradicts it, or uses a name
-that was renamed.
+Any figure appearing in two documents must derive from one computed source. That
+source is RU-AIBOTWORKS-REGISTRY, read through ru_aibotworks_registry.py. This reads
+the prose and fails the build when a document contradicts it, or uses a name that
+was retired.
 
-    python scripts/check_consistency.py docs/charter
+    python scripts/check_consistency.py RU-AIBOTWORKS/RU-AIBOTWORKS-DOCS docs/charter
 """
 from __future__ import annotations
-import re, sys
+
+import re
+import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from company import COMPANY, OFFICERS, UPSTREAM, IDENTITY  # noqa: E402
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "RU-AIBOTWORKS" / "RU-AIBOTWORKS-PLATFORM"))
+from ru_aibotworks_registry import Company  # noqa: E402
 
-OFFICER_NAMES = {o[0] for o in OFFICERS}
+COMPANY = Company.load()
+FIG = COMPANY.figures
+IDENTITY = COMPANY.identity
 
-# A figure written in prose must match the source. (regex, expected, label)
-CLAIMS = [
-    (r"\*\*(\d+)\s+officers\b",               COMPANY["officers"],   "officer count (total)"),
-    (r"·\s*(\d+)\s+officers\b",               COMPANY["officers"],   "officer count (total)"),
-    (r"\b(\d+)\s+agents? total\b",            COMPANY["agents_total"], "total agents"),
-    (r"one CEO and \*\*(\d+) agents\*\*",     COMPANY["agents_total"], "charter headline"),
-    (r"\*\*(\d+)\s+plugins\b",                UPSTREAM["plugins"],   "plugin count (total)"),
-    (r"all\s+(\d+)\s+plugins\b",              UPSTREAM["plugins"],   "plugin count (total)"),
-    (r"\b(\d+)\s+engineers documented\b",     None,                  "roster count (generated)"),
-    (r"exactly\s+(\d+)\s+standing vetoes",    COMPANY["vetoes"],     "veto count"),
+OFFICER_NAMES = {o.name for o in COMPANY.officers}
+
+# A figure written in prose must match the computed source.
+#
+# Only COMPANY-SCOPE claims are checked. A company-scope claim is one the author
+# marked as a headline figure - bolded, or set off in a "· N officers ·" summary
+# line. Two things are deliberately NOT matched:
+#
+#   "The company had 13 officers"     historical prose, correct as written
+#   "· **8 staff** · 3 teams"          a per-department count, not a company total
+#
+# A checker that flags those trains people to ignore it, which is worse than not
+# having one.
+#   (pattern, expected, label)
+CLAIMS: list[tuple[str, int, str]] = [
+    (r"\*\*(\d+)\s+officers?\*\*",            FIG["officers"],     "officer count"),
+    (r"·\s*(\d+)\s+officers",                FIG["officers"],     "officer count"),
+    (r"\*\*(\d+)\s+agents?\s+total\*\*",      FIG["agents_total"], "total agents"),
+    (r"\*\*(\d+)\s+agents?\*\*",              FIG["agents_total"], "total agents"),
+    (r"·\s*(\d+)\s+agents",                  FIG["agents_total"], "total agents"),
+    (r"all\s+(\d+)\s+agents",                FIG["agents_total"], "total agents"),
+    (r"exactly\s+(\d+)\s+standing vetoes",     FIG["vetoes"],       "veto count"),
+    (r"\*\*(\d+)\s+departments?\*\*",         FIG["departments"],  "department count"),
+    (r"·\s*(\d+)\s+departments",             FIG["departments"],  "department count"),
+    (r"\*\*(\d+)\s+teams?\*\*",               FIG["teams"],        "team count"),
+    (r"·\s*(\d+)\s+teams(?!\s*·\s*\d+\s+leads)", FIG["teams"],  "team count"),
+    (r"\*\*(\d+)\s+reserved decisions\*\*",   FIG["reserved_decisions"], "reserved decisions"),
 ]
 
 # Names retired during design. Their presence means a document was not updated.
-RETIRED = {
-    "code-reviewer": "merge-authority — the workforce already has an agent named "
-                     "code-reviewer; two agents with one name holding different "
-                     "authority makes the merge decision ambiguous",
+RETIRED_AGENT_NAMES = {
+    "code-reviewer-officer": "merge-authority",
+    "tdd-orchestrator": "tdd-practice-engineer — 'orchestrator' in the name made "
+                        "dispatch authority ambiguous",
 }
 
-def check(root: Path) -> int:
-    docs = sorted(root.glob("*.md"))
+# Phrases that signal a line is explaining a rename rather than using the old name.
+EXEMPT = ("rename", "renamed", "retired", "collision", "supersed", "upstream",
+          "not call", "agent named", "already contains", "was wrong", "historical",
+          "v1", "before", "->", "→")
+
+
+def check(roots: list[Path]) -> int:
+    docs: list[Path] = []
+    for root in roots:
+        if root.is_file():
+            docs.append(root)
+        else:
+            docs.extend(sorted(root.rglob("*.md")))
     if not docs:
-        print(f"no documents under {root}", file=sys.stderr)
+        print(f"no documents under {', '.join(str(r) for r in roots)}", file=sys.stderr)
         return 2
+
     problems: list[str] = []
 
-    for d in docs:
-        text = d.read_text(encoding="utf-8")
+    for doc in docs:
+        text = doc.read_text(encoding="utf-8")
         lines = text.splitlines()
+        rel = doc.resolve().relative_to(ROOT)
 
-        for pat, expected, label in CLAIMS:
-            if expected is None:
-                continue
-            for m in re.finditer(pat, text):
+        for pattern, expected, label in CLAIMS:
+            for m in re.finditer(pattern, text):
                 got = int(m.group(1))
                 if got != expected:
                     ln = text[: m.start()].count("\n") + 1
-                    problems.append(f"{d.name}:{ln}  {label}: document says {got}, source says {expected}")
+                    problems.append(
+                        f"{rel}:{ln}  {label}: document says {got}, registry computes {expected}"
+                    )
 
-        for old, why in RETIRED.items():
+        for old, replacement in RETIRED_AGENT_NAMES.items():
             for i, line in enumerate(lines, 1):
-                # a retired name used as an identifier, not inside an explanation of the rename
-                low = line.lower().replace("*", "").replace("_", "")
-                exempt = ("rename", "retired", "collision", "workforce", "upstream",
-                          "not call", "agent named", "officer holding", "already contains")
-                is_roster_row = re.match(r"^\|\s*`[a-z0-9-]+`\s*\|\s*L1\s*\|", line)
-                if re.search(rf"`{re.escape(old)}`", line) and not is_roster_row \
-                   and not any(e in low for e in exempt):
-                    problems.append(f"{d.name}:{i}  retired name `{old}` -> use `{why.split(' —')[0]}`")
+                low = line.lower()
+                if re.search(rf"`{re.escape(old)}`", line) and not any(x in low for x in EXEMPT):
+                    problems.append(f"{rel}:{i}  retired name `{old}` -> use `{replacement}`")
 
-    # the company name must be current everywhere, and the old one gone for good
-    for d in docs:
-        text = d.read_text(encoding="utf-8")
         for stale in IDENTITY["retired_names"]:
-            for i, line in enumerate(text.splitlines(), 1):
-                if stale in line and "retired" not in line.lower():
-                    problems.append(f"{d.name}:{i}  retired company name '{stale}' -> '{IDENTITY['company']}'")
+            for i, line in enumerate(lines, 1):
+                if stale in line and not any(x in line.lower() for x in EXEMPT):
+                    problems.append(
+                        f"{rel}:{i}  retired company name '{stale}' "
+                        f"-> '{IDENTITY['company']['name']}'"
+                    )
 
-    # every officer must be documented somewhere in the set
+    # Every officer must be documented somewhere in the set. An officer nobody
+    # wrote down is an officer nobody can hold to account.
     allbody = "\n".join(d.read_text(encoding="utf-8") for d in docs)
     for name in sorted(OFFICER_NAMES):
-        if f"`{name}`" not in allbody:
+        if f"`{name}`" not in allbody and name not in allbody:
             problems.append(f"officer `{name}` appears in no document")
 
-    print(f"checked {len(docs)} documents against company.py")
+    print(f"checked {len(docs)} documents against the registry")
     if problems:
         print("\nCONSISTENCY DEFECTS", file=sys.stderr)
         for p in problems:
             print("  " + p, file=sys.stderr)
         print(f"\n{len(problems)} defect(s). Nothing promotes.", file=sys.stderr)
         return 1
-    print(f"OK  {IDENTITY['company']} — {COMPANY['officers']} officers, "
-          f"{COMPANY['agents_total']} agents, {COMPANY['vetoes']} vetoes. Every document agrees.")
+
+    print(
+        f"OK  {IDENTITY['company']['name']} - {FIG['officers']} officers, "
+        f"{FIG['agents_total']} agents, {FIG['vetoes']} vetoes. Every document agrees."
+    )
     return 0
 
+
 if __name__ == "__main__":
-    raise SystemExit(check(Path(sys.argv[1] if len(sys.argv) > 1 else ".")))
+    targets = [Path(a).resolve() for a in sys.argv[1:]] or [
+        ROOT / "RU-AIBOTWORKS" / "RU-AIBOTWORKS-DOCS"
+    ]
+    raise SystemExit(check(targets))

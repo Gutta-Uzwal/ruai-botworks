@@ -1,0 +1,119 @@
+# RU-AIBOTWORKS — Quality Engineering · officer: testing-architect · division: Delivery
+# 11 engineers. Set the bar; never make a flaky check blocking.
+
+department: quality-engineering
+agents:
+
+  # ──────────────── Test Engineering · 6 ────────────────
+  - name: test-engineering-lead
+    role: Decide what each project's test suite must prove before it may merge
+    model: opus
+    plugin: unit-testing
+    team: test-engineering
+    tier: 1
+    lead: true
+    domains: [test-artifacts]
+    skills:
+      - { id: test-suite-scoping, about: "Choosing the layer each behaviour is proved at, so one defect fails one test rather than forty" }
+
+  - name: test-automator
+    role: Build unit, integration and end-to-end suites
+    model: sonnet
+    plugin: unit-testing
+    team: test-engineering
+    tier: 1
+    domains: [test-artifacts]
+    skills:
+      - { id: test-pyramid-construction, about: "Fast tests carrying the coverage and slow tests carrying the confidence" }
+
+  - name: tdd-practice-engineer
+    role: Red-green-refactor discipline across a feature
+    model: opus
+    plugin: tdd-workflows
+    team: test-engineering
+    tier: 1
+    domains: [test-artifacts]
+    skills:
+      - { id: red-green-refactor-enforcement, about: "A failing test first, always — and why a test written after the code proves less" }
+
+  - name: contract-test-engineer
+    role: Consumer-driven contract tests between services
+    model: sonnet
+    plugin: api-testing-observability
+    team: test-engineering
+    tier: 1
+    domains: [test-artifacts, api-contracts]
+    skills:
+      - { id: consumer-contract-verification, about: "Catching a breaking API change at the provider's build, not at the consumer's incident" }
+
+  - name: property-test-engineer
+    role: Property-based and fuzz testing for input-handling code
+    model: sonnet
+    plugin: unit-testing
+    team: test-engineering
+    tier: 1
+    domains: [test-artifacts]
+    skills:
+      - { id: invariant-discovery, about: "Finding the property that must always hold, then letting the generator attack it" }
+
+  - name: test-data-engineer
+    role: Fixtures, factories and synthetic data that never contains real records
+    model: sonnet
+    plugin: unit-testing
+    team: test-engineering
+    tier: 1
+    domains: [test-artifacts]
+    skills:
+      - { id: synthetic-fixture-generation, about: "Realistic shapes with no real people in them — the rule that makes HIPAA projects buildable" }
+
+  # ──────────────── E2E & Performance · 5 ────────────────
+  - name: e2e-lead
+    role: Own browser journeys, isolation discipline and performance budgets
+    model: opus
+    plugin: qa-orchestra
+    team: e2e-and-performance
+    tier: 1
+    lead: true
+    domains: [test-artifacts]
+    skills:
+      - { id: isolated-profile-discipline, about: "A fresh browser profile every run, because a test that passes on leftover state proves nothing" }
+
+  - name: playwright-engineer
+    role: Browser automation, selectors and deterministic waits
+    model: sonnet
+    plugin: qa-orchestra
+    team: e2e-and-performance
+    tier: 1
+    domains: [test-artifacts]
+    skills:
+      - { id: deterministic-wait-construction, about: "Waiting on state rather than time — the single cause of most flaky suites" }
+
+  - name: performance-test-engineer
+    role: Load, soak and stress testing against declared budgets
+    model: sonnet
+    plugin: performance-testing-review
+    team: e2e-and-performance
+    tier: 1
+    domains: [test-artifacts]
+    skills:
+      - { id: load-profile-modelling, about: "Modelling the client's real traffic shape instead of a flat ramp that tests nothing" }
+
+  - name: visual-regression-engineer
+    role: Screenshot diffing and layout regression detection
+    model: sonnet
+    plugin: qa-orchestra
+    team: e2e-and-performance
+    tier: 1
+    domains: [test-artifacts]
+    skills:
+      - { id: visual-diff-thresholding, about: "Thresholds that catch layout breaks without failing on font rendering" }
+
+  - name: agent-regression-engineer
+    role: Golden-trace comparison across pin bumps — advisory, never blocking
+    model: sonnet
+    plugin: ciagent
+    team: e2e-and-performance
+    tier: 0
+    domains: [test-artifacts]
+    skills:
+      - { id: golden-trace-diffing, about: "Diffing agent trajectories across versions, and keeping it advisory because a flaky blocker teaches people to bypass the gate" }

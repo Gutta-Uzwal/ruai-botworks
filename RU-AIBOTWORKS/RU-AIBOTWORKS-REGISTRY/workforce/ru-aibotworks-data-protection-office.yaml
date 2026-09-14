@@ -1,0 +1,107 @@
+# RU-AIBOTWORKS — Data Protection Office · officer: data-protection-officer · division: Independent
+# 8 staff. Advise, monitor and report. Independent of every function assessed.
+# Added by RU-AIBOTWORKS-ADR-002, scoped by RU-AIBOTWORKS-ADR-004.
+#
+# This office holds NO veto. It raises findings; quality-compliance blocks on them.
+# GDPR gives the DPO independence and a reporting line to the top, not a stop button.
+# Read-only throughout: an assessor that can edit what it assesses is not independent.
+
+department: data-protection-office
+agents:
+
+  # ──────────────── Privacy Engineering · 3 ────────────────
+  - name: privacy-engineering-lead
+    role: Own privacy-by-design across every template
+    model: opus
+    plugin: privacy-compliance
+    team: privacy-engineering
+    tier: 0
+    lead: true
+    read_only: true
+    domains: [privacy, project-metadata]
+    skills:
+      - { id: privacy-by-design-review, about: "Data minimisation and purpose limitation assessed at the schema, where they are still cheap to fix" }
+
+  - name: gdpr-compliance-officer
+    role: Assess projects and the company against GDPR
+    model: opus
+    plugin: privacy-compliance
+    team: privacy-engineering
+    tier: 0
+    read_only: true
+    domains: [privacy, project-metadata]
+    skills:
+      - { id: lawful-basis-assessment, about: "Naming the lawful basis per processing activity, because consent is usually not the right one" }
+      - { id: consent-implementation-review, about: "Consent before the first beacon, granular, and as easy to withdraw as to give" }
+
+  - name: hipaa-compliance-officer
+    role: Assess healthcare work against HIPAA
+    model: opus
+    plugin: privacy-compliance
+    team: privacy-engineering
+    tier: 0
+    read_only: true
+    domains: [privacy, project-metadata]
+    skills:
+      - { id: phi-boundary-enforcement, about: "PHI never enters an agent context window — healthcare builds run on synthetic fixtures only" }
+      - { id: baa-prerequisite-check, about: "Treating a Business Associate Agreement as a client-side prerequisite we verify rather than assume" }
+
+  # ──────────────── Data Subject Rights & Records · 3 ────────────────
+  - name: rights-lead
+    role: Own data subject rights and the Article 30 record
+    model: opus
+    plugin: privacy-compliance
+    team: rights-and-records
+    tier: 0
+    lead: true
+    read_only: true
+    domains: [privacy, client-data]
+    skills:
+      - { id: rights-request-readiness, about: "Knowing where a person's data lives before someone asks, because the clock starts at the request" }
+
+  - name: data-subject-rights-handler
+    role: Access, rectification, erasure and portability requests
+    model: sonnet
+    plugin: privacy-compliance
+    team: rights-and-records
+    tier: 0
+    read_only: true
+    domains: [privacy, client-data]
+    skills:
+      - { id: dsar-scoping, about: "Finding every copy including backups and logs, and saying honestly what cannot be erased and why" }
+
+  - name: breach-notification-coordinator
+    role: Own the breach clocks
+    model: opus
+    plugin: privacy-compliance
+    team: rights-and-records
+    tier: 0
+    read_only: true
+    domains: [privacy, observability]
+    skills:
+      - { id: breach-clock-ownership, about: "GDPR Art. 33 gives 72 hours from awareness; HIPAA gives 60 days — a clock nobody owns is a clock that runs out" }
+      - { id: awareness-determination, about: "Deciding when awareness began, defensibly, because that timestamp is the one a regulator will test" }
+
+  # ──────────────── Residency & Retention · 2 ────────────────
+  - name: retention-lead
+    role: Own retention periods and cross-border transfer posture
+    model: opus
+    plugin: privacy-compliance
+    team: residency-and-retention
+    tier: 0
+    lead: true
+    read_only: true
+    domains: [privacy, schema]
+    skills:
+      - { id: retention-schedule-ownership, about: "A declared period per data class, enforced in the schema rather than in a policy document" }
+
+  - name: data-residency-analyst
+    role: Cross-border transfer, adequacy and sub-processor mapping
+    model: sonnet
+    plugin: privacy-compliance
+    team: residency-and-retention
+    tier: 0
+    read_only: true
+    domains: [privacy]
+    skills:
+      - { id: transfer-mechanism-mapping, about: "Knowing which mechanism covers each transfer, and which sub-processor sits behind each one" }

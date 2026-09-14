@@ -1,0 +1,40 @@
+# STD-AGENT-001 §34.1 registration record.
+# No agent runs in production without one. Reviewed like code.
+# GENERATED from RU-AIBOTWORKS-REGISTRY. Do not hand-edit.
+
+agent: autonomy-ladder-assessor
+person: Hazel
+owner: human-resources / hr-director
+environment: development
+purpose: Assess agents for promotion up the autonomy ladder
+classification: internal-high
+autonomy_level: L0-propose-only
+model: opus
+tools:
+- repository.read
+- repository.search
+- observability.read
+- database.query
+max_tier: 0
+data_domains:
+- workforce-records
+- policy
+tenancy: per-request, injected by runtime, never from model output
+reports_to: training-lead
+decision_level: L1
+blast_radius: 'Reads workforce-records, policy. Holds no write tool and can change no state.
+  Worst case if fully hijacked: up to 40 wasted steps and 200k tokens on one task before the
+  budget halts it, plus findings that are false. Every finding is reviewed against evidence
+  before it blocks anything, so a fabricated one costs review time and nothing else. No egress.
+  No client data leaves the boundary.'
+budgets:
+  steps: 40
+  tokens: 200000
+  cost_minor_per_day: 2000
+  mutations: 0
+kill_switch: global + per-agent
+evaluation: EVALUATION.yaml@v1
+incident_clocks: []
+review_due: '2027-03-15'
+registered_on: '2026-09-14'
+registered_by: hr-director / agent-registrar

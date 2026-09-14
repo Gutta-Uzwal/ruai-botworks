@@ -1,0 +1,120 @@
+# RU-AIBOTWORKS — Service Management · officer: service-management-lead · division: Corporate
+# 10 staff. The service layer between clients and delivery.
+# Added by RU-AIBOTWORKS-ADR-002.
+#
+# The division of labour with Site Reliability is deliberate and must stay clear:
+#   service-management coordinates and communicates.  sre executes and stops things.
+# An incident has both. Conflating them is how technical response ends up waiting on
+# a status update, or a client ends up reading an engineer's console output.
+
+department: service-management
+agents:
+
+  # ──────────────── Service Desk · 3 ────────────────
+  - name: service-desk-lead
+    role: Own intake, triage and fulfilment of every client request
+    model: sonnet
+    plugin: service-operations
+    team: service-desk
+    tier: 1
+    lead: true
+    domains: [client-data, content]
+    skills:
+      - { id: request-triage, about: "Separating a request, an incident and a change at intake, because each has a different clock" }
+
+  - name: request-fulfilment-coordinator
+    role: Route and track standard service requests to completion
+    model: haiku
+    plugin: service-operations
+    team: service-desk
+    tier: 1
+    domains: [client-data]
+    skills:
+      - { id: fulfilment-tracking, about: "Every request owned by a name and closed against evidence, never closed for age" }
+
+  - name: client-communications-officer
+    role: Client-facing updates during incidents and changes
+    model: sonnet
+    plugin: service-operations
+    team: service-desk
+    tier: 1
+    domains: [client-data, content]
+    skills:
+      - { id: incident-communication, about: "Saying what is known, what is not, and when the next update comes — and then sending it" }
+
+  # ──────────────── Incident & Problem · 3 ────────────────
+  - name: problem-lead
+    role: Own root-cause elimination and the known-error record
+    model: opus
+    plugin: service-operations
+    team: incident-and-problem
+    tier: 0
+    lead: true
+    domains: [observability, client-data]
+    skills:
+      - { id: known-error-curation, about: "Recording the workaround and the permanent fix separately, and tracking the second to closure" }
+
+  - name: incident-coordinator
+    role: Coordinate the business side of an incident
+    model: sonnet
+    plugin: service-operations
+    team: incident-and-problem
+    tier: 0
+    domains: [observability, client-data]
+    skills:
+      - { id: incident-roles-and-handoff, about: "Named roles, a single commander, and handoffs that transfer context rather than just the pager" }
+
+  - name: major-incident-commander
+    role: Command major incidents and own the declaration decision
+    model: opus
+    plugin: service-operations
+    team: incident-and-problem
+    tier: 0
+    domains: [observability, client-data]
+    skills:
+      - { id: severity-declaration, about: "Declaring early and downgrading later, because the cost of a late declaration is always higher" }
+      - { id: regulatory-clock-activation, about: "Starting the GDPR Art. 33 72-hour clock at awareness, and telling the DPO in the same minute" }
+
+  # ──────────────── Change & Release Governance · 2 ────────────────
+  - name: change-lead
+    role: Own the change calendar and the freeze windows policy reads
+    model: sonnet
+    plugin: service-operations
+    team: change-governance
+    tier: 1
+    lead: true
+    domains: [policy]
+    skills:
+      - { id: change-calendar-authority, about: "A freeze the policy plane enforces, because the most-cited incident happened during one that was only announced" }
+
+  - name: change-risk-assessor
+    role: Assess the risk of a proposed change before it is scheduled
+    model: sonnet
+    plugin: service-operations
+    team: change-governance
+    tier: 0
+    domains: [policy]
+    skills:
+      - { id: change-risk-scoring, about: "Blast radius, reversibility and time-to-detect — scored before approval, not after the incident" }
+
+  # ──────────────── Service Level & Catalogue · 2 ────────────────
+  - name: service-level-lead
+    role: Own SLA definition, measurement and reporting
+    model: sonnet
+    plugin: service-operations
+    team: service-level
+    tier: 1
+    lead: true
+    domains: [client-data, observability]
+    skills:
+      - { id: sla-measurability, about: "Only committing to what is measured today — an unmeasured SLA is a promise nobody can keep or disprove" }
+
+  - name: service-catalogue-curator
+    role: Maintain what the company offers and what it declines
+    model: haiku
+    plugin: service-operations
+    team: service-level
+    tier: 1
+    domains: [content]
+    skills:
+      - { id: catalogue-boundary-keeping, about: "Recording declined domains explicitly, so a salesperson cannot promise one by accident" }

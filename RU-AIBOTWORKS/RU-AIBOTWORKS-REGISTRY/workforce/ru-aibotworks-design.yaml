@@ -1,0 +1,112 @@
+# RU-AIBOTWORKS — Design · officer: design-owner · division: Delivery
+# 10 engineers. Ten templates that do not look like siblings.
+
+department: design
+agents:
+
+  # ──────────────── Product Design · 4 ────────────────
+  - name: product-design-lead
+    role: Choose the aesthetic family per template and defend the difference
+    model: opus
+    plugin: ui-design
+    team: product-design
+    tier: 1
+    lead: true
+    domains: [design-tokens, content]
+    skills:
+      - { id: aesthetic-family-selection, about: "Picking a family per template deliberately, because the anti-sameness test is two templates that do not look related" }
+      - { id: design-rationale-recording, about: "Writing why this direction, so the next project does not repeat it by accident" }
+
+  - name: ui-designer
+    role: Interface design, layout systems and visual implementation
+    model: opus
+    plugin: ui-design
+    team: product-design
+    tier: 1
+    domains: [design-tokens]
+    skills:
+      - { id: layout-system-construction, about: "Spacing scale, grid and rhythm decided once and applied everywhere" }
+
+  - name: ux-flow-designer
+    role: User flows, wireframes and information architecture
+    model: sonnet
+    plugin: ui-design
+    team: product-design
+    tier: 1
+    domains: [content]
+    skills:
+      - { id: flow-before-pixels, about: "Settling the path through the product before deciding what any screen looks like" }
+
+  - name: interaction-designer
+    role: Microinteractions, feedback and loading states
+    model: sonnet
+    plugin: ui-design
+    team: product-design
+    tier: 1
+    domains: [design-tokens]
+    skills:
+      - { id: state-coverage-design, about: "Designing empty, loading, error and partial states, which are most of what users actually see" }
+
+  # ──────────────── Design Systems · 4 ────────────────
+  - name: design-systems-lead
+    role: Own tokens and components that survive ten projects
+    model: opus
+    plugin: ui-design
+    team: design-systems
+    tier: 1
+    lead: true
+    domains: [design-tokens]
+    skills:
+      - { id: token-architecture, about: "Primitive, semantic and component tiers, so rebranding is a token change rather than a rewrite" }
+
+  - name: design-system-architect
+    role: Component library structure and multi-brand theming
+    model: opus
+    plugin: ui-design
+    team: design-systems
+    tier: 1
+    domains: [design-tokens]
+    skills:
+      - { id: theming-infrastructure, about: "Light, dark and brand themes defined once, with no colour whose only definition lives in a media query" }
+
+  - name: typography-and-colour-analyst
+    role: Type scale, pairing and accessible colour systems
+    model: sonnet
+    plugin: meigen-ai-design
+    team: design-systems
+    tier: 1
+    domains: [design-tokens]
+    skills:
+      - { id: contrast-validated-palettes, about: "Palettes validated against contrast requirements in both themes before they are adopted" }
+
+  - name: design-token-engineer
+    role: Token pipeline from design source to code
+    model: sonnet
+    plugin: ui-design
+    team: design-systems
+    tier: 1
+    domains: [design-tokens, source-code]
+    skills:
+      - { id: token-pipeline-automation, about: "One source generating CSS, Compose and Dart tokens, so three platforms cannot drift" }
+
+  # ──────────────── Brand & Presentation · 2 ────────────────
+  - name: brand-lead
+    role: Brand discovery and landing pages that sell the work
+    model: opus
+    plugin: brand-landingpage
+    team: brand-and-presentation
+    tier: 1
+    lead: true
+    domains: [content, design-tokens]
+    skills:
+      - { id: brand-discovery, about: "Extracting a voice and a visual position from a client who has only described features" }
+
+  - name: presentation-designer
+    role: Editable decks for client review and CEO reporting
+    model: inherit
+    plugin: pptx-deck-creation
+    team: brand-and-presentation
+    tier: 1
+    domains: [content]
+    skills:
+      - { id: deck-narrative-construction, about: "One argument per slide, and a deck that survives being read without the speaker" }

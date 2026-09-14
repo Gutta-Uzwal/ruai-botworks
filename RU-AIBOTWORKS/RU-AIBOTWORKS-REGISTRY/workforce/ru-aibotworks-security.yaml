@@ -1,0 +1,112 @@
+# RU-AIBOTWORKS — Security · officer: security-engineer · division: Delivery
+# 9 engineers. Assume injection succeeds; bound what a hijacked agent can reach.
+#
+# Read-only throughout. security-engineer holds a veto, so invariant 9 forbids
+# anyone in its line holding Write on what it can block.
+
+department: security
+agents:
+
+  # ──────────────── Application Security · 5 ────────────────
+  - name: appsec-lead
+    role: Sequence security review and decide what blocks
+    model: opus
+    plugin: security-scanning
+    team: application-security
+    tier: 0
+    lead: true
+    read_only: true
+    domains: [source-code]
+    skills:
+      - { id: finding-severity-triage, about: "Exploitability in this deployment, not CVSS copied from the advisory" }
+
+  - name: security-auditor
+    role: OWASP review, auth flaws and secure-coding findings
+    model: opus
+    plugin: security-scanning
+    team: application-security
+    tier: 0
+    read_only: true
+    domains: [source-code]
+    skills:
+      - { id: owasp-asi-review, about: "The 2026 agentic top ten as the review vocabulary, ASI03 authorisation first" }
+
+  - name: sast-engineer
+    role: Static analysis configuration and triage
+    model: sonnet
+    plugin: security-scanning
+    team: application-security
+    tier: 0
+    read_only: true
+    domains: [source-code]
+    skills:
+      - { id: sast-noise-reduction, about: "Tuning rules so a real finding is not buried under two hundred that are not" }
+
+  - name: dependency-vulnerability-analyst
+    role: pip-audit, npm audit and transitive vulnerability assessment
+    model: sonnet
+    plugin: security-scanning
+    team: application-security
+    tier: 0
+    read_only: true
+    domains: [dependencies]
+    skills:
+      - { id: transitive-exposure-analysis, about: "Whether the vulnerable path is reachable from our code at all" }
+
+  - name: secrets-scanning-analyst
+    role: Detect committed credentials and leaked material
+    model: haiku
+    plugin: security-scanning
+    team: application-security
+    tier: 0
+    read_only: true
+    domains: [source-code]
+    skills:
+      - { id: credential-leak-detection, about: "Scanning history as well as HEAD, because a rotated secret in history is still a leak" }
+
+  # ──────────────── Threat & Red Team · 4 ────────────────
+  - name: threat-lead
+    role: Own the threat model and the canary programme
+    model: opus
+    plugin: security-scanning
+    team: threat-and-red-team
+    tier: 0
+    lead: true
+    read_only: true
+    domains: [source-code, policy]
+    skills:
+      - { id: blast-radius-review, about: "Challenging every registration record's blast radius until it is a number and a bound" }
+
+  - name: threat-modeling-expert
+    role: STRIDE, attack trees and security requirement extraction
+    model: opus
+    plugin: security-scanning
+    team: threat-and-red-team
+    tier: 0
+    read_only: true
+    domains: [policy]
+    skills:
+      - { id: stride-decomposition, about: "Walking each trust boundary rather than each feature, which is where threats actually live" }
+      - { id: attack-tree-construction, about: "Building the tree down to a leaf someone could actually execute" }
+
+  - name: injection-canary-engineer
+    role: Prompt-injection canaries, honeytokens and detection telemetry
+    model: opus
+    plugin: security-scanning
+    team: threat-and-red-team
+    tier: 0
+    read_only: true
+    domains: [policy, observability]
+    skills:
+      - { id: canary-placement, about: "Canaries where a hijacked agent would step, and one new canary per incident as a standing output" }
+
+  - name: red-team-operator
+    role: Adversarial testing of agents and delivered applications
+    model: opus
+    plugin: security-scanning
+    team: threat-and-red-team
+    tier: 0
+    read_only: true
+    domains: [source-code, policy]
+    skills:
+      - { id: agent-hijack-simulation, about: "Testing the blast-radius claim by assuming the agent is fully compromised and seeing how far it reaches" }

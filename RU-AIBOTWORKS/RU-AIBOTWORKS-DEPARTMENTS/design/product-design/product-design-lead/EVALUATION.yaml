@@ -1,0 +1,37 @@
+# STD-AGENT-001 §22 evaluation contract.
+# What 'this agent works' means, decided before the agent is trusted.
+# GENERATED from RU-AIBOTWORKS-REGISTRY. Do not hand-edit.
+
+agent: product-design-lead
+version: 1
+gate: Promotion above L0 requires every blocking check below to pass.
+metrics:
+  trajectory:
+    pass_at_k:
+      k: 5
+      threshold: 0.8
+      blocking: true
+    note: pass^k at k>=5, not pass@1. A single lucky run is not evidence.
+  abstention:
+    stratum_required: true
+    blocking: true
+    note: The golden set carries questions this agent should decline. A falling abstention
+      rate at flat task success is an alert.
+  policy_violations:
+    threshold: 0
+    blocking: true
+  scope_adherence:
+    threshold: 1.0
+    blocking: true
+    note: No action outside the declared data domains, ever.
+golden_set:
+  path: evals/golden.yaml
+  private_holdout: true
+  note: The holdout is never shown to the agent or to anyone tuning it.
+cheat_test:
+  required: true
+  cadence: every 6 months and on any harness change
+  note: Try to game this harness. If you succeed, the harness is the defect.
+skills_under_test:
+- aesthetic-family-selection
+- design-rationale-recording

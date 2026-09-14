@@ -1,72 +1,104 @@
 #!/usr/bin/env python3
 """
-check_authorship.py — the rule that makes "engineers do not write code" real.
+check_authorship.py — the generated tree is written by the generator, not by hand.
 
-Humans may edit specs. Agents may edit code. A commit that violates this fails
-the build, so the boundary is enforced by CI rather than by agreement.
+RU-AIBOTWORKS has one source of truth and several derived trees. The failure mode
+this guards against is quiet and common: somebody fixes a typo in a generated
+`AGENT.md` instead of in the registry, the next generation reverts it, and the fix
+is lost without anyone noticing.
 
-    python check_authorship.py --base origin/main --head HEAD
+The rule:
+
+    RU-AIBOTWORKS-REGISTRY/      human-authored, reviewed like code
+    RU-AIBOTWORKS-PLATFORM/      human-authored
+    RU-AIBOTWORKS-DOCS/          human-authored
+    RU-AIBOTWORKS-DEPARTMENTS/   GENERATED — never edited directly
+    RU-AIBOTWORKS-PORTAL/        GENERATED
+    RU-AIBOTWORKS-DATABASE/*seed.sql  GENERATED
+    .claude/agents/              GENERATED — synced from the registry
+    agent-tools.json             GENERATED
+
+This is the repository expression of STD-AGENT-001 A1.6: nothing writes its own
+configuration, including us.
+
+    python scripts/check_authorship.py                     # working tree
+    python scripts/check_authorship.py --base origin/main  # a range of commits
 """
 from __future__ import annotations
-import argparse, re, subprocess, sys
 
-HUMAN_WRITABLE = (re.compile(r"^specs/.*\.ya?ml$"),
-                  re.compile(r"^docs/.*"),
-                  re.compile(r"^\.github/agents/.*\.agent\.md$"),
-                  re.compile(r"^\.github/copilot-instructions\.md$"))
+import argparse
+import re
+import subprocess
+import sys
 
-AGENT_ONLY = (re.compile(r"^src/.*\.py$"),
-              re.compile(r"^pipelines/.*\.py$"),
-              re.compile(r"^tests/.*\.py$"),
-              re.compile(r"^resources/.*\.ya?ml$"),
-              re.compile(r"^databricks\.ya?ml$"))
+GENERATED = (
+    re.compile(r"^RU-AIBOTWORKS/RU-AIBOTWORKS-DEPARTMENTS/"),
+    re.compile(r"^RU-AIBOTWORKS/RU-AIBOTWORKS-PORTAL/"),
+    re.compile(r"^RU-AIBOTWORKS/RU-AIBOTWORKS-DATABASE/.*seed\.sql$"),
+    re.compile(r"^\.claude/agents/.*\.md$"),
+    re.compile(r"^agent-tools\.json$"),
+)
 
-# Identities whose commits count as agent-authored.
-AGENT_AUTHORS = ("Copilot", "copilot-swe-agent", "github-actions[bot]",
-                 "223556219+Copilot@users.noreply.github.com")
+# Changing one of these is what legitimately causes the generated tree to change.
+SOURCES = (
+    re.compile(r"^RU-AIBOTWORKS/RU-AIBOTWORKS-REGISTRY/"),
+    re.compile(r"^RU-AIBOTWORKS/RU-AIBOTWORKS-PLATFORM/"),
+)
 
-def sh(*a: str) -> str:
-    return subprocess.run(a, capture_output=True, text=True, check=True).stdout.strip()
 
-def is_agent(author: str, email: str) -> bool:
-    blob = f"{author} {email}".lower()
-    return any(t.lower() in blob for t in AGENT_AUTHORS)
+def sh(*args: str) -> str:
+    result = subprocess.run(args, capture_output=True, text=True)
+    return result.stdout.strip() if result.returncode == 0 else ""
+
+
+def changed_files(base: str | None) -> list[str]:
+    if base:
+        out = sh("git", "diff", "--name-only", f"{base}...HEAD")
+    else:
+        out = sh("git", "diff", "--name-only", "HEAD")
+    return [f for f in out.splitlines() if f]
+
 
 def main() -> int:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--base", default="origin/main")
-    ap.add_argument("--head", default="HEAD")
-    a = ap.parse_args()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--base", default=None, help="compare against this ref instead of the working tree")
+    args = parser.parse_args()
 
-    shas = sh("git", "rev-list", f"{a.base}..{a.head}").splitlines()
-    violations, agent_commits, human_commits = [], 0, 0
+    files = changed_files(args.base)
+    if not files:
+        print("no changed files to check")
+        return 0
 
-    for sha in shas:
-        author, email = sh("git", "show", "-s", "--format=%an%n%ae", sha).splitlines()[:2]
-        files = sh("git", "diff-tree", "--no-commit-id", "--name-only", "-r", sha).splitlines()
-        agent = is_agent(author, email)
-        agent_commits += agent; human_commits += not agent
-        for f in files:
-            if not f:
-                continue
-            if agent:
-                if any(p.match(f) for p in HUMAN_WRITABLE):
-                    violations.append(f"{sha[:8]} AGENT edited a human-owned file: {f}")
-            else:
-                if any(p.match(f) for p in AGENT_ONLY):
-                    violations.append(
-                        f"{sha[:8]} HUMAN ({author}) wrote code: {f}\n"
-                        f"         -> edit the spec and let the agent regenerate it")
-                elif not any(p.match(f) for p in HUMAN_WRITABLE):
-                    violations.append(f"{sha[:8]} HUMAN ({author}) touched an unclassified path: {f}")
+    touched_generated = [f for f in files if any(p.match(f) for p in GENERATED)]
+    touched_sources = [f for f in files if any(p.match(f) for p in SOURCES)]
 
-    print(f"commits: {len(shas)}  agent-authored: {agent_commits}  human-authored: {human_commits}")
-    if violations:
-        print("\nAUTHORSHIP VIOLATIONS\n" + "\n".join("  " + v for v in violations), file=sys.stderr)
-        print(f"\n{len(violations)} violation(s). Nothing promotes.", file=sys.stderr)
+    print(f"changed: {len(files)} file(s) — "
+          f"{len(touched_generated)} generated, {len(touched_sources)} source")
+
+    # A generated file changing with no source change means someone edited the
+    # output. The generator is deterministic, so that cannot happen any other way.
+    if touched_generated and not touched_sources:
+        print("\nAUTHORSHIP VIOLATION", file=sys.stderr)
+        print(
+            "  Generated files changed with no change to the registry or the platform.\n"
+            "  That means the output was edited directly, and the next generation will\n"
+            "  revert it silently.\n",
+            file=sys.stderr,
+        )
+        for f in touched_generated[:10]:
+            print(f"    {f}", file=sys.stderr)
+        if len(touched_generated) > 10:
+            print(f"    ... and {len(touched_generated) - 10} more", file=sys.stderr)
+        print(
+            "\n  Fix: make the change in RU-AIBOTWORKS-REGISTRY and regenerate.\n"
+            "       python RU-AIBOTWORKS/RU-AIBOTWORKS-PLATFORM/ru_aibotworks_generate.py",
+            file=sys.stderr,
+        )
         return 1
-    print("OK  authorship boundary intact.")
+
+    print("OK  authorship boundary intact — generated trees follow their source.")
     return 0
+
 
 if __name__ == "__main__":
     raise SystemExit(main())

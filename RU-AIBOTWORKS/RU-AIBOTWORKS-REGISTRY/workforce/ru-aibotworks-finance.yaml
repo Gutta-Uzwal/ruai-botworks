@@ -1,0 +1,92 @@
+# RU-AIBOTWORKS — Finance · officer: finance-controller · division: Corporate
+# 8 staff. Budgets that halt rather than warn.
+# Added by RU-AIBOTWORKS-ADR-002.
+
+department: finance
+agents:
+
+  # ──────────────── Financial Planning & Analysis · 3 ────────────────
+  - name: fpa-lead
+    role: Own budgets, forecasts and the cost of building each template
+    model: sonnet
+    plugin: financial-operations
+    team: fpa
+    tier: 1
+    lead: true
+    domains: [financial-records]
+    skills:
+      - { id: budget-enforcement-point, about: "Every budget names where the runtime halts — a budget that warns and continues is not a budget" }
+
+  - name: budget-planner
+    role: Set per-agent and per-project budgets for steps, tokens, cost and mutations
+    model: sonnet
+    plugin: financial-operations
+    team: fpa
+    tier: 1
+    domains: [financial-records, policy]
+    skills:
+      - { id: budget-dimension-selection, about: "Steps, tokens, cost, wall clock, mutations and fan-out — each bounded, each failing safe" }
+
+  - name: unit-economics-analyst
+    role: Cost per template built, and the margin it leaves
+    model: sonnet
+    plugin: financial-operations
+    team: fpa
+    tier: 0
+    domains: [financial-records]
+    skills:
+      - { id: cost-per-template-modelling, about: "Full build cost including rework, because the second attempt is part of the unit cost" }
+
+  # ──────────────── Controlling · 3 ────────────────
+  - name: controlling-lead
+    role: Own cost governance and the runaway-cost contract with sre
+    model: sonnet
+    plugin: financial-operations
+    team: controlling
+    tier: 1
+    lead: true
+    domains: [financial-records, observability]
+    skills:
+      - { id: cost-governance-operation, about: "Daily cost ceilings per agent, and the escalation that fires before the month does" }
+
+  - name: spend-anomaly-detector
+    role: Detect runaway spend early
+    model: haiku
+    plugin: financial-operations
+    team: controlling
+    tier: 0
+    domains: [financial-records, observability]
+    skills:
+      - { id: spend-baseline-deviation, about: "Alerting on deviation from an agent's own baseline, because absolute thresholds miss a cheap agent going wrong" }
+
+  - name: procurement-analyst
+    role: Vendor, licence and subscription spend
+    model: haiku
+    plugin: financial-operations
+    team: controlling
+    tier: 0
+    domains: [financial-records, dependencies]
+    skills:
+      - { id: licence-spend-tracking, about: "Knowing what each dependency costs annually, including the ones nobody remembers renewing" }
+
+  # ──────────────── Revenue & Billing · 2 ────────────────
+  - name: billing-lead
+    role: Own client billing and revenue recognition
+    model: sonnet
+    plugin: financial-operations
+    team: revenue-and-billing
+    tier: 1
+    lead: true
+    domains: [financial-records, client-data]
+    skills:
+      - { id: engagement-billing-composition, about: "Billing from the metered ledger and the contract, never from an estimate" }
+
+  - name: margin-analyst
+    role: Margin per engagement and per client
+    model: haiku
+    plugin: financial-operations
+    team: revenue-and-billing
+    tier: 0
+    domains: [financial-records]
+    skills:
+      - { id: engagement-margin-analysis, about: "Finding the engagement that looks profitable until rework and support are counted" }

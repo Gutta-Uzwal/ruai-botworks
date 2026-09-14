@@ -5,3 +5,10 @@ projects/school/backend/*.egg-info/
 projects/school/backend/db.sqlite3
 projects/school/frontend/node_modules/
 projects/school/frontend/dist/
+
+# Receipt chains belong at the repository root and nowhere else. The policy hooks
+# write them relative to the current working directory, so a shell that has cd'd
+# into a subfolder starts a second, fragmented chain. A chain that splits by
+# working directory is not an audit trail. Ignore the strays; keep the root pair.
+/*/*/receipts/
+/*/*/review-receipts/

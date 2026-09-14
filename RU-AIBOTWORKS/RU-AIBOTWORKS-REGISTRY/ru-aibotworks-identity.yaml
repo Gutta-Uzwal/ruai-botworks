@@ -1,0 +1,92 @@
+# RU-AIBOTWORKS — company identity
+# Source of truth. Every document derives its name and figures from here.
+# Hand-authored. Reviewed like code. Never generated.
+
+company:
+  name:          RU-AIBOTWORKS
+  legal_name:    RU AI Botworks
+  tagline:       Agentic AI employees that build and keep websites up
+  founded:       2026
+  repository:    ruaibotworks
+
+ceo:
+  name:          Uzwal Gutta
+  alias:         Ujwal Gutta
+  full:          Uzwal Gutta (alias Ujwal Gutta)
+  level:         L5
+  title:         Chief Executive Officer
+
+# The checker fails the build if any of these reappear in a generated document.
+retired_names:
+  - Gutta AI
+  - gutta/agents
+  - Gutta-Uzwal
+  - RU AI Botworks Ltd
+
+# Decisions that may never be delegated to an agent, at any autonomy level.
+# genome fails if this list shrinks.
+reserved_decisions:
+  - what to build
+  - whether the design is right
+  - whether to override a veto
+  - off-stack technology
+
+# Authority ladder. Used for the never-inverts check.
+authority:
+  L1: 1   # engineer — implementation approach inside an assigned task
+  L2: 2   # named authority or team lead — one specific call
+  L3: 3   # officer — anything binding their function
+  L4: 4   # chief — triage, dispatch, corporate direction
+  L5: 5   # CEO — human. Commercial direction and veto override
+
+# Delivery lanes. web-architect picks exactly one per project.
+lanes:
+  A:  { label: "Database-backed web",   stack: "Django + React",          gate: full }
+  B:  { label: "Static-first web",      stack: "Vite + React, no DB",     gate: full }
+  C1: { label: "Android native",        stack: "Kotlin + Jetpack Compose", gate: full }
+  C2: { label: "Cross-platform mobile", stack: "Flutter / Dart 3",         gate: full }
+  C3: { label: "Mobile companion",      stack: "React Native + Expo",      gate: full }
+
+# Company-level regimes, always in force. Project-level regimes attach per
+# template — see RU-AIBOTWORKS-ADR-004.
+compliance:
+  always:
+    - STD-AGENT-001
+    - ISO/IEC 42001
+    - EU AI Act Art. 12/14/19
+    - GDPR
+    - OWASP Top 10 for Agentic Applications 2026
+    - WCAG 2.2 AA
+  conditional:
+    HIPAA:   [ healthcare ]
+    PCI-DSS: [ ecommerce ]
+    SOC2:    [ saas-dashboard, crm ]
+
+# Model tiers and their rate card. Payroll meters against these.
+# Rates are USD per million tokens.
+models:
+  opus:    { input: 5.00,  output: 25.00, note: "Reviewers, vetoes, architects" }
+  sonnet:  { input: 3.00,  output: 15.00, note: "Default engineering tier" }
+  haiku:   { input: 1.00,  output: 5.00,  note: "High-volume, low-judgement work" }
+  fable:   { input: 10.00, output: 50.00, note: "~2.6x Opus. Opt-in only. Never for security agents" }
+  inherit: { input: null,  output: null,  note: "Takes the caller's tier" }
+
+# The ten templates, in build order. Order is load-bearing.
+templates:
+  - { n: 1,  id: school,          lane: A,  keystone: false }
+  - { n: 2,  id: corporate,       lane: A,  keystone: false }
+  - { n: 3,  id: portfolio,       lane: B,  keystone: false }
+  - { n: 4,  id: restaurant,      lane: B,  keystone: false }
+  - { n: 5,  id: booking,         lane: A,  keystone: true  }
+  - { n: 6,  id: healthcare,      lane: A,  keystone: false }
+  - { n: 7,  id: ecommerce,       lane: A,  keystone: false }
+  - { n: 8,  id: lms,             lane: A,  keystone: false }
+  - { n: 9,  id: saas-dashboard,  lane: A,  keystone: false }
+  - { n: 10, id: crm,             lane: A,  keystone: false }
+
+database:
+  server:    localhost
+  name:      RU_AIBOTWORKS
+  auth:      Windows Authentication
+  encrypt:   Mandatory
+  trust_cert: true
