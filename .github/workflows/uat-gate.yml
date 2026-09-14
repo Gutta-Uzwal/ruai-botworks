@@ -18,6 +18,10 @@ jobs:
         run: python3 scripts/company.py
       - name: Validate governance genome
         run: python3 scripts/genome.py --validate
+      - name: Validate agent tool contracts
+        run: python3 scripts/agent_harness.py validate
+      - name: Verify agent receipts
+        run: python3 scripts/agent_harness.py verify-receipts
 
   promote:
     needs: gate

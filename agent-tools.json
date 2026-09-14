@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "egress": {
+    "default": "deny",
+    "allowlist": []
+  },
+  "tools": [
+    {
+      "name": "repository.read",
+      "version": 1,
+      "owner": "platform",
+      "description": "Read a file from the bound repository.",
+      "irreversibility": 0,
+      "side_effects": [],
+      "idempotent": true,
+      "rollback": "none",
+      "scope": {
+        "resource_pattern": "repository:{repository_id}/read-only"
+      },
+      "limits": {
+        "per_task": 200,
+        "per_agent_hour": 2000,
+        "mutation_budget": 0
+      },
+      "gates": {
+        "approval": "none",
+        "blocked_if": []
+      },
+      "evidence": {
+        "log_before_state": true,
+        "retention_days": 2555
+      }
+    },
+    {
+      "name": "repository.write",
+      "version": 1,
+      "owner": "platform",
+      "description": "Write an approved change to the bound repository.",
+      "irreversibility": 2,
+      "side_effects": [
+        "repository contents change"
+      ],
+      "idempotent": true,
+      "rollback": "git revert <commit>",
+      "scope": {
+        "resource_pattern": "repository:{repository_id}/workspace"
+      },
+      "limits": {
+        "per_task": 50,
+        "per_agent_hour": 500,
+        "mutation_budget": 50
+      },
+      "gates": {
+        "approval": "single",
+        "blocked_if": [
+          "change_freeze.active"
+        ]
+      },
+      "evidence": {
+        "log_before_state": true,
+        "retention_days": 2555
+      }
+    }
+  ]
+}
