@@ -1,0 +1,1318 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "RU-AIBOTWORKS — 278 agents, 19 officers, 3 vetoes",
+    "output": "RU-AIBOTWORKS-diagram.html",
+    "quality_profile": "showcase",
+    "visual_preset": "blueprint",
+    "generated": "2026-09-14",
+    "views": [
+      {
+        "id": "decision-path",
+        "label": "How a build reaches production",
+        "focus": [
+          "ceo",
+          "cto",
+          "web-architect",
+          "workforce",
+          "merge-authority",
+          "gate",
+          "prod"
+        ],
+        "note": "Officers decide. The workforce builds. Verification reports outside the team it verifies."
+      },
+      {
+        "id": "stop-buttons",
+        "label": "The three vetoes",
+        "focus": [
+          "quality-compliance",
+          "security-engineer",
+          "sre",
+          "gate"
+        ],
+        "note": "Exactly 3 officers can stop a release. Only the CEO overrides — and neither cto nor coo can."
+      },
+      {
+        "id": "corporate-line",
+        "label": "The corporate line",
+        "focus": [
+          "ceo",
+          "coo",
+          "hr-director",
+          "payroll-controller",
+          "finance-controller",
+          "service-management-lead"
+        ],
+        "note": "6 officers added. Payroll meters what delivery spends, so delivery does not control its own cost."
+      },
+      {
+        "id": "independent-privacy",
+        "label": "Independent data protection",
+        "focus": [
+          "ceo",
+          "data-protection-officer",
+          "quality-compliance",
+          "gate"
+        ],
+        "note": "The DPO reports to the CEO directly and holds no veto. It raises findings; quality-compliance blocks on them."
+      },
+      {
+        "id": "policy-plane",
+        "label": "Policy and receipts",
+        "focus": [
+          "platform-architect",
+          "policy",
+          "workforce",
+          "dependency-steward"
+        ],
+        "note": "Cedar checks every tool call and emits an Ed25519 receipt into a hash chain that verifies offline."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "ceo",
+      "type": "external",
+      "label": "CEO",
+      "sublabel": "Uzwal Gutta · L5",
+      "pos": [
+        30,
+        366
+      ],
+      "size": [
+        152,
+        64
+      ],
+      "tag": "4 reserved decisions"
+    },
+    {
+      "id": "cto",
+      "type": "frontend",
+      "label": "cto",
+      "sublabel": "L4 · triage + dispatch",
+      "pos": [
+        214,
+        244
+      ],
+      "size": [
+        174,
+        58
+      ],
+      "tag": "the only entry point"
+    },
+    {
+      "id": "coo",
+      "type": "frontend",
+      "label": "coo",
+      "sublabel": "L4 · corporate line",
+      "pos": [
+        214,
+        600
+      ],
+      "size": [
+        174,
+        58
+      ],
+      "tag": "NEW · off the /build path"
+    },
+    {
+      "id": "data-protection-officer",
+      "type": "security",
+      "label": "data-protection-officer",
+      "sublabel": "L3 · independent",
+      "pos": [
+        214,
+        788
+      ],
+      "size": [
+        174,
+        58
+      ],
+      "tag": "NEW · advises, never blocks"
+    },
+    {
+      "id": "product-owner",
+      "type": "frontend",
+      "label": "product-owner",
+      "sublabel": "L3 · success criteria",
+      "pos": [
+        424,
+        40
+      ],
+      "size": [
+        182,
+        54
+      ]
+    },
+    {
+      "id": "design-owner",
+      "type": "frontend",
+      "label": "design-owner",
+      "sublabel": "L3 · owns DESIGN.md",
+      "pos": [
+        424,
+        108
+      ],
+      "size": [
+        182,
+        54
+      ],
+      "tag": "anti-sameness"
+    },
+    {
+      "id": "web-architect",
+      "type": "backend",
+      "label": "web-architect",
+      "sublabel": "L3 · picks the lane",
+      "pos": [
+        424,
+        176
+      ],
+      "size": [
+        182,
+        54
+      ]
+    },
+    {
+      "id": "data-architect",
+      "type": "backend",
+      "label": "data-architect",
+      "sublabel": "L3 · schema + grain",
+      "pos": [
+        424,
+        244
+      ],
+      "size": [
+        182,
+        54
+      ]
+    },
+    {
+      "id": "platform-architect",
+      "type": "backend",
+      "label": "platform-architect",
+      "sublabel": "L3 · CI + Cedar",
+      "pos": [
+        424,
+        312
+      ],
+      "size": [
+        182,
+        54
+      ]
+    },
+    {
+      "id": "testing-architect",
+      "type": "security",
+      "label": "testing-architect",
+      "sublabel": "L3 · quality bar",
+      "pos": [
+        424,
+        380
+      ],
+      "size": [
+        182,
+        54
+      ]
+    },
+    {
+      "id": "quality-compliance",
+      "type": "security",
+      "label": "quality-compliance",
+      "sublabel": "L3 · conformance",
+      "pos": [
+        424,
+        448
+      ],
+      "size": [
+        182,
+        54
+      ],
+      "tag": "VETO"
+    },
+    {
+      "id": "hr-director",
+      "type": "cloud",
+      "label": "hr-director",
+      "sublabel": "L3 · lifecycle + autonomy",
+      "pos": [
+        424,
+        540
+      ],
+      "size": [
+        182,
+        50
+      ],
+      "tag": "NEW"
+    },
+    {
+      "id": "payroll-controller",
+      "type": "cloud",
+      "label": "payroll-controller",
+      "sublabel": "L3 · tokens + wall clock",
+      "pos": [
+        424,
+        592
+      ],
+      "size": [
+        182,
+        50
+      ],
+      "tag": "NEW"
+    },
+    {
+      "id": "finance-controller",
+      "type": "cloud",
+      "label": "finance-controller",
+      "sublabel": "L3 · budgets that halt",
+      "pos": [
+        424,
+        644
+      ],
+      "size": [
+        182,
+        50
+      ],
+      "tag": "NEW"
+    },
+    {
+      "id": "service-management-lead",
+      "type": "cloud",
+      "label": "service-management-lead",
+      "sublabel": "L3 · SLA + change",
+      "pos": [
+        424,
+        696
+      ],
+      "size": [
+        182,
+        50
+      ],
+      "tag": "NEW"
+    },
+    {
+      "id": "workforce",
+      "type": "cloud",
+      "label": "259 agents",
+      "sublabel": "19 departments · 49 teams",
+      "pos": [
+        654,
+        204
+      ],
+      "size": [
+        200,
+        76
+      ],
+      "tag": "every one registered"
+    },
+    {
+      "id": "policy",
+      "type": "security",
+      "label": "protect-mcp",
+      "sublabel": "Cedar + Ed25519",
+      "pos": [
+        654,
+        352
+      ],
+      "size": [
+        200,
+        62
+      ],
+      "tag": "audit mode first"
+    },
+    {
+      "id": "lanes",
+      "type": "messagebus",
+      "label": "5 delivery lanes",
+      "sublabel": "A · B · C1 · C2 · C3",
+      "pos": [
+        654,
+        462
+      ],
+      "size": [
+        200,
+        62
+      ],
+      "tag": "one per project"
+    },
+    {
+      "id": "merge-authority",
+      "type": "security",
+      "label": "merge-authority",
+      "sublabel": "L2 · READ-ONLY",
+      "pos": [
+        902,
+        104
+      ],
+      "size": [
+        180,
+        54
+      ],
+      "tag": "blocks the merge"
+    },
+    {
+      "id": "security-engineer",
+      "type": "security",
+      "label": "security-engineer",
+      "sublabel": "L2 · vulnerabilities",
+      "pos": [
+        902,
+        180
+      ],
+      "size": [
+        180,
+        54
+      ],
+      "tag": "VETO"
+    },
+    {
+      "id": "sre",
+      "type": "security",
+      "label": "sre",
+      "sublabel": "L2 · prod stability",
+      "pos": [
+        902,
+        256
+      ],
+      "size": [
+        180,
+        54
+      ],
+      "tag": "VETO"
+    },
+    {
+      "id": "release-manager",
+      "type": "messagebus",
+      "label": "release-manager",
+      "sublabel": "L2 · routes failures",
+      "pos": [
+        902,
+        332
+      ],
+      "size": [
+        180,
+        54
+      ]
+    },
+    {
+      "id": "dependency-steward",
+      "type": "messagebus",
+      "label": "dependency-steward",
+      "sublabel": "L2 · pins + teardown",
+      "pos": [
+        902,
+        408
+      ],
+      "size": [
+        180,
+        54
+      ]
+    },
+    {
+      "id": "prod",
+      "type": "database",
+      "label": "main",
+      "sublabel": "production",
+      "pos": [
+        1148,
+        92
+      ],
+      "size": [
+        172,
+        64
+      ]
+    },
+    {
+      "id": "gate",
+      "type": "database",
+      "label": "the gate",
+      "sublabel": "10 templates · 9 job families",
+      "pos": [
+        1148,
+        212
+      ],
+      "size": [
+        172,
+        66
+      ],
+      "tag": "all green or nothing"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Owned and generated — 19 officers · 278 agents",
+      "rect": [
+        190,
+        20,
+        1162,
+        856
+      ]
+    },
+    {
+      "kind": "security-group",
+      "label": "Verification — reports OUT of Build",
+      "rect": [
+        890,
+        74,
+        208,
+        250
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "Corporate — outside the /build path",
+      "rect": [
+        200,
+        512,
+        420,
+        246
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "ceo-cto",
+      "from": "ceo",
+      "to": "cto",
+      "label": "/build",
+      "variant": "emphasis",
+      "points": [
+        [
+          182,
+          398.0
+        ],
+        [
+          200,
+          398
+        ],
+        [
+          200,
+          273
+        ],
+        [
+          214,
+          273.0
+        ]
+      ]
+    },
+    {
+      "id": "ceo-coo",
+      "from": "ceo",
+      "to": "coo",
+      "label": null,
+      "variant": "default",
+      "points": [
+        [
+          182,
+          398.0
+        ],
+        [
+          200,
+          398
+        ],
+        [
+          200,
+          629
+        ],
+        [
+          214,
+          629.0
+        ]
+      ]
+    },
+    {
+      "id": "ceo-dpo",
+      "from": "ceo",
+      "to": "data-protection-officer",
+      "label": "GDPR Art. 38(3)",
+      "variant": "security",
+      "points": [
+        [
+          182,
+          398.0
+        ],
+        [
+          200,
+          398
+        ],
+        [
+          200,
+          817
+        ],
+        [
+          214,
+          817.0
+        ]
+      ]
+    },
+    {
+      "id": "cto-product-owner",
+      "from": "cto",
+      "to": "product-owner",
+      "label": null,
+      "variant": "default",
+      "points": [
+        [
+          388,
+          273.0
+        ],
+        [
+          406,
+          273
+        ],
+        [
+          406,
+          67.0
+        ],
+        [
+          424,
+          67.0
+        ]
+      ]
+    },
+    {
+      "id": "cto-design-owner",
+      "from": "cto",
+      "to": "design-owner",
+      "label": null,
+      "variant": "default",
+      "points": [
+        [
+          388,
+          273.0
+        ],
+        [
+          406,
+          273
+        ],
+        [
+          406,
+          135.0
+        ],
+        [
+          424,
+          135.0
+        ]
+      ]
+    },
+    {
+      "id": "cto-web-architect",
+      "from": "cto",
+      "to": "web-architect",
+      "label": "dispatch",
+      "variant": "emphasis",
+      "points": [
+        [
+          388,
+          273.0
+        ],
+        [
+          406,
+          273
+        ],
+        [
+          406,
+          203.0
+        ],
+        [
+          424,
+          203.0
+        ]
+      ]
+    },
+    {
+      "id": "cto-data-architect",
+      "from": "cto",
+      "to": "data-architect",
+      "label": null,
+      "variant": "default",
+      "points": [
+        [
+          388,
+          273.0
+        ],
+        [
+          406,
+          273
+        ],
+        [
+          406,
+          271.0
+        ],
+        [
+          424,
+          271.0
+        ]
+      ]
+    },
+    {
+      "id": "cto-platform-architect",
+      "from": "cto",
+      "to": "platform-architect",
+      "label": null,
+      "variant": "default",
+      "points": [
+        [
+          388,
+          273.0
+        ],
+        [
+          406,
+          273
+        ],
+        [
+          406,
+          339.0
+        ],
+        [
+          424,
+          339.0
+        ]
+      ]
+    },
+    {
+      "id": "cto-testing-architect",
+      "from": "cto",
+      "to": "testing-architect",
+      "label": null,
+      "variant": "default",
+      "points": [
+        [
+          388,
+          273.0
+        ],
+        [
+          406,
+          273
+        ],
+        [
+          406,
+          407.0
+        ],
+        [
+          424,
+          407.0
+        ]
+      ]
+    },
+    {
+      "id": "cto-quality-compliance",
+      "from": "cto",
+      "to": "quality-compliance",
+      "label": null,
+      "variant": "default",
+      "points": [
+        [
+          388,
+          273.0
+        ],
+        [
+          406,
+          273
+        ],
+        [
+          406,
+          475.0
+        ],
+        [
+          424,
+          475.0
+        ]
+      ]
+    },
+    {
+      "id": "coo-hr-director",
+      "from": "coo",
+      "to": "hr-director",
+      "label": null,
+      "variant": "default",
+      "points": [
+        [
+          388,
+          629.0
+        ],
+        [
+          406,
+          629
+        ],
+        [
+          406,
+          565.0
+        ],
+        [
+          424,
+          565.0
+        ]
+      ]
+    },
+    {
+      "id": "coo-payroll-controller",
+      "from": "coo",
+      "to": "payroll-controller",
+      "label": null,
+      "variant": "default",
+      "points": [
+        [
+          388,
+          629.0
+        ],
+        [
+          406,
+          629
+        ],
+        [
+          406,
+          617.0
+        ],
+        [
+          424,
+          617.0
+        ]
+      ]
+    },
+    {
+      "id": "coo-finance-controller",
+      "from": "coo",
+      "to": "finance-controller",
+      "label": null,
+      "variant": "default",
+      "points": [
+        [
+          388,
+          629.0
+        ],
+        [
+          406,
+          629
+        ],
+        [
+          406,
+          669.0
+        ],
+        [
+          424,
+          669.0
+        ]
+      ]
+    },
+    {
+      "id": "coo-service-management-lead",
+      "from": "coo",
+      "to": "service-management-lead",
+      "label": null,
+      "variant": "default",
+      "points": [
+        [
+          388,
+          629.0
+        ],
+        [
+          406,
+          629
+        ],
+        [
+          406,
+          721.0
+        ],
+        [
+          424,
+          721.0
+        ]
+      ]
+    },
+    {
+      "id": "dpo-qc",
+      "from": "data-protection-officer",
+      "to": "quality-compliance",
+      "label": "raises findings",
+      "variant": "dashed",
+      "points": [
+        [
+          388,
+          817.0
+        ],
+        [
+          638,
+          817
+        ],
+        [
+          638,
+          492
+        ],
+        [
+          606,
+          492
+        ]
+      ]
+    },
+    {
+      "id": "wa-work",
+      "from": "web-architect",
+      "to": "workforce",
+      "label": "invoke by name",
+      "variant": "emphasis",
+      "points": [
+        [
+          606,
+          203.0
+        ],
+        [
+          630,
+          207
+        ],
+        [
+          630,
+          230
+        ],
+        [
+          654,
+          230
+        ]
+      ]
+    },
+    {
+      "id": "da-work",
+      "from": "data-architect",
+      "to": "workforce",
+      "label": null,
+      "variant": "default",
+      "points": [
+        [
+          606,
+          271.0
+        ],
+        [
+          630,
+          275
+        ],
+        [
+          630,
+          258
+        ],
+        [
+          654,
+          258
+        ]
+      ]
+    },
+    {
+      "id": "wa-lanes",
+      "from": "web-architect",
+      "to": "lanes",
+      "label": null,
+      "variant": "default",
+      "points": [
+        [
+          606,
+          203.0
+        ],
+        [
+          618,
+          207
+        ],
+        [
+          618,
+          493
+        ],
+        [
+          654,
+          493.0
+        ]
+      ]
+    },
+    {
+      "id": "pa-policy",
+      "from": "platform-architect",
+      "to": "policy",
+      "label": "writes Cedar",
+      "variant": "security",
+      "points": [
+        [
+          606,
+          339.0
+        ],
+        [
+          630,
+          343
+        ],
+        [
+          630,
+          383
+        ],
+        [
+          654,
+          383
+        ]
+      ]
+    },
+    {
+      "id": "policy-work",
+      "from": "policy",
+      "to": "workforce",
+      "label": "receipt per call",
+      "variant": "security",
+      "points": [
+        [
+          754.0,
+          352
+        ],
+        [
+          754.0,
+          280
+        ]
+      ]
+    },
+    {
+      "id": "ds-policy",
+      "from": "dependency-steward",
+      "to": "policy",
+      "label": "pins",
+      "variant": "dashed",
+      "points": [
+        [
+          902,
+          435.0
+        ],
+        [
+          878,
+          441
+        ],
+        [
+          878,
+          403
+        ],
+        [
+          854,
+          403
+        ]
+      ]
+    },
+    {
+      "id": "ta-ma",
+      "from": "testing-architect",
+      "to": "merge-authority",
+      "label": "reports to",
+      "variant": "security",
+      "points": [
+        [
+          606,
+          407.0
+        ],
+        [
+          866,
+          411
+        ],
+        [
+          866,
+          131
+        ],
+        [
+          902,
+          131.0
+        ]
+      ]
+    },
+    {
+      "id": "pa-security-engineer",
+      "from": "platform-architect",
+      "to": "security-engineer",
+      "label": null,
+      "variant": "default",
+      "points": [
+        [
+          606,
+          339.0
+        ],
+        [
+          884,
+          343
+        ],
+        [
+          884,
+          207.0
+        ],
+        [
+          902,
+          207.0
+        ]
+      ]
+    },
+    {
+      "id": "pa-sre",
+      "from": "platform-architect",
+      "to": "sre",
+      "label": null,
+      "variant": "default",
+      "points": [
+        [
+          606,
+          339.0
+        ],
+        [
+          884,
+          343
+        ],
+        [
+          884,
+          283.0
+        ],
+        [
+          902,
+          283.0
+        ]
+      ]
+    },
+    {
+      "id": "pa-release-manager",
+      "from": "platform-architect",
+      "to": "release-manager",
+      "label": null,
+      "variant": "default",
+      "points": [
+        [
+          606,
+          339.0
+        ],
+        [
+          884,
+          343
+        ],
+        [
+          884,
+          359.0
+        ],
+        [
+          902,
+          359.0
+        ]
+      ]
+    },
+    {
+      "id": "pa-dependency-steward",
+      "from": "platform-architect",
+      "to": "dependency-steward",
+      "label": null,
+      "variant": "default",
+      "points": [
+        [
+          606,
+          339.0
+        ],
+        [
+          884,
+          343
+        ],
+        [
+          884,
+          435.0
+        ],
+        [
+          902,
+          435.0
+        ]
+      ]
+    },
+    {
+      "id": "work-review",
+      "from": "workforce",
+      "to": "merge-authority",
+      "label": "candidate",
+      "variant": "emphasis",
+      "points": [
+        [
+          854,
+          242.0
+        ],
+        [
+          878,
+          242
+        ],
+        [
+          878,
+          131
+        ],
+        [
+          902,
+          131.0
+        ]
+      ]
+    },
+    {
+      "id": "review-gate",
+      "from": "merge-authority",
+      "to": "gate",
+      "label": "approved",
+      "variant": "emphasis",
+      "points": [
+        [
+          1082,
+          131.0
+        ],
+        [
+          1116,
+          131
+        ],
+        [
+          1116,
+          245
+        ],
+        [
+          1148,
+          245.0
+        ]
+      ]
+    },
+    {
+      "id": "quality-compliance-gate",
+      "from": "quality-compliance",
+      "to": "gate",
+      "label": null,
+      "variant": "security",
+      "points": [
+        [
+          606,
+          475.0
+        ],
+        [
+          1130,
+          475.0
+        ],
+        [
+          1130,
+          252
+        ],
+        [
+          1148,
+          252
+        ]
+      ]
+    },
+    {
+      "id": "security-engineer-gate",
+      "from": "security-engineer",
+      "to": "gate",
+      "label": null,
+      "variant": "security",
+      "points": [
+        [
+          1082,
+          207.0
+        ],
+        [
+          1130,
+          207.0
+        ],
+        [
+          1130,
+          252
+        ],
+        [
+          1148,
+          252
+        ]
+      ]
+    },
+    {
+      "id": "sre-gate",
+      "from": "sre",
+      "to": "gate",
+      "label": null,
+      "variant": "security",
+      "points": [
+        [
+          1082,
+          283.0
+        ],
+        [
+          1130,
+          283.0
+        ],
+        [
+          1130,
+          252
+        ],
+        [
+          1148,
+          252
+        ]
+      ]
+    },
+    {
+      "id": "gate-prod",
+      "from": "gate",
+      "to": "prod",
+      "label": "job success",
+      "variant": "emphasis",
+      "points": [
+        [
+          1234.0,
+          212
+        ],
+        [
+          1234.0,
+          156
+        ]
+      ]
+    },
+    {
+      "id": "gate-rm",
+      "from": "gate",
+      "to": "release-manager",
+      "label": "routing",
+      "variant": "dashed",
+      "points": [
+        [
+          1234.0,
+          278
+        ],
+        [
+          1234,
+          320
+        ],
+        [
+          1100,
+          320
+        ],
+        [
+          1100,
+          365
+        ],
+        [
+          1082,
+          365
+        ]
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Built here, not inherited",
+      "items": [
+        "278 agents generated from one registry — charter, registration record, tool contract, skills",
+        "Every blast radius is a number and a bound, not a paragraph",
+        "Editing a generated file is a defect the gate catches"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Verification sits outside Build",
+      "items": [
+        "merge-authority reports to testing-architect, never to the architects it reviews",
+        "It holds no Write and no Edit, anywhere",
+        "4 officers are read-only by construction"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Still exactly 3 stop buttons",
+      "items": [
+        "quality-compliance, security-engineer, sre",
+        "6 officers were added and the veto count did not move",
+        "The DPO advises. Only the CEO overrides a veto"
+      ]
+    }
+  ]
+}

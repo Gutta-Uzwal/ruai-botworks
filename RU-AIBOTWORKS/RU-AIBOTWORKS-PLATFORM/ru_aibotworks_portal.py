@@ -32,9 +32,11 @@ TODAY = date.today()
 PAGES = [
     ("RU-AIBOTWORKS-index.html", "Overview"),
     ("RU-AIBOTWORKS-org-chart.html", "Reporting"),
+    ("RU-AIBOTWORKS-hierarchy.html", "Hierarchy"),
     ("RU-AIBOTWORKS-workforce.html", "Workforce"),
     ("RU-AIBOTWORKS-workflow.html", "Workflow"),
     ("RU-AIBOTWORKS-architecture.html", "Architecture"),
+    ("RU-AIBOTWORKS-diagram.html", "Diagram"),
     ("RU-AIBOTWORKS-governance.html", "Governance"),
 ]
 
@@ -254,6 +256,76 @@ footer.foot{border-top:1px solid var(--line);margin-top:56px;padding:24px 0;
   .toolbar{position:static}
   th{position:static}
 }
+
+/* ── hierarchy tree ─────────────────────────────────────────── */
+.treewrap{padding:0;overflow:hidden}
+.tree{list-style:none;margin:0;padding:0}
+.tree ul{list-style:none;margin:0;padding:0 0 0 24px;position:relative}
+.tree ul::before{content:"";position:absolute;left:11px;top:0;bottom:17px;width:1px;
+  background:var(--line)}
+.tree li{position:relative}
+.tree ul > li::before{content:"";position:absolute;left:-13px;top:18px;width:12px;height:1px;
+  background:var(--line)}
+.tree li.closed > ul{display:none}
+.tree li.hidden{display:none}
+
+.row{display:grid;
+  grid-template-columns:26px minmax(0,1.3fr) minmax(0,1.45fr) minmax(0,1fr) 52px;
+  gap:12px;align-items:center;padding:6px 14px 6px 4px;
+  border-bottom:1px solid var(--line-2);transition:background .14s ease}
+.row:hover{background:var(--panel-2)}
+.rowhead{background:var(--panel-2);
+  border-bottom:1px solid var(--line);font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.rowhead:hover{background:var(--panel-2)}
+.cell-tgl{display:flex;justify-content:center}
+button.tgl{width:20px;height:20px;padding:0;border:0;border-radius:5px;line-height:1;
+  background:transparent;color:var(--muted);font:12px/1 var(--mono);cursor:pointer;
+  transition:background .14s,color .14s}
+button.tgl:hover{background:var(--line-2);color:var(--accent)}
+button.tgl:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.tgl-leaf{display:block;width:20px;height:20px}
+.tgl-leaf::after{content:"";display:block;width:4px;height:4px;border-radius:50%;
+  background:var(--line);margin:8px auto}
+
+.who{display:flex;align-items:baseline;gap:7px;min-width:0;flex-wrap:wrap}
+.who strong{font-size:13px;letter-spacing:-.01em;color:var(--ink)}
+.who code{font-family:var(--mono);font-size:11px;color:var(--muted);
+  background:none;border:0;padding:0}
+.role,.where{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.role{font-size:12.5px;color:var(--ink-2)}
+.where{font-size:11.5px;color:var(--muted)}
+.n{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:right}
+
+.lv{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.06em;
+  padding:1px 5px;border-radius:4px;border:1px solid var(--line);color:var(--muted)}
+.lv-L5{color:var(--lead);border-color:var(--lead);background:var(--lead-soft)}
+.lv-L4{color:var(--corp);border-color:var(--corp);background:var(--corp-soft)}
+.lv-L3{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
+.lv-L2{color:var(--indep);border-color:var(--indep);background:var(--indep-soft)}
+
+@media (max-width:880px){
+  .row{grid-template-columns:24px minmax(0,1fr) 44px}
+  .role,.where{display:none}
+}
+
+/* ── motion ─────────────────────────────────────────────────────
+   Sections settle in as they enter the viewport. The transform is small and
+   the easing decelerates, so scrolling reads as momentum rather than as an
+   animation playing. Anything that has not been revealed yet is still fully
+   present to a screen reader, to search, and to print. */
+[data-reveal]{opacity:0;transform:translate3d(0,16px,0);
+  transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+[data-reveal].shown{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  [data-reveal],[data-reveal].shown{opacity:1;transform:none;transition:none}
+  .row,button.tgl,.stat,.person,.diagram-nav button{transition:none}
+}
+@media print{
+  [data-reveal],[data-reveal].shown{opacity:1!important;transform:none!important}
+}
 """
 
 THEME_JS = """
@@ -272,6 +344,50 @@ THEME_JS = """
     try{localStorage.setItem('ruai-theme',next);}catch(e){}
   };
 })();
+"""
+
+
+REVEAL_JS = """
+<script>
+/* Scroll choreography.
+
+   Sections settle in as they enter the viewport, staggered a little so a long
+   page reads as momentum rather than as a wall arriving at once.
+
+   Deliberately NOT here: hijacking the scroll wheel to interpolate scrollTop.
+   That is what most "smooth scrolling" libraries do, and it costs keyboard
+   paging, screen-reader virtual cursors, trackpad momentum, and find-in-page
+   accuracy. The feel comes from the entrance easing and honest sticky headers,
+   which cost none of those. */
+(function () {
+  var reduce = false;
+  try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (_) {}
+  if (reduce || !('IntersectionObserver' in window)) return;
+
+  var targets = document.querySelectorAll(
+    '.stat, .panel, .tw, .step, details.dept, .chart, .treewrap, h2, .note'
+  );
+  if (!targets.length) return;
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('shown');
+      io.unobserve(entry.target);
+    });
+  }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+
+  targets.forEach(function (el, i) {
+    // Anything already on screen at load skips the entrance entirely — a page
+    // that animates its own first paint just looks slow.
+    var box = el.getBoundingClientRect();
+    if (box.top < window.innerHeight * 0.92) { el.classList.add('shown'); return; }
+    el.setAttribute('data-reveal', '');
+    el.style.transitionDelay = Math.min((i % 5) * 45, 180) + 'ms';
+    io.observe(el);
+  });
+})();
+</script>
 """
 
 
@@ -318,7 +434,7 @@ def shell(title: str, current: str, body: str, figures: dict, extra_js: str = ""
   <span>{figures['agents_total']} agents · {figures['officers']} officers · {figures['vetoes']} vetoes</span>
 </footer>
 </main>
-{extra_js}
+{REVEAL_JS}{extra_js}
 </body>
 </html>
 """
@@ -997,6 +1113,211 @@ never been restored are absent controls with present documentation.</p>
     return shell("Governance", "Governance", body, f)
 
 
+# ═══════════════════════════ page: hierarchy ═══════════════════════════
+
+RANK = {"L5": 5, "L4": 4, "L3": 3, "L2": 2, "L1": 1}
+
+
+def page_hierarchy(c: Company) -> str:
+    """
+    Every agent in one reporting tree.
+
+    The tree is built from `reports_to` alone, because that is the authoritative
+    relation. Department and team appear as context on each row rather than as extra
+    tree levels, so the shape on screen is the shape authority actually takes.
+    """
+    f = c.figures
+
+    children: dict[str, list] = {}
+    for officer in c.officers:
+        children.setdefault(officer.reports_to, []).append(("officer", officer))
+    for agent in c.agents:
+        children.setdefault(c.reports_to_of(agent), []).append(("agent", agent))
+
+    division_order = {"Delivery": 0, "Corporate": 1, "Independent": 2}
+
+    def sort_key(entry):
+        kind, node = entry
+        # Officers first, delivery before corporate, then by authority, then by name.
+        return (
+            0 if kind == "officer" else 1,
+            division_order.get(getattr(node, "division", ""), 0) if kind == "officer" else 0,
+            -RANK[node.level],
+            node.name,
+        )
+
+    sizes: dict[str, int] = {}
+
+    def subtree_size(name: str) -> int:
+        if name not in sizes:
+            sizes[name] = sum(1 + subtree_size(n.name) for _, n in children.get(name, []))
+        return sizes[name]
+
+    def render(name: str, depth: int) -> str:
+        kids = sorted(children.get(name, []), key=sort_key)
+        if not kids:
+            return ""
+        rows = []
+        for kind, node in kids:
+            officer = kind == "officer"
+            chips = [f'<span class="lv lv-{node.level}">{e(node.level)}</span>']
+            if officer and node.power == "VETO":
+                chips.append('<span class="chip veto">veto</span>')
+            if officer and node.power == "READ-ONLY":
+                chips.append('<span class="chip ro">read-only</span>')
+            if officer and node.added != "original":
+                chips.append('<span class="chip new">new</span>')
+            if not officer and node.lead:
+                chips.append('<span class="chip lead">lead</span>')
+            if not officer and node.read_only:
+                chips.append('<span class="chip ro">read-only</span>')
+
+            if officer:
+                owned = [d for d in c.departments if d["officer"] == node.name]
+                where = " · ".join(d["name"] for d in owned) or "—"
+                role = node.decides
+                extra = []
+            else:
+                dept = c.department_by_id[node.department]
+                team = c.team_by_key[(node.department, node.team)]
+                where = f'{dept["name"]} / {team["name"]}'
+                role = node.role
+                extra = [node.plugin] + [s["id"] for s in node.skills]
+
+            count = subtree_size(node.name)
+            haystack = " ".join([node.person, node.name, role, where, node.level] + extra).lower()
+            inner = render(node.name, depth + 1)
+            caret = (
+                '<button class="tgl" aria-expanded="true" aria-label="Collapse">'
+                '<span aria-hidden="true">&#9662;</span></button>'
+                if inner else '<span class="tgl tgl-leaf" aria-hidden="true"></span>'
+            )
+            rows.append(
+                f'<li data-h="{e(haystack)}" data-depth="{depth}">'
+                f'<div class="row"><span class="cell-tgl">{caret}</span>'
+                f'<span class="who"><strong>{e(node.person)}</strong>'
+                f'<code>{e(node.name)}</code>{"".join(chips)}</span>'
+                f'<span class="role">{e(role)}</span>'
+                f'<span class="where">{e(where)}</span>'
+                f'<span class="n">{count or ""}</span></div>{inner}</li>'
+            )
+        return '<ul class="tree">' + "".join(rows) + "</ul>"
+
+    ceo = c.identity["ceo"]
+    body = phead(
+        "Hierarchy",
+        "Every agent, one reporting line",
+        f"All {f['agents_total']} of them, from the CEO to the last engineer. Built from "
+        "<code>reports_to</code> alone &mdash; department and team are context, never extra "
+        "levels &mdash; so this is the shape authority actually takes.",
+    )
+    body += f"""
+<div class="stats">
+  {stat(f['agents_total'], 'agents below you', 'Officers and the whole workforce.')}
+  {stat(f['deepest_chain'], 'deepest chain', 'Hops from the CEO to the furthest engineer.')}
+  {stat(f['officers'], 'officers', 'The decision layer, 6 of them new.', 'c')}
+  {stat(f['team_leads_promoted_l2'], 'promoted leads', 'L2 by deliberate, logged promotion.', 'l')}
+</div>
+
+<div class="toolbar">
+  <input type="search" id="q" placeholder="Search {f['agents_total']} people &mdash; name, handle, role, team, skill&hellip;"
+         aria-label="Search the hierarchy">
+  <div class="filters">
+    <button class="fbtn" id="expand">expand all</button>
+    <button class="fbtn" id="collapse">officers only</button>
+  </div>
+  <span class="count" id="count"></span>
+</div>
+
+<div class="panel treewrap">
+  <div class="row rowhead" aria-hidden="true">
+    <span class="cell-tgl"></span><span class="who">Name &amp; handle</span>
+    <span class="role">Responsibility</span><span class="where">Department / team</span>
+    <span class="n">Reports</span>
+  </div>
+  <ul class="tree root">
+    <li data-h="{e((ceo['full'] + ' ceo chief executive').lower())}" data-depth="0">
+      <div class="row">
+        <span class="cell-tgl"><button class="tgl" aria-expanded="true" aria-label="Collapse">
+          <span aria-hidden="true">&#9662;</span></button></span>
+        <span class="who"><strong>{e(ceo['name'])}</strong><code>CEO</code>
+          <span class="lv lv-L5">L5</span><span class="chip">human</span></span>
+        <span class="role">Commercial direction, and the only override on a veto</span>
+        <span class="where">&mdash;</span>
+        <span class="n">{f['agents_total']}</span>
+      </div>
+      {render("CEO", 1)}
+    </li>
+  </ul>
+</div>
+"""
+    js = """
+<script>
+(function(){
+  var q = document.getElementById('q');
+  var count = document.getElementById('count');
+  var wrap = document.querySelector('.treewrap');
+  var items = [].slice.call(wrap.querySelectorAll('li'));
+
+  function kidsOf(li){ return li.querySelector(':scope > ul'); }
+  function caretOf(li){ return li.querySelector(':scope > .row > .cell-tgl > button.tgl'); }
+
+  function setOpen(li, open){
+    var btn = caretOf(li);
+    if(!btn || !kidsOf(li)) return;
+    li.classList.toggle('closed', !open);
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Collapse' : 'Expand');
+    btn.firstElementChild.textContent = open ? '\\u25be' : '\\u25b8';
+  }
+
+  wrap.addEventListener('click', function(ev){
+    var btn = ev.target.closest('button.tgl');
+    if(!btn) return;
+    var li = btn.closest('li');
+    setOpen(li, li.classList.contains('closed'));
+  });
+
+  document.getElementById('expand').addEventListener('click', function(){
+    items.forEach(function(li){ setOpen(li, true); });
+  });
+  document.getElementById('collapse').addEventListener('click', function(){
+    items.forEach(function(li){ setOpen(li, Number(li.dataset.depth) < 2); });
+    q.value = ''; apply();
+  });
+
+  function apply(){
+    var term = q.value.trim().toLowerCase();
+    if(!term){
+      items.forEach(function(li){ li.classList.remove('hidden'); });
+      count.textContent = items.length + ' of ' + items.length + ' people';
+      return;
+    }
+    items.forEach(function(li){ li.classList.add('hidden'); });
+    var shown = 0;
+    items.forEach(function(li){
+      if(li.dataset.h.indexOf(term) === -1) return;
+      shown++;
+      // Reveal the match, its whole line of management, and everything under it.
+      for(var node = li; node && node !== wrap; node = node.parentElement){
+        if(node.tagName === 'LI'){ node.classList.remove('hidden'); setOpen(node, true); }
+      }
+      [].forEach.call(li.querySelectorAll('li'), function(kid){
+        kid.classList.remove('hidden'); setOpen(kid, true);
+      });
+    });
+    count.textContent = shown + ' of ' + items.length + ' people';
+  }
+
+  q.addEventListener('input', apply);
+  items.forEach(function(li){ setOpen(li, Number(li.dataset.depth) < 2); });
+  apply();
+})();
+</script>
+"""
+    return shell("Hierarchy", "Hierarchy", body, f, js)
+
+
 def main() -> int:
     c = Company.load()
     OUT.mkdir(parents=True, exist_ok=True)
@@ -1005,6 +1326,7 @@ def main() -> int:
     pages = {
         "RU-AIBOTWORKS-index.html": page_index(c),
         "RU-AIBOTWORKS-org-chart.html": page_org(c),
+        "RU-AIBOTWORKS-hierarchy.html": page_hierarchy(c),
         "RU-AIBOTWORKS-workforce.html": page_workforce(c),
         "RU-AIBOTWORKS-workflow.html": page_workflow(c),
         "RU-AIBOTWORKS-architecture.html": page_architecture(c),

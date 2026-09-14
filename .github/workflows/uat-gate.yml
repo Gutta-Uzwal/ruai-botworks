@@ -108,9 +108,10 @@ jobs:
           python-version: "3.12"
       - run: pip install --quiet pyyaml
 
-      - name: Portal regenerates without drift
+      - name: Portal and diagram regenerate without drift
         run: |
           python RU-AIBOTWORKS/RU-AIBOTWORKS-PLATFORM/ru_aibotworks_portal.py
+          python RU-AIBOTWORKS/RU-AIBOTWORKS-PLATFORM/ru_aibotworks_archify.py
           if ! git diff --quiet -- RU-AIBOTWORKS/RU-AIBOTWORKS-PORTAL; then
             echo "::error::portal is stale - run ru_aibotworks_portal.py and commit the result"
             git diff --stat -- RU-AIBOTWORKS/RU-AIBOTWORKS-PORTAL

@@ -30,9 +30,11 @@
     <nav class="tabs">
       <a href="RU-AIBOTWORKS-index.html">Overview</a>
       <a href="RU-AIBOTWORKS-org-chart.html">Reporting</a>
+      <a href="RU-AIBOTWORKS-hierarchy.html">Hierarchy</a>
       <a href="RU-AIBOTWORKS-workforce.html" aria-current="page">Workforce</a>
       <a href="RU-AIBOTWORKS-workflow.html">Workflow</a>
       <a href="RU-AIBOTWORKS-architecture.html">Architecture</a>
+      <a href="RU-AIBOTWORKS-diagram.html">Diagram</a>
       <a href="RU-AIBOTWORKS-governance.html">Governance</a>
       <button class="theme-btn" onclick="ruaiToggle()" aria-label="Toggle theme">◐ theme</button>
     </nav>
@@ -66,6 +68,47 @@
   <span>278 agents · 19 officers · 3 vetoes</span>
 </footer>
 </main>
+
+<script>
+/* Scroll choreography.
+
+   Sections settle in as they enter the viewport, staggered a little so a long
+   page reads as momentum rather than as a wall arriving at once.
+
+   Deliberately NOT here: hijacking the scroll wheel to interpolate scrollTop.
+   That is what most "smooth scrolling" libraries do, and it costs keyboard
+   paging, screen-reader virtual cursors, trackpad momentum, and find-in-page
+   accuracy. The feel comes from the entrance easing and honest sticky headers,
+   which cost none of those. */
+(function () {
+  var reduce = false;
+  try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (_) {}
+  if (reduce || !('IntersectionObserver' in window)) return;
+
+  var targets = document.querySelectorAll(
+    '.stat, .panel, .tw, .step, details.dept, .chart, .treewrap, h2, .note'
+  );
+  if (!targets.length) return;
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('shown');
+      io.unobserve(entry.target);
+    });
+  }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+
+  targets.forEach(function (el, i) {
+    // Anything already on screen at load skips the entrance entirely — a page
+    // that animates its own first paint just looks slow.
+    var box = el.getBoundingClientRect();
+    if (box.top < window.innerHeight * 0.92) { el.classList.add('shown'); return; }
+    el.setAttribute('data-reveal', '');
+    el.style.transitionDelay = Math.min((i % 5) * 45, 180) + 'ms';
+    io.observe(el);
+  });
+})();
+</script>
 
 <script>
 (function(){
