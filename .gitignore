@@ -7,8 +7,11 @@ projects/school/frontend/node_modules/
 projects/school/frontend/dist/
 
 # Receipt chains belong at the repository root and nowhere else. The policy hooks
-# write them relative to the current working directory, so a shell that has cd'd
-# into a subfolder starts a second, fragmented chain. A chain that splits by
-# working directory is not an audit trail. Ignore the strays; keep the root pair.
-/*/*/receipts/
-/*/*/review-receipts/
+# write them relative to the current working directory, so any shell that has cd'd
+# into a subfolder starts a second, fragmented chain. A chain that splits by working
+# directory is not an audit trail. Ignore every nested one at any depth; keep the pair
+# at the root, which is the real one.
+receipts/
+review-receipts/
+!/receipts/
+!/review-receipts/
