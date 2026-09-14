@@ -3,11 +3,11 @@
 check_consistency.py — invariant 11, enforced.
 
 Any figure appearing in two documents must derive from one computed source. That
-source is RU-AIBOTWORKS-REGISTRY, read through ru_aibotworks_registry.py. This reads
+source is REGISTRY, read through ru_aibotworks_registry.py. This reads
 the prose and fails the build when a document contradicts it, or uses a name that
 was retired.
 
-    python scripts/check_consistency.py RU-AIBOTWORKS/RU-AIBOTWORKS-DOCS docs/charter
+    python scripts/check_consistency.py RU-AIBOTWORKS/DOCS docs/charter
 """
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT / "RU-AIBOTWORKS" / "RU-AIBOTWORKS-PLATFORM"))
+sys.path.insert(0, str(ROOT / "RU-AIBOTWORKS" / "PLATFORM"))
 from ru_aibotworks_registry import Company  # noqa: E402
 
 COMPANY = Company.load()
@@ -130,6 +130,6 @@ def check(roots: list[Path]) -> int:
 
 if __name__ == "__main__":
     targets = [Path(a).resolve() for a in sys.argv[1:]] or [
-        ROOT / "RU-AIBOTWORKS" / "RU-AIBOTWORKS-DOCS"
+        ROOT / "RU-AIBOTWORKS" / "DOCS"
     ]
     raise SystemExit(check(targets))

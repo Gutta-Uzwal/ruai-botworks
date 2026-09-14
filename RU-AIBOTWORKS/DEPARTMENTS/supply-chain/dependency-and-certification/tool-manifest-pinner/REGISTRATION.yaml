@@ -1,0 +1,41 @@
+# STD-AGENT-001 §34.1 registration record.
+# No agent runs in production without one. Reviewed like code.
+# GENERATED from REGISTRY. Do not hand-edit.
+
+agent: tool-manifest-pinner
+person: Silas
+owner: supply-chain / dependency-steward
+environment: development
+purpose: Pin third-party tool manifests by hash and diff them on change
+classification: internal-high
+autonomy_level: L1-supervised
+model: opus
+tools:
+- repository.read
+- repository.search
+- observability.read
+- repository.write
+- repository.edit
+- branch.commit
+max_tier: 1
+data_domains:
+- dependencies
+- policy
+tenancy: per-request, injected by runtime, never from model output
+reports_to: dependency-steward
+decision_level: L1
+blast_radius: 'Writes only inside its own workspace branch over dependencies, policy. Every
+  change is Tier 1 and reversible with ''git checkout''. Worst case if fully hijacked: up
+  to 50 bad file mutations on one branch, all of which merge-authority reviews before anything
+  merges and none of which reach any environment. Cannot write its own configuration. No egress.'
+budgets:
+  steps: 60
+  tokens: 400000
+  cost_minor_per_day: 5000
+  mutations: 50
+kill_switch: global + per-agent
+evaluation: EVALUATION.yaml@v1
+incident_clocks: []
+review_due: '2027-03-15'
+registered_on: '2026-09-14'
+registered_by: hr-director / agent-registrar

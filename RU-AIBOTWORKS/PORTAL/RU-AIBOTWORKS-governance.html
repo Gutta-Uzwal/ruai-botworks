@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Governance · RU-AIBOTWORKS</title>
+<script>
+(function(){
+  try{
+    var t=localStorage.getItem('ruai-theme');
+    if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);
+  }catch(e){}
+  window.ruaiToggle=function(){
+    var r=document.documentElement,
+        cur=r.getAttribute('data-theme'),
+        sysDark=window.matchMedia('(prefers-color-scheme: dark)').matches,
+        now=cur?cur:(sysDark?'dark':'light'),
+        next=now==='dark'?'light':'dark';
+    r.setAttribute('data-theme',next);
+    try{localStorage.setItem('ruai-theme',next);}catch(e){}
+  };
+})();
+</script>
+<link rel="stylesheet" href="RU-AIBOTWORKS-portal.css">
+</head>
+<body>
+<header class="mast">
+  <div class="mast-in">
+    <div class="brand">RU<span>-</span>AIBOTWORKS</div>
+    <nav class="tabs">
+      <a href="RU-AIBOTWORKS-index.html">Overview</a>
+      <a href="RU-AIBOTWORKS-org-chart.html">Reporting</a>
+      <a href="RU-AIBOTWORKS-hierarchy.html">Hierarchy</a>
+      <a href="RU-AIBOTWORKS-workforce.html">Workforce</a>
+      <a href="RU-AIBOTWORKS-workflow.html">Workflow</a>
+      <a href="RU-AIBOTWORKS-architecture.html">Architecture</a>
+      <a href="RU-AIBOTWORKS-diagram.html">Diagram</a>
+      <a href="RU-AIBOTWORKS-governance.html" aria-current="page">Governance</a>
+      <button class="theme-btn" onclick="ruaiToggle()" aria-label="Toggle theme">◐ theme</button>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+<div class="phead"><p class="eyebrow">Governance</p><h1>The harness every agent is held in</h1><p class="lede">Twenty-four checks run over the whole company on every build. Each one exists because something can go wrong silently, and silence is the failure mode that matters here.</p></div>
+<div class="stats">
+  <div class="stat "><div class="n">24</div><div class="k">checks</div><div class="d">Run by ru_aibotworks_genome.py on every push.</div></div>
+  <div class="stat "><div class="n">278</div><div class="k">agents covered</div><div class="d">Every agent. No exemptions, no exceptions.</div></div>
+  <div class="stat v"><div class="n">5</div><div class="k">tools denied to all</div><div class="d">Tier 3 and 4, registered so the refusal is auditable.</div></div>
+  <div class="stat i"><div class="n">0</div><div class="k">dangerous grants</div><div class="d">Verified in the database, not asserted here.</div></div>
+</div>
+
+<h2>Company invariants</h2>
+<div class="tw"><table>
+<thead><tr><th>#</th><th>Invariant</th><th>Why it exists</th></tr></thead><tbody>
+<tr><td class="name">I1</td><td>Every reporting line resolves</td><td>An agent reporting to nobody is an agent nobody is accountable for</td></tr>
+<tr><td class="name">I2</td><td>Authority never inverts</td><td>A reviewer that reports to who it reviews is not a reviewer</td></tr>
+<tr><td class="name">I3</td><td>Exactly three standing vetoes</td><td>A fourth stop button dilutes all four; a third fewer removes a real one</td></tr>
+<tr><td class="name">I4</td><td>The reserved-decision list has not shrunk</td><td>Delegation creeps quietly; this catches it</td></tr>
+<tr><td class="name">I5</td><td>Every agent has department, team, role, domains and a skill</td><td>An ungoverned agent looks identical to a governed one</td></tr>
+<tr><td class="name">I6</td><td>No L2 without a logged promotion</td><td>Authority acquired without a record is drift</td></tr>
+<tr><td class="name">I7</td><td>Every capability maps to exactly one officer</td><td>Two owners means no owner</td></tr>
+<tr><td class="name">I8</td><td>No orchestrator at the entry point</td><td>Capability does not confer authority</td></tr>
+<tr><td class="name">I9</td><td>No veto holder writes what it blocks</td><td>An agent that can edit what it blocks is not a control</td></tr>
+<tr><td class="name">I10</td><td>Every project has a DESIGN.md</td><td>The only defence against ten sibling websites</td></tr>
+<tr><td class="name">I11</td><td>Every figure derives from one computed source</td><td>Two documents that disagree are both untrustworthy</td></tr>
+<tr><td class="name">I12</td><td>Every read-only agent is capped at tier 0</td><td>Read-only in name and writeable in fact is the worst case</td></tr>
+<tr><td class="name">I13</td><td>One lane and one design generator per build</td><td>Two active generators give contradictory instructions</td></tr>
+</tbody></table></div>
+
+<h2>STD-AGENT-001 controls</h2>
+<p class="sub">The highest-leverage controls from the Engineering Standard, enforced by
+the same validator rather than by a document nobody re-reads.</p>
+<div class="tw"><table>
+<thead><tr><th>Control</th><th>Requirement</th><th>How it is held</th></tr></thead><tbody>
+<tr><td class="name">A1.2</td><td>Backups unreachable from any agent identity</td><td><code>backup-operator</code> and <code>reaper</code> are unassumable; the check fails if either leaves the forbidden list</td></tr>
+<tr><td class="name">A1.3</td><td>Default-deny egress, including DNS</td><td>Registry declares <code>default: deny</code> with an explicit allowlist; an empty allowlist fails closed</td></tr>
+<tr><td class="name">A1.4</td><td>No hard-delete verb</td><td>No granted tool name matches a delete verb; <code>record.soft_delete</code> exists so nothing ever needs one</td></tr>
+<tr><td class="name">A1.6</td><td>No agent writes its own configuration</td><td>Every granted write tool carries <code>blocked_if: target.is_agent_configuration</code></td></tr>
+<tr><td class="name">A1.7</td><td>Hard budgets enforced by the runtime</td><td>Steps, tokens, cost and mutations per agent; <code>fin.Budget</code> refuses any row that warns instead of halting</td></tr>
+<tr><td class="name">A1.8</td><td>Append-only trajectory log</td><td><code>ops.ToolCall</code> and <code>ops.ContextProvenance</code>, written under a principal no agent holds</td></tr>
+<tr><td class="name">AGT-TOOL-01</td><td>Complete contract before invocation</td><td>All 19 tools carry every required field; incomplete means Tier 3 and denied</td></tr>
+<tr><td class="name">AGT-DES-01</td><td>Tier and rollback on every tool</td><td>The database refuses a grantable Tier 2+ tool with a null rollback &mdash; a CHECK constraint, not a review note</td></tr>
+<tr><td class="name">AGT-AUT-01</td><td>Tier 4 is never automatic</td><td>No agent declares max_tier above 2; Tier 3 and 4 tools are granted to nobody</td></tr>
+</tbody></table></div>
+
+<h2>Compliance posture</h2>
+<p class="sub">Obligations attach per project at scoping, from a fixed matrix. Applying
+every regime to every project is what makes compliance ceremonial; applying none until
+audit is what makes it fatal.</p>
+<div class="grid2">
+  <div class="panel">
+    <h3>Always in force</h3>
+    <ul class="tight">
+      <li>STD-AGENT-001</li><li>ISO/IEC 42001</li><li>EU AI Act Art. 12/14/19</li><li>GDPR</li><li>OWASP Top 10 for Agentic Applications 2026</li><li>WCAG 2.2 AA</li>
+    </ul>
+  </div>
+  <div class="panel">
+    <h3>Attaches by template</h3>
+    <ul class="tight">
+      <li><strong>HIPAA</strong> &mdash; healthcare</li><li><strong>PCI-DSS</strong> &mdash; ecommerce</li><li><strong>SOC2</strong> &mdash; saas-dashboard, crm</li>
+    </ul>
+  </div>
+</div>
+
+<div class="note"><strong>PCI DSS &mdash; integrate, never implement.</strong> Card data
+does not enter our systems. Hosted fields only, keeping the client in SAQ-A scope. A
+project that would place a card number in our database is rescoped or declined, and
+<code>security-engineer</code> holds that line as a veto matter.</div>
+
+<div class="note"><strong>HIPAA &mdash; PHI never enters a context window.</strong> The
+healthcare template is built against synthetic fixtures. Agents on a HIPAA project run at
+<code>max_tier: 2</code> with no egress beyond the allowlist. That is the three-factor
+rule applied concretely: a session with PHI scope gets no untrusted content and no
+outbound channel.</div>
+
+<h2>Review cadence</h2>
+<p class="sub">The distinguishing question is never whether a control exists. It is when
+it was last exercised. A kill switch that has never been pulled and a backup that has
+never been restored are absent controls with present documentation.</p>
+<div class="tw"><table>
+<thead><tr><th>Activity</th><th>Frequency</th><th>Owner</th></tr></thead><tbody>
+<tr><td>Kill-switch game day, latency measured and published</td><td>quarterly</td><td class="name">kill-switch-operator</td></tr>
+<tr><td>Restore drill, measured RTO</td><td>quarterly</td><td class="name">database-admin</td></tr>
+<tr><td>Transitive-closure audit against backup accounts</td><td>quarterly</td><td class="name">identity-and-access-engineer</td></tr>
+<tr><td>Agent registration and blast-radius review</td><td>every 6 months</td><td class="name">agent-registrar</td></tr>
+<tr><td>Tool contract review — tiers, rollbacks, scopes</td><td>every 6 months</td><td class="name">tool-registry-engineer</td></tr>
+<tr><td>Evaluation-harness cheat test</td><td>every 6 months</td><td class="name">llm-evaluation-engineer</td></tr>
+<tr><td>Judge-drift check against a frozen calibration set</td><td>monthly</td><td class="name">llm-evaluation-engineer</td></tr>
+<tr><td>Injection-canary and honeytoken verification</td><td>continuous, reviewed monthly</td><td class="name">injection-canary-engineer</td></tr>
+<tr><td>Exception register — every open exception has an owner and an expiry</td><td>monthly</td><td class="name">nonconformance-recorder</td></tr>
+<tr><td>Payroll reconciliation against the provider invoice</td><td>monthly</td><td class="name">payroll-reconciliation-auditor</td></tr>
+</tbody></table></div>
+
+<footer class="foot">
+  <span>Generated 2026-09-14 from REGISTRY · every figure computed, none asserted</span>
+  <span>278 agents · 19 officers · 3 vetoes</span>
+</footer>
+</main>
+
+<script>
+/* Scroll choreography.
+
+   Sections settle in as they enter the viewport, staggered a little so a long
+   page reads as momentum rather than as a wall arriving at once.
+
+   Deliberately NOT here: hijacking the scroll wheel to interpolate scrollTop.
+   That is what most "smooth scrolling" libraries do, and it costs keyboard
+   paging, screen-reader virtual cursors, trackpad momentum, and find-in-page
+   accuracy. The feel comes from the entrance easing and honest sticky headers,
+   which cost none of those. */
+(function () {
+  var reduce = false;
+  try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (_) {}
+  if (reduce || !('IntersectionObserver' in window)) return;
+
+  var targets = document.querySelectorAll(
+    '.stat, .panel, .tw, .step, details.dept, .chart, .treewrap, h2, .note'
+  );
+  if (!targets.length) return;
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('shown');
+      io.unobserve(entry.target);
+    });
+  }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+
+  targets.forEach(function (el, i) {
+    // Anything already on screen at load skips the entrance entirely — a page
+    // that animates its own first paint just looks slow.
+    var box = el.getBoundingClientRect();
+    if (box.top < window.innerHeight * 0.92) { el.classList.add('shown'); return; }
+    el.setAttribute('data-reveal', '');
+    el.style.transitionDelay = Math.min((i % 5) * 45, 180) + 'ms';
+    io.observe(el);
+  });
+})();
+</script>
+
+</body>
+</html>

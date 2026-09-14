@@ -1,0 +1,42 @@
+# STD-AGENT-001 §34.1 registration record.
+# No agent runs in production without one. Reviewed like code.
+# GENERATED from REGISTRY. Do not hand-edit.
+
+agent: pipeline-engineer
+person: Lakshmi
+owner: platform-engineering / platform-architect
+environment: development
+purpose: Build pipelines, caching and reproducible artifacts
+classification: internal
+autonomy_level: L1-supervised
+model: sonnet
+tools:
+- repository.read
+- repository.search
+- observability.read
+- repository.write
+- repository.edit
+- branch.commit
+max_tier: 2
+data_domains:
+- build-config
+tenancy: per-request, injected by runtime, never from model output
+reports_to: cicd-lead
+decision_level: L1
+blast_radius: 'Writes inside its workspace branch over build-config, and may request up to
+  10 Tier 2 actions, each of which requires approval and each of which has a recorded rollback
+  command that has been executed in test. Worst case if fully hijacked: 10 approved-but-wrong
+  Tier 2 actions, every one of them restorable, bounded by a canary slice of at most 10% of
+  traffic. Cannot reach production data from a non-production identity, cannot reach backups,
+  and cannot write its own configuration.'
+budgets:
+  steps: 80
+  tokens: 600000
+  cost_minor_per_day: 8000
+  mutations: 10
+kill_switch: global + per-agent
+evaluation: EVALUATION.yaml@v1
+incident_clocks: []
+review_due: '2027-03-15'
+registered_on: '2026-09-14'
+registered_by: hr-director / agent-registrar

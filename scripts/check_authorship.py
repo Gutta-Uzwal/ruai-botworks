@@ -9,12 +9,12 @@ is lost without anyone noticing.
 
 The rule:
 
-    RU-AIBOTWORKS-REGISTRY/      human-authored, reviewed like code
-    RU-AIBOTWORKS-PLATFORM/      human-authored
-    RU-AIBOTWORKS-DOCS/          human-authored
-    RU-AIBOTWORKS-DEPARTMENTS/   GENERATED — never edited directly
-    RU-AIBOTWORKS-PORTAL/        GENERATED
-    RU-AIBOTWORKS-DATABASE/*seed.sql  GENERATED
+    REGISTRY/      human-authored, reviewed like code
+    PLATFORM/      human-authored
+    DOCS/          human-authored
+    DEPARTMENTS/   GENERATED — never edited directly
+    PORTAL/        GENERATED
+    DATABASE/*seed.sql  GENERATED
     .claude/agents/              GENERATED — synced from the registry
     agent-tools.json             GENERATED
 
@@ -32,17 +32,17 @@ import subprocess
 import sys
 
 GENERATED = (
-    re.compile(r"^RU-AIBOTWORKS/RU-AIBOTWORKS-DEPARTMENTS/"),
-    re.compile(r"^RU-AIBOTWORKS/RU-AIBOTWORKS-PORTAL/"),
-    re.compile(r"^RU-AIBOTWORKS/RU-AIBOTWORKS-DATABASE/.*seed\.sql$"),
+    re.compile(r"^RU-AIBOTWORKS/DEPARTMENTS/"),
+    re.compile(r"^RU-AIBOTWORKS/PORTAL/"),
+    re.compile(r"^RU-AIBOTWORKS/DATABASE/.*seed\.sql$"),
     re.compile(r"^\.claude/agents/.*\.md$"),
     re.compile(r"^agent-tools\.json$"),
 )
 
 # Changing one of these is what legitimately causes the generated tree to change.
 SOURCES = (
-    re.compile(r"^RU-AIBOTWORKS/RU-AIBOTWORKS-REGISTRY/"),
-    re.compile(r"^RU-AIBOTWORKS/RU-AIBOTWORKS-PLATFORM/"),
+    re.compile(r"^RU-AIBOTWORKS/REGISTRY/"),
+    re.compile(r"^RU-AIBOTWORKS/PLATFORM/"),
 )
 
 
@@ -90,8 +90,8 @@ def main() -> int:
         if len(touched_generated) > 10:
             print(f"    ... and {len(touched_generated) - 10} more", file=sys.stderr)
         print(
-            "\n  Fix: make the change in RU-AIBOTWORKS-REGISTRY and regenerate.\n"
-            "       python RU-AIBOTWORKS/RU-AIBOTWORKS-PLATFORM/ru_aibotworks_generate.py",
+            "\n  Fix: make the change in REGISTRY and regenerate.\n"
+            "       python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_generate.py",
             file=sys.stderr,
         )
         return 1
