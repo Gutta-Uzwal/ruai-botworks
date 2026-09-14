@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ruai-school-backend"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+  "Django>=5.2,<6",
+  "django-cors-headers>=4.7,<5",
+]
+
+[tool.setuptools.packages.find]
+include = ["config*", "apps*"]

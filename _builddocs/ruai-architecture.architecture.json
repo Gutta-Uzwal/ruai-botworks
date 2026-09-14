@@ -1,0 +1,539 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "RU AI Botworks \u2014 215 agents, 13 officers, 3 vetoes",
+    "output": "ruai-architecture.html",
+    "quality_profile": "showcase",
+    "visual_preset": "blueprint",
+    "views": [
+      {
+        "id": "decision-path",
+        "label": "How a build reaches production",
+        "focus": [
+          "ceo",
+          "cto",
+          "web-architect",
+          "workforce",
+          "merge-authority",
+          "gate",
+          "prod"
+        ],
+        "note": "Officers decide. The workforce builds. Verification reports outside the team it verifies."
+      },
+      {
+        "id": "stop-buttons",
+        "label": "The three vetoes",
+        "focus": [
+          "quality-compliance",
+          "security-engineer",
+          "sre",
+          "gate"
+        ],
+        "note": "Three officers can stop a release. Only the CEO overrides, and the cto agent cannot."
+      },
+      {
+        "id": "policy-plane",
+        "label": "Policy and receipts",
+        "focus": [
+          "platform-architect",
+          "policy",
+          "workforce"
+        ],
+        "note": "Cedar checks every tool call and emits an Ed25519 receipt into a hash chain."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "ceo",
+      "type": "external",
+      "label": "CEO",
+      "sublabel": "Uzwal Gutta \u00b7 L5",
+      "pos": [
+        40,
+        360
+      ],
+      "size": [
+        150,
+        66
+      ],
+      "tag": "veto override"
+    },
+    {
+      "id": "cto",
+      "type": "frontend",
+      "label": "cto",
+      "sublabel": "L4 \u00b7 triage + dispatch",
+      "pos": [
+        220,
+        360
+      ],
+      "size": [
+        170,
+        62
+      ],
+      "tag": "only entry point"
+    },
+    {
+      "id": "product-owner",
+      "type": "frontend",
+      "label": "product-owner",
+      "sublabel": "L3 \u00b7 success criteria",
+      "pos": [
+        220,
+        245
+      ],
+      "size": [
+        170,
+        62
+      ]
+    },
+    {
+      "id": "design-owner",
+      "type": "frontend",
+      "label": "design-owner",
+      "sublabel": "L3 \u00b7 owns DESIGN.md",
+      "pos": [
+        220,
+        130
+      ],
+      "size": [
+        170,
+        62
+      ],
+      "tag": "anti-sameness"
+    },
+    {
+      "id": "web-architect",
+      "type": "backend",
+      "label": "web-architect",
+      "sublabel": "L3 \u00b7 Lane A / Lane B",
+      "pos": [
+        440,
+        245
+      ],
+      "size": [
+        170,
+        62
+      ]
+    },
+    {
+      "id": "data-architect",
+      "type": "backend",
+      "label": "data-architect",
+      "sublabel": "L3 \u00b7 schema + grain",
+      "pos": [
+        440,
+        360
+      ],
+      "size": [
+        170,
+        62
+      ]
+    },
+    {
+      "id": "platform-architect",
+      "type": "backend",
+      "label": "platform-architect",
+      "sublabel": "L3 \u00b7 CI + Cedar",
+      "pos": [
+        440,
+        475
+      ],
+      "size": [
+        170,
+        62
+      ]
+    },
+    {
+      "id": "workforce",
+      "type": "cloud",
+      "label": "202 engineers",
+      "sublabel": "94 plugins \u00b7 all L1",
+      "pos": [
+        660,
+        335
+      ],
+      "size": [
+        190,
+        76
+      ],
+      "tag": "MIT \u00b7 forked \u00b7 owned"
+    },
+    {
+      "id": "policy",
+      "type": "security",
+      "label": "protect-mcp",
+      "sublabel": "Cedar + Ed25519",
+      "pos": [
+        660,
+        500
+      ],
+      "size": [
+        190,
+        62
+      ],
+      "tag": "audit mode first"
+    },
+    {
+      "id": "testing-architect",
+      "type": "security",
+      "label": "testing-architect",
+      "sublabel": "L3 \u00b7 quality bar",
+      "pos": [
+        890,
+        110
+      ],
+      "size": [
+        160,
+        62
+      ]
+    },
+    {
+      "id": "merge-authority",
+      "type": "security",
+      "label": "merge-authority",
+      "sublabel": "L2 \u00b7 READ-ONLY",
+      "pos": [
+        890,
+        235
+      ],
+      "size": [
+        160,
+        62
+      ],
+      "tag": "blocks the merge"
+    },
+    {
+      "id": "quality-compliance",
+      "type": "security",
+      "label": "quality-compliance",
+      "sublabel": "L3 \u00b7 conformance",
+      "pos": [
+        890,
+        360
+      ],
+      "size": [
+        160,
+        62
+      ],
+      "tag": "VETO"
+    },
+    {
+      "id": "security-engineer",
+      "type": "security",
+      "label": "security-engineer",
+      "sublabel": "L2 \u00b7 vulnerabilities",
+      "pos": [
+        890,
+        475
+      ],
+      "size": [
+        160,
+        62
+      ],
+      "tag": "VETO"
+    },
+    {
+      "id": "sre",
+      "type": "security",
+      "label": "sre",
+      "sublabel": "L2 \u00b7 prod stability",
+      "pos": [
+        890,
+        590
+      ],
+      "size": [
+        160,
+        62
+      ],
+      "tag": "VETO"
+    },
+    {
+      "id": "gate",
+      "type": "database",
+      "label": "UAT gate",
+      "sublabel": "9 job families",
+      "pos": [
+        1150,
+        240
+      ],
+      "size": [
+        160,
+        66
+      ],
+      "tag": "all green or nothing"
+    },
+    {
+      "id": "release-manager",
+      "type": "messagebus",
+      "label": "release-manager",
+      "sublabel": "L2 \u00b7 routes failures",
+      "pos": [
+        1150,
+        400
+      ],
+      "size": [
+        170,
+        62
+      ]
+    },
+    {
+      "id": "dependency-steward",
+      "type": "messagebus",
+      "label": "dependency-steward",
+      "sublabel": "L2 \u00b7 pins + teardown",
+      "pos": [
+        660,
+        620
+      ],
+      "size": [
+        190,
+        62
+      ]
+    },
+    {
+      "id": "prod",
+      "type": "database",
+      "label": "main",
+      "sublabel": "production",
+      "pos": [
+        1150,
+        110
+      ],
+      "size": [
+        140,
+        66
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Owned and genome-validated \u2014 .claude/agents/",
+      "wraps": [
+        "cto",
+        "product-owner",
+        "design-owner",
+        "web-architect",
+        "data-architect",
+        "platform-architect",
+        "testing-architect",
+        "merge-authority",
+        "quality-compliance",
+        "security-engineer",
+        "sre",
+        "release-manager",
+        "dependency-steward"
+      ]
+    },
+    {
+      "kind": "security-group",
+      "label": "Verification \u2014 reports OUT of Build",
+      "wraps": [
+        "testing-architect",
+        "merge-authority",
+        "quality-compliance",
+        "security-engineer",
+        "sre"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "ceo-cto",
+      "from": "ceo",
+      "to": "cto",
+      "label": "/build",
+      "variant": "emphasis",
+      "labelDy": -27
+    },
+    {
+      "id": "cto-po",
+      "from": "cto",
+      "to": "product-owner"
+    },
+    {
+      "id": "po-do",
+      "from": "product-owner",
+      "to": "design-owner",
+      "label": "then design"
+    },
+    {
+      "id": "do-wa",
+      "from": "design-owner",
+      "to": "web-architect",
+      "label": "DESIGN.md approved"
+    },
+    {
+      "id": "cto-wa",
+      "from": "cto",
+      "to": "web-architect",
+      "label": "dispatch",
+      "variant": "emphasis"
+    },
+    {
+      "id": "cto-da",
+      "from": "cto",
+      "to": "data-architect"
+    },
+    {
+      "id": "cto-pa",
+      "from": "cto",
+      "to": "platform-architect"
+    },
+    {
+      "id": "wa-work",
+      "from": "web-architect",
+      "to": "workforce",
+      "label": "invoke by name",
+      "variant": "emphasis",
+      "labelDy": -70
+    },
+    {
+      "id": "da-work",
+      "from": "data-architect",
+      "to": "workforce"
+    },
+    {
+      "id": "pa-policy",
+      "from": "platform-architect",
+      "to": "policy",
+      "label": "writes Cedar",
+      "variant": "security",
+      "labelDy": -38
+    },
+    {
+      "id": "policy-work",
+      "from": "policy",
+      "to": "workforce",
+      "label": "receipt per call",
+      "variant": "security"
+    },
+    {
+      "id": "ds-policy",
+      "from": "dependency-steward",
+      "to": "policy",
+      "label": "pins",
+      "variant": "dashed"
+    },
+    {
+      "id": "work-review",
+      "from": "workforce",
+      "to": "merge-authority",
+      "label": "candidate",
+      "variant": "emphasis"
+    },
+    {
+      "id": "ta-ma",
+      "from": "testing-architect",
+      "to": "merge-authority",
+      "label": "reports to",
+      "variant": "security",
+      "labelDy": 24
+    },
+    {
+      "id": "review-gate",
+      "from": "merge-authority",
+      "to": "gate",
+      "label": "approved",
+      "variant": "emphasis"
+    },
+    {
+      "id": "qc-gate",
+      "from": "quality-compliance",
+      "to": "gate",
+      "variant": "security",
+      "via": [
+        [
+          1105,
+          391
+        ],
+        [
+          1105,
+          273
+        ]
+      ]
+    },
+    {
+      "id": "sec-gate",
+      "from": "security-engineer",
+      "to": "gate",
+      "variant": "security",
+      "via": [
+        [
+          1120,
+          506
+        ],
+        [
+          1120,
+          273
+        ]
+      ]
+    },
+    {
+      "id": "sre-gate",
+      "from": "sre",
+      "to": "gate",
+      "variant": "security",
+      "via": [
+        [
+          1135,
+          621
+        ],
+        [
+          1135,
+          273
+        ]
+      ]
+    },
+    {
+      "id": "gate-prod",
+      "from": "gate",
+      "to": "prod",
+      "label": "job success",
+      "variant": "emphasis",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "gate-rm",
+      "from": "gate",
+      "to": "release-manager",
+      "label": "routing",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Owned, not rented",
+      "items": [
+        "202 engineers forked from wshobson/agents \u2192 ruai-botworks/agents under MIT",
+        "13 officers written in-house",
+        "Perpetual and irrevocable. Attribution is the only condition"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Verification sits outside Build",
+      "items": [
+        "merge-authority reports to testing-architect",
+        "It holds no Write and no Edit",
+        "Enforced by Cedar policy, not by convention"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Three stop buttons",
+      "items": [
+        "quality-compliance, security-engineer, sre",
+        "The cto agent cannot override any of them",
+        "Only the CEO can. An autonomous CTO is delivery pressure"
+      ]
+    }
+  ]
+}

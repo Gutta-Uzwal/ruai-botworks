@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+projects/school/backend/.venv/
+projects/school/backend/*.egg-info/
+projects/school/backend/db.sqlite3
+projects/school/frontend/node_modules/
+projects/school/frontend/dist/
