@@ -27,4 +27,17 @@ jobs:
       - name: Promote UAT to main
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh pr merge --merge uat-to-main
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          pr_number="$(gh pr list --repo "$GH_REPO" --base main --head uat --state open --json number --jq '.[0].number')"
+          if [ -z "$pr_number" ]; then
+            pr_url="$(gh pr create \
+              --repo "$GH_REPO" \
+              --base main \
+              --head uat \
+              --title "Promote UAT to main" \
+              --body "Automated promotion after the UAT gate passed.")"
+            pr_number="$(gh pr view "$pr_url" --repo "$GH_REPO" --json number --jq '.number')"
+          fi
+          gh pr merge "$pr_number" --repo "$GH_REPO" --merge --delete-branch=false
