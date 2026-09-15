@@ -193,13 +193,18 @@ class Genome:
         self._passed("I9", "no veto or read-only holder can write to what it blocks")
 
     def i10_every_project_has_design(self) -> None:
+        # Layout is projects/<domain>/<client-project>/, so a project is the second
+        # level. Checking the first level would demand a DESIGN.md of a domain folder
+        # and never look inside a real project at all.
         projects = Path(__file__).resolve().parents[2] / "projects"
         if not projects.exists():
             self._passed("I10", "no projects directory yet — nothing to check")
             return
         missing = [
-            p.name
-            for p in sorted(projects.iterdir())
+            f"{domain.name}/{p.name}"
+            for domain in sorted(projects.iterdir())
+            if domain.is_dir() and not domain.name.startswith("_")
+            for p in sorted(domain.iterdir())
             if p.is_dir() and not p.name.startswith("_") and not (p / "DESIGN.md").exists()
         ]
         if missing:
