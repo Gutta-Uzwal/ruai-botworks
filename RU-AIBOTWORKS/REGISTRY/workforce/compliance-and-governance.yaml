@@ -1,0 +1,99 @@
+# RU-AIBOTWORKS — Compliance & Governance · officer: quality-compliance · division: Delivery
+# 8 engineers. Documented non-conformance blocks the release.
+#
+# Read-only throughout — quality-compliance holds a veto (invariant 9).
+
+department: compliance-and-governance
+agents:
+
+  # ──────────────── Accessibility Compliance · 4 ────────────────
+  - name: accessibility-lead
+    role: Own the WCAG 2.2 AA bar on every delivered interface
+    model: opus
+    plugin: accessibility-compliance
+    team: accessibility-compliance
+    tier: 0
+    lead: true
+    read_only: true
+    domains: [source-code]
+    skills:
+      - { id: wcag-conformance-scoping, about: "Which success criteria apply to this interface, and the evidence each one needs" }
+
+  - name: accessibility-expert
+    role: WCAG audits, remediation guidance and assistive-technology testing
+    model: opus
+    plugin: accessibility-compliance
+    team: accessibility-compliance
+    tier: 0
+    read_only: true
+    domains: [source-code]
+    skills:
+      - { id: assistive-technology-audit, about: "Auditing with a screen reader running, because the accessibility tree on paper is not the experience" }
+
+  - name: accessibility-automation-analyst
+    role: Automated a11y scanning in the gate and triage of its output
+    model: sonnet
+    plugin: accessibility-compliance
+    team: accessibility-compliance
+    tier: 0
+    read_only: true
+    domains: [source-code, test-artifacts]
+    skills:
+      - { id: automated-scan-limits, about: "Naming the roughly two-thirds of WCAG no scanner can decide, so a green scan is not read as conformance" }
+
+  - name: inclusive-content-analyst
+    role: Plain language, reading level and cognitive accessibility
+    model: sonnet
+    plugin: accessibility-compliance
+    team: accessibility-compliance
+    tier: 0
+    read_only: true
+    domains: [content]
+    skills:
+      - { id: plain-language-review, about: "Reading level, sentence length and instructions a stressed user can follow" }
+
+  # ──────────────── Agent Governance · 4 ────────────────
+  - name: agent-governance-lead
+    role: Own the production readiness gate for every agent
+    model: opus
+    plugin: review-agent-governance
+    team: agent-governance
+    tier: 0
+    lead: true
+    read_only: true
+    domains: [policy, observability]
+    skills:
+      - { id: readiness-gate-scoring, about: "Scoring Appendix B from evidence rather than intent — a kill switch never pulled is a no" }
+
+  - name: registration-record-auditor
+    role: Audit every agent's registration record against the standard
+    model: opus
+    plugin: review-agent-governance
+    team: agent-governance
+    tier: 0
+    read_only: true
+    domains: [policy]
+    skills:
+      - { id: blast-radius-verification, about: "Rejecting any blast radius that is not a number and a bound" }
+
+  - name: nonconformance-recorder
+    role: Record documented non-conformance and track it to closure
+    model: sonnet
+    plugin: security-compliance
+    team: agent-governance
+    tier: 0
+    read_only: true
+    domains: [policy]
+    skills:
+      - { id: nonconformance-evidence-chain, about: "A finding, its evidence, its owner and its expiry — an exception with no expiry is a permanent gap" }
+
+  - name: regulatory-mapping-analyst
+    role: Map controls to EU AI Act, ISO 42001, NIST AI RMF and SOC 2
+    model: opus
+    plugin: security-compliance
+    team: agent-governance
+    tier: 0
+    read_only: true
+    domains: [policy]
+    skills:
+      - { id: framework-currency-review, about: "Re-verifying framework versions and regulatory deadlines every six months, because they move" }

@@ -1,0 +1,150 @@
+# RU-AIBOTWORKS — Release Engineering · officer: release-manager · division: Delivery
+# 14 engineers. Promote what is green; route what is not; fix nothing.
+
+department: release-engineering
+agents:
+
+  # ──────────────── Release & Deploy · 8 ────────────────
+  - name: release-lead
+    role: Sequence promotion and route every failure to its owning officer
+    model: opus
+    plugin: git-pr-workflows
+    team: release-and-deploy
+    tier: 2
+    lead: true
+    domains: [release-artifacts]
+    skills:
+      - { id: failure-routing, about: "Reading a failure well enough to route it once, correctly, without attempting the fix" }
+
+  - name: git-workflow-engineer
+    role: Branch flow, PR hygiene and merge strategy
+    model: sonnet
+    plugin: git-pr-workflows
+    team: release-and-deploy
+    tier: 1
+    domains: [release-artifacts]
+    skills:
+      - { id: branch-protection-verification, about: "Proving a direct push to main is rejected, rather than assuming the rule is on" }
+
+  - name: deployment-validator
+    role: Post-deploy verification and smoke checks
+    model: sonnet
+    plugin: deployment-validation
+    team: release-and-deploy
+    tier: 1
+    domains: [release-artifacts]
+    skills:
+      - { id: post-deploy-verification, about: "Checking the thing that was deployed is the thing that was approved, by hash" }
+
+  - name: rollback-engineer
+    role: Rehearse and execute rollbacks
+    model: opus
+    plugin: deployment-validation
+    team: release-and-deploy
+    tier: 2
+    domains: [release-artifacts, infrastructure]
+    skills:
+      - { id: rollback-rehearsal, about: "Running the rollback before it is needed, because an untested rollback is a hope" }
+
+  - name: release-notes-engineer
+    role: Generate release notes from what shipped
+    model: haiku
+    plugin: documentation-generation
+    team: release-and-deploy
+    tier: 1
+    domains: [content]
+    skills:
+      - { id: notes-from-diff, about: "Notes derived from the merged diff, never from the intention recorded in the ticket" }
+
+  - name: artifact-signing-engineer
+    role: Sign and attest build artifacts
+    model: opus
+    plugin: deployment-validation
+    team: release-and-deploy
+    tier: 2
+    domains: [release-artifacts]
+    skills:
+      - { id: build-provenance-attestation, about: "Attesting what built this artifact, from what source, with what toolchain" }
+
+  - name: aibom-engineer
+    role: AI bill of materials per release
+    model: sonnet
+    plugin: deployment-validation
+    team: release-and-deploy
+    tier: 1
+    domains: [release-artifacts, dependencies]
+    skills:
+      - { id: aibom-composition, about: "Models, prompts, datasets, tools and their pins — the parts an SBOM does not cover" }
+
+  - name: change-freeze-enforcer
+    role: Enforce freeze windows read by the policy plane
+    model: haiku
+    plugin: deployment-validation
+    team: release-and-deploy
+    tier: 0
+    domains: [policy]
+    skills:
+      - { id: freeze-window-enforcement, about: "A freeze the runtime enforces, not one that lives in a calendar invitation" }
+
+  # ──────────────── Documentation · 6 ────────────────
+  - name: documentation-lead
+    role: Own docs regenerated from what shipped
+    model: sonnet
+    plugin: documentation-standards
+    team: documentation
+    tier: 1
+    lead: true
+    domains: [content]
+    skills:
+      - { id: generated-doc-discipline, about: "Every figure computed from one source, so two documents cannot disagree" }
+
+  - name: api-documentation-engineer
+    role: API reference generated from contracts
+    model: sonnet
+    plugin: code-documentation
+    team: documentation
+    tier: 1
+    domains: [content, api-contracts]
+    skills:
+      - { id: contract-derived-reference, about: "Reference generated from the schema, so drift between doc and API is impossible" }
+
+  - name: architecture-diagram-engineer
+    role: C4 diagrams and Mermaid that parses in the gate
+    model: sonnet
+    plugin: c4-architecture
+    team: documentation
+    tier: 1
+    domains: [content]
+    skills:
+      - { id: c4-level-selection, about: "Context, container, component — picking the level that answers the reader's actual question" }
+      - { id: diagram-parse-verification, about: "Every Mermaid block parsed in CI, because a broken diagram fails silently in most readers" }
+
+  - name: runbook-author
+    role: Operational runbooks that a tired on-call engineer can follow
+    model: sonnet
+    plugin: documentation-standards
+    team: documentation
+    tier: 1
+    domains: [content]
+    skills:
+      - { id: runbook-executability, about: "Commands that can be pasted, decision points that are binary, and no step that says investigate" }
+
+  - name: link-integrity-analyst
+    role: Internal and external link checking
+    model: haiku
+    plugin: documentation-standards
+    team: documentation
+    tier: 0
+    domains: [content]
+    skills:
+      - { id: link-rot-detection, about: "Checking external links too, because a dead citation is a dead claim" }
+
+  - name: client-handover-author
+    role: The pack a client receives at delivery
+    model: sonnet
+    plugin: documentation-generation
+    team: documentation
+    tier: 1
+    domains: [content]
+    skills:
+      - { id: handover-pack-composition, about: "The site, the receipts and the operating instructions — what a client can act on without us" }

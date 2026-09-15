@@ -1,0 +1,188 @@
+# RU-AIBOTWORKS — Mobile Engineering · officer: web-architect · division: Delivery
+# 17 engineers. Lane C — three sub-lanes, one per project, never two.
+# Added by ADR-003.
+
+department: mobile-engineering
+agents:
+
+  # ─────────────── C1 · Android Native · Kotlin + Compose · 6 ───────────────
+  - name: android-architect
+    role: Android app architecture, module boundaries and the C1 build path
+    model: opus
+    plugin: android-native
+    team: android-native
+    tier: 1
+    lead: true
+    domains: [source-code, build-config]
+    skills:
+      - { id: android-module-architecture, about: "Feature modules, Gradle boundaries and a dependency graph that keeps build times sane" }
+      - { id: android-lifecycle-correctness, about: "Configuration change, process death and saved state — the three that produce most Android defects" }
+
+  - name: jetpack-compose-engineer
+    role: Declarative Android UI in Jetpack Compose
+    model: sonnet
+    plugin: android-native
+    team: android-native
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: compose-state-hoisting, about: "Stateless composables, hoisted state and recomposition scope you can actually reason about" }
+      - { id: compose-recomposition-performance, about: "Stability, keys and derivedStateOf — finding the recomposition storm before the device does" }
+
+  - name: material3-design-engineer
+    role: Material Design 3 implementation, dynamic colour and theming
+    model: sonnet
+    plugin: android-native
+    team: android-native
+    tier: 1
+    domains: [source-code, design-tokens]
+    skills:
+      - { id: material3-theming, about: "Colour roles, dynamic colour and typography scale that stays legible in both themes" }
+
+  - name: android-data-engineer
+    role: Room, DataStore, offline-first sync and WorkManager
+    model: sonnet
+    plugin: android-native
+    team: android-native
+    tier: 1
+    domains: [source-code, on-device-data]
+    skills:
+      - { id: offline-first-sync, about: "Conflict resolution, tombstones and a sync that survives a week offline" }
+
+  - name: android-performance-engineer
+    role: Startup time, jank, memory and baseline profiles
+    model: sonnet
+    plugin: android-native
+    team: android-native
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: android-startup-profiling, about: "Cold-start budgets, baseline profiles and measuring on a low-end device rather than a flagship" }
+
+  - name: play-store-release-engineer
+    role: Signing, app bundles, staged rollout and Play Console policy
+    model: sonnet
+    plugin: android-native
+    team: android-native
+    tier: 2
+    domains: [build-config, release-artifacts]
+    skills:
+      - { id: staged-rollout-management, about: "Percentage rollout, halt criteria and the rollback that is really a roll-forward" }
+
+  # ─────────────── C2 · Flutter Cross-Platform · 4 ───────────────
+  - name: flutter-expert
+    role: Flutter architecture, widget composition and multi-platform delivery
+    model: opus
+    plugin: flutter-development
+    team: flutter
+    tier: 1
+    lead: true
+    domains: [source-code]
+    skills:
+      - { id: flutter-widget-architecture, about: "Composition over inheritance, const constructors and rebuild boundaries" }
+      - { id: flutter-platform-targeting, about: "What one codebase genuinely shares across Android, iOS and web — and what it never will" }
+
+  - name: dart-pro
+    role: Dart 3 language craft — records, patterns, sound null safety
+    model: sonnet
+    plugin: flutter-development
+    team: flutter
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: dart-pattern-matching, about: "Sealed classes and exhaustive switches that make illegal states unrepresentable" }
+
+  - name: flutter-state-engineer
+    role: State management, dependency injection and navigation
+    model: sonnet
+    plugin: flutter-development
+    team: flutter
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: flutter-state-selection, about: "Choosing a state solution from the app's actual shape rather than from a blog post" }
+
+  - name: flutter-platform-channel-engineer
+    role: Platform channels, plugins and native interop
+    model: sonnet
+    plugin: flutter-development
+    team: flutter
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: platform-channel-contracts, about: "Typed channel boundaries and failing gracefully when the native side is absent" }
+
+  # ─────────────── C3 · React Native Cross-Platform · 3 ───────────────
+  - name: react-native-engineer
+    role: React Native architecture and the C3 build path
+    model: opus
+    plugin: react-native-development
+    team: react-native
+    tier: 1
+    lead: true
+    domains: [source-code]
+    skills:
+      - { id: react-native-architecture, about: "New architecture, bridge cost and what actually belongs on the native side" }
+      - { id: rn-web-skill-reuse, about: "Which web-lane React patterns carry over to mobile, and which quietly do not" }
+
+  - name: expo-release-engineer
+    role: Expo build pipeline, EAS and over-the-air updates
+    model: sonnet
+    plugin: react-native-development
+    team: react-native
+    tier: 2
+    domains: [build-config, release-artifacts]
+    skills:
+      - { id: ota-update-safety, about: "Update channels, rollback and never shipping a native-incompatible JS bundle" }
+
+  - name: rn-native-module-engineer
+    role: Native modules, gesture handling and Reanimated
+    model: sonnet
+    plugin: react-native-development
+    team: react-native
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: reanimated-gesture-design, about: "Worklets on the UI thread, and keeping 60fps off the JS thread entirely" }
+
+  # ─────────────── Mobile Quality & Release · 4 ───────────────
+  - name: mobile-qa-lead
+    role: Device matrix, release criteria and QA across all three sub-lanes
+    model: opus
+    plugin: android-native
+    team: mobile-quality
+    tier: 1
+    lead: true
+    domains: [source-code, test-artifacts]
+    skills:
+      - { id: device-matrix-selection, about: "Choosing the device and API-level matrix from the client's real user base, not from popularity charts" }
+
+  - name: mobile-qa-automation-engineer
+    role: UI test automation across Compose, Flutter and React Native
+    model: sonnet
+    plugin: android-native
+    team: mobile-quality
+    tier: 1
+    domains: [test-artifacts]
+    skills:
+      - { id: mobile-ui-test-stability, about: "Idling resources and deterministic waits — why sleep-based mobile tests always rot" }
+
+  - name: mobile-accessibility-auditor
+    role: TalkBack, focus order, touch targets and content labelling
+    model: sonnet
+    plugin: android-native
+    team: mobile-quality
+    tier: 0
+    domains: [source-code]
+    skills:
+      - { id: mobile-screen-reader-audit, about: "Auditing with TalkBack actually running, because the accessibility tree lies on paper" }
+
+  - name: mobile-security-engineer
+    role: On-device storage, certificate pinning and reverse-engineering resistance
+    model: opus
+    plugin: frontend-mobile-security
+    team: mobile-quality
+    tier: 0
+    domains: [source-code]
+    skills:
+      - { id: on-device-secret-handling, about: "Keystore, no secrets in the bundle, and accepting that a shipped app is a decompiled app" }

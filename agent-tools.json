@@ -1,0 +1,446 @@
+{
+  "version": 1,
+  "_generated": "PLATFORM/ru_aibotworks_generate.py — do not hand-edit",
+  "_source": "REGISTRY/tools.yaml",
+  "egress": {
+    "default": "deny",
+    "allowlist": [],
+    "note": "Tool-mediated publication counts as egress. A tool that writes somewhere world-readable is an outbound channel regardless of what it is called."
+  },
+  "forbidden_identities": [
+    "backup-operator",
+    "reaper",
+    "control-plane-operator"
+  ],
+  "tools": [
+    {
+      "name": "repository.read",
+      "version": 1,
+      "owner": "platform-engineering",
+      "description": "Read a file from the bound repository.",
+      "irreversibility": 0,
+      "side_effects": [],
+      "idempotent": true,
+      "rollback": "none",
+      "scope": {
+        "resource_pattern": "repository:{repository_id}/read-only"
+      },
+      "limits": {
+        "per_task": 400,
+        "per_agent_hour": 4000,
+        "mutation_budget": 0
+      },
+      "gates": {
+        "approval": "none",
+        "blocked_if": []
+      },
+      "evidence": {
+        "log_before_state": true,
+        "retention_days": 2555
+      }
+    },
+    {
+      "name": "repository.search",
+      "version": 1,
+      "owner": "platform-engineering",
+      "description": "Search file contents in the bound repository.",
+      "irreversibility": 0,
+      "side_effects": [],
+      "idempotent": true,
+      "rollback": "none",
+      "scope": {
+        "resource_pattern": "repository:{repository_id}/read-only"
+      },
+      "limits": {
+        "per_task": 400,
+        "per_agent_hour": 4000,
+        "mutation_budget": 0
+      },
+      "gates": {
+        "approval": "none",
+        "blocked_if": []
+      },
+      "evidence": {
+        "log_before_state": true,
+        "retention_days": 2555
+      }
+    },
+    {
+      "name": "observability.read",
+      "version": 1,
+      "owner": "site-reliability",
+      "description": "Read traces, metrics and the trajectory log.",
+      "irreversibility": 0,
+      "side_effects": [],
+      "idempotent": true,
+      "rollback": "none",
+      "scope": {
+        "resource_pattern": "observability:{tenant_id}/read-only"
+      },
+      "limits": {
+        "per_task": 200,
+        "per_agent_hour": 2000,
+        "mutation_budget": 0
+      },
+      "gates": {
+        "approval": "none",
+        "blocked_if": []
+      },
+      "evidence": {
+        "log_before_state": true,
+        "retention_days": 2555
+      },
+      "note": "Read only, and the observability store is written under a different principal. No agent may alter or delete it (§5 plane 7)."
+    },
+    {
+      "name": "database.query",
+      "version": 1,
+      "owner": "data-and-ai",
+      "description": "Run a read-only SELECT against a bound database.",
+      "irreversibility": 0,
+      "side_effects": [],
+      "idempotent": true,
+      "rollback": "none",
+      "scope": {
+        "resource_pattern": "database:{tenant_id}/{database_name}/read-only",
+        "requires_referential_check": [
+          "database_name"
+        ]
+      },
+      "limits": {
+        "per_task": 100,
+        "per_agent_hour": 1000,
+        "mutation_budget": 0
+      },
+      "gates": {
+        "approval": "none",
+        "blocked_if": []
+      },
+      "evidence": {
+        "log_before_state": true,
+        "retention_days": 2555
+      }
+    },
+    {
+      "name": "repository.write",
+      "version": 1,
+      "owner": "platform-engineering",
+      "description": "Write a file in the agent's workspace branch.",
+      "irreversibility": 1,
+      "side_effects": [
+        "workspace contents change"
+      ],
+      "idempotent": true,
+      "rollback": "git checkout -- <path>",
+      "scope": {
+        "resource_pattern": "repository:{repository_id}/workspace/{branch}"
+      },
+      "limits": {
+        "per_task": 100,
+        "per_agent_hour": 800,
+        "mutation_budget": 100
+      },
+      "gates": {
+        "approval": "none",
+        "blocked_if": [
+          "change_freeze.active",
+          "target.is_agent_configuration"
+        ]
+      },
+      "evidence": {
+        "log_before_state": true,
+        "retention_days": 2555
+      },
+      "note": "A1.6 — target.is_agent_configuration blocks writes to agent charters, registration records, tool manifests, skills, hooks, schedules, shell startup files and anything on PATH. Symlinks are resolved at write time."
+    },
+    {
+      "name": "repository.edit",
+      "version": 1,
+      "owner": "platform-engineering",
+      "description": "Replace an exact string in a workspace file.",
+      "irreversibility": 1,
+      "side_effects": [
+        "workspace contents change"
+      ],
+      "idempotent": false,
+      "rollback": "git checkout -- <path>",
+      "scope": {
+        "resource_pattern": "repository:{repository_id}/workspace/{branch}"
+      },
+      "limits": {
+        "per_task": 200,
+        "per_agent_hour": 1500,
+        "mutation_budget": 200
+      },
+      "gates": {
+        "approval": "none",
+        "blocked_if": [
+          "change_freeze.active",
+          "target.is_agent_configuration"
+        ]
+      },
+      "evidence": {
+        "log_before_state": true,
+        "retention_days": 2555
+      }
+    },
+    {
+      "name": "branch.commit",
+      "version": 1,
+      "owner": "release-engineering",
+      "description": "Commit staged changes to a workspace branch.",
+      "irreversibility": 1,
+      "side_effects": [
+        "branch history advances"
+      ],
+      "idempotent": false,
+      "rollback": "git reset --hard <previous-sha>",
+      "scope": {
+        "resource_pattern": "repository:{repository_id}/workspace/{branch}"
+      },
+      "limits": {
+        "per_task": 20,
+        "per_agent_hour": 100,
+        "mutation_budget": 20
+      },
+      "gates": {
+        "approval": "none",
+        "blocked_if": [
+          "change_freeze.active",
+          "flags.contains_no_verify"
+        ]
+      },
+      "evidence": {
+        "log_before_state": true,
+        "retention_days": 2555
+      }
+    },
+    {
+      "name": "record.soft_delete",
+      "version": 1,
+      "owner": "data-and-ai",
+      "description": "Mark a record deleted with a tombstone. Physical removal is not performed.",
+      "irreversibility": 1,
+      "side_effects": [
+        "record hidden from normal queries"
+      ],
+      "idempotent": true,
+      "rollback": "UPDATE <table> SET deleted_at = NULL WHERE id = <id>",
+      "scope": {
+        "resource_pattern": "database:{tenant_id}/{database_name}/{table}",
+        "requires_referential_check": [
+          "database_name",
+          "table",
+          "record_id"
+        ]
+      },
+      "limits": {
+        "per_task": 50,
+        "per_agent_hour": 300,
+        "mutation_budget": 50
+      },
+      "gates": {
+        "approval": "none",
+        "blocked_if": [
+          "change_freeze.active"
+        ]
+      },
+      "evidence": {
+        "log_before_state": true,
+        "retention_days": 2555
+      },
+      "note": "A1.4 — this exists so no agent ever needs a hard-delete verb. The reaper identity performs physical deletion on a schedule, and no agent may assume it."
+    },
+    {
+      "name": "finding.raise",
+      "version": 1,
+      "owner": "compliance-and-governance",
+      "description": "Record a review, compliance or security finding against a project.",
+      "irreversibility": 1,
+      "side_effects": [
+        "finding visible to officers"
+      ],
+      "idempotent": true,
+      "rollback": "finding.withdraw <finding_id>",
+      "scope": {
+        "resource_pattern": "project:{project_id}/findings"
+      },
+      "limits": {
+        "per_task": 40,
+        "per_agent_hour": 200,
+        "mutation_budget": 40
+      },
+      "gates": {
+        "approval": "none",
+        "blocked_if": []
+      },
+      "evidence": {
+        "log_before_state": true,
+        "retention_days": 2555
+      }
+    },
+    {
+      "name": "database.migrate",
+      "version": 1,
+      "owner": "data-and-ai",
+      "description": "Apply a schema migration that has a tested down-migration.",
+      "irreversibility": 2,
+      "side_effects": [
+        "schema changes",
+        "application may require redeploy"
+      ],
+      "idempotent": true,
+      "rollback": "alembic downgrade <revision>   # MUST have been executed in test first",
+      "scope": {
+        "resource_pattern": "database:{tenant_id}/{database_name}/schema",
+        "requires_referential_check": [
+          "database_name",
+          "revision"
+        ]
+      },
+      "limits": {
+        "per_task": 3,
+        "per_agent_hour": 10,
+        "mutation_budget": 3
+      },
+      "gates": {
+        "approval": "single",
+        "blocked_if": [
+          "change_freeze.active",
+          "session.contains_untrusted_content",
+          "down_migration.untested"
+        ]
+      },
+      "evidence": {
+        "log_before_state": true,
+        "retention_days": 2555
+      }
+    },
+    {
+      "name": "deploy.canary",
+      "version": 1,
+      "owner": "platform-engineering",
+      "description": "Deploy to a bounded canary slice with declared halt criteria.",
+      "irreversibility": 2,
+      "side_effects": [
+        "a percentage of traffic reaches new code"
+      ],
+      "idempotent": true,
+      "rollback": "deploy.rollback <previous-release-id>",
+      "scope": {
+        "resource_pattern": "environment:{environment}/canary",
+        "max_traffic_percent": 10
+      },
+      "limits": {
+        "per_task": 5,
+        "per_agent_hour": 20,
+        "mutation_budget": 5
+      },
+      "gates": {
+        "approval": "single",
+        "blocked_if": [
+          "change_freeze.active",
+          "environment.is_production_without_approval",
+          "halt_criteria.undeclared"
+        ]
+      },
+      "evidence": {
+        "log_before_state": true,
+        "retention_days": 2555
+      }
+    },
+    {
+      "name": "release.promote",
+      "version": 1,
+      "owner": "release-engineering",
+      "description": "Promote a release between environments after every gate job succeeded.",
+      "irreversibility": 2,
+      "side_effects": [
+        "release advances to the next environment"
+      ],
+      "idempotent": true,
+      "rollback": "release.rollback <previous-release-id>",
+      "scope": {
+        "resource_pattern": "release:{release_id}/{environment}"
+      },
+      "limits": {
+        "per_task": 2,
+        "per_agent_hour": 10,
+        "mutation_budget": 2
+      },
+      "gates": {
+        "approval": "single",
+        "blocked_if": [
+          "change_freeze.active",
+          "gate.any_job_not_success",
+          "veto.any_active"
+        ]
+      },
+      "evidence": {
+        "log_before_state": true,
+        "retention_days": 2555
+      },
+      "note": "gate.any_job_not_success covers cancelled, timed-out and unscheduled jobs. There is no pass-percentage allowance."
+    },
+    {
+      "name": "dependency.pin",
+      "version": 1,
+      "owner": "supply-chain",
+      "description": "Pin or bump a dependency to an exact commit and record its certification.",
+      "irreversibility": 2,
+      "side_effects": [
+        "build inputs change across the repository"
+      ],
+      "idempotent": true,
+      "rollback": "dependency.pin <previous-sha>",
+      "scope": {
+        "resource_pattern": "repository:{repository_id}/lockfile"
+      },
+      "limits": {
+        "per_task": 10,
+        "per_agent_hour": 40,
+        "mutation_budget": 10
+      },
+      "gates": {
+        "approval": "single",
+        "blocked_if": [
+          "change_freeze.active",
+          "pin.is_branch_name",
+          "certification.missing"
+        ]
+      },
+      "evidence": {
+        "log_before_state": true,
+        "retention_days": 2555
+      }
+    },
+    {
+      "name": "credential.revoke",
+      "version": 1,
+      "owner": "human-resources",
+      "description": "Revoke credentials held by a decommissioned agent.",
+      "irreversibility": 2,
+      "side_effects": [
+        "agent can no longer act"
+      ],
+      "idempotent": true,
+      "rollback": "identity.reissue <agent_id>   # deliberate re-hire, logged",
+      "scope": {
+        "resource_pattern": "identity:agent/{agent_id}"
+      },
+      "limits": {
+        "per_task": 5,
+        "per_agent_hour": 20,
+        "mutation_budget": 5
+      },
+      "gates": {
+        "approval": "single",
+        "blocked_if": []
+      },
+      "evidence": {
+        "log_before_state": true,
+        "retention_days": 2555
+      }
+    }
+  ]
+}

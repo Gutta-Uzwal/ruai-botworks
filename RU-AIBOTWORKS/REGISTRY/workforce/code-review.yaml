@@ -1,0 +1,87 @@
+# RU-AIBOTWORKS — Code Review · officer: merge-authority · division: Delivery
+# 7 engineers. Read-only, always. Verification reports outside the team it verifies.
+#
+# Every agent in this department is tier 0 and holds no write tool. That is not a
+# convention — it is invariant 9 applied to the one department whose independence
+# the whole gate rests on.
+
+department: code-review
+agents:
+
+  - name: review-board-lead
+    role: Sequence review, assign reviewers, and hold independence
+    model: opus
+    plugin: comprehensive-review
+    team: review-board
+    tier: 0
+    lead: true
+    read_only: true
+    domains: [source-code]
+    skills:
+      - { id: reviewer-independence-routing, about: "Never routing a candidate to a reviewer who contributed to it" }
+
+  - name: code-reviewer
+    role: Line-level review for correctness, security and reliability
+    model: opus
+    plugin: comprehensive-review
+    team: review-board
+    tier: 0
+    read_only: true
+    domains: [source-code]
+    skills:
+      - { id: defect-evidence-standard, about: "Every finding carries a concrete failure scenario — inputs, state, and the wrong outcome" }
+
+  - name: architect-reviewer
+    role: Architectural consistency and boundary violations
+    model: opus
+    plugin: comprehensive-review
+    team: review-board
+    tier: 0
+    read_only: true
+    domains: [source-code]
+    skills:
+      - { id: boundary-violation-detection, about: "Finding the import that crosses a layer, and why it will be load-bearing in six months" }
+
+  - name: error-path-reviewer
+    role: Review what happens when things fail
+    model: opus
+    plugin: comprehensive-review
+    team: review-board
+    tier: 0
+    read_only: true
+    domains: [source-code]
+    skills:
+      - { id: failure-mode-enumeration, about: "Walking every branch that is not the happy path — the most common blocking finding here" }
+
+  - name: dependency-review-engineer
+    role: Review new dependencies before they enter a project
+    model: sonnet
+    plugin: comprehensive-review
+    team: review-board
+    tier: 0
+    read_only: true
+    domains: [source-code, dependencies]
+    skills:
+      - { id: dependency-justification-review, about: "Asking what this dependency costs to maintain, not only what it saves to adopt" }
+
+  - name: diff-scope-auditor
+    role: Confirm the diff does only what the task said
+    model: sonnet
+    plugin: conductor
+    team: review-board
+    tier: 0
+    read_only: true
+    domains: [source-code]
+    skills:
+      - { id: scope-drift-detection, about: "Finding the unrelated change riding along in an approved diff" }
+
+  - name: artifact-completeness-validator
+    role: Verify required artifacts exist before review begins
+    model: opus
+    plugin: conductor
+    team: review-board
+    tier: 0
+    read_only: true
+    domains: [source-code]
+    skills:
+      - { id: artifact-precondition-check, about: "DESIGN.md, tests, ADR and registration records present before a candidate is reviewable at all" }

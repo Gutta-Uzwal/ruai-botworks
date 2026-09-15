@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workflow · RU-AIBOTWORKS</title>
+<script>
+(function(){
+  try{
+    if(localStorage.getItem('ruai-auth')==='ok') return;
+  }catch(e){}
+  var here=location.pathname.split('/').pop()||'index.html';
+  location.replace('login.html?next='+encodeURIComponent(here));
+})();
+window.ruaiLogout=function(){
+  try{localStorage.removeItem('ruai-auth');}catch(e){}
+  location.replace('login.html');
+};
+
+(function(){
+  try{
+    var t=localStorage.getItem('ruai-theme');
+    if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);
+  }catch(e){}
+  window.ruaiToggle=function(){
+    var r=document.documentElement,
+        cur=r.getAttribute('data-theme'),
+        sysDark=window.matchMedia('(prefers-color-scheme: dark)').matches,
+        now=cur?cur:(sysDark?'dark':'light'),
+        next=now==='dark'?'light':'dark';
+    r.setAttribute('data-theme',next);
+    try{localStorage.setItem('ruai-theme',next);}catch(e){}
+  };
+})();
+</script>
+<link rel="stylesheet" href="portal.css">
+</head>
+<body>
+<header class="mast">
+  <div class="mast-in">
+    <div class="brand">RU<span>-</span>AIBOTWORKS</div>
+    <nav class="tabs">
+      <a href="index.html">Overview</a>
+      <a href="org-chart.html">Reporting</a>
+      <a href="hierarchy.html">Hierarchy</a>
+      <a href="workforce.html">Workforce</a>
+      <a href="projects.html">Projects</a>
+      <a href="workflow.html" aria-current="page">Workflow</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="diagram.html">Diagram</a>
+      <a href="governance.html">Governance</a>
+      <button class="theme-btn" onclick="ruaiToggle()" aria-label="Toggle theme">◐ theme</button>
+      <button class="theme-btn" onclick="ruaiLogout()" aria-label="Sign out">sign out</button>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+<div class="phead"><p class="eyebrow">Workflow</p><h1>How a build reaches production</h1><p class="lede">Sixteen steps. Two of them are yours. Everything between them is governed, receipted, and reviewed by someone who did not write it.</p></div><div class="flow"><div class="step "><span class="i">/build</span><div><div class="t">CEO or officer opens the work</div><p class="b">The only entry point. Never an orchestrator — capability does not confer authority.</p></div></div><div class="step "><span class="i">triage</span><div><div class="t">cto sizes it XS / S / M / L</div><p class="b">L4, and belongs to cto alone. Under-sizing is the cheapest way to route around review, so this is the one place to be suspicious of your own convenience.</p></div></div><div class="step "><span class="i">service</span><div><div class="t">service-management-lead checks the calendar</div><p class="b">Is a change freeze active? Which SLA applies? Freeze windows are read by the policy plane, not by a person remembering.</p></div></div><div class="step "><span class="i">requirements</span><div><div class="t">product-owner writes success criteria</div><p class="b">Criteria that can be falsified. A criterion nobody can fail is decoration.</p></div></div><div class="step "><span class="i">privacy</span><div><div class="t">data-protection-officer scopes the regimes</div><p class="b">GDPR always. HIPAA if healthcare, PCI DSS if e-commerce, SOC 2 if SaaS or CRM. Decided now, not at audit.</p></div></div><div class="step "><span class="i">design</span><div><div class="t">design-owner commits DESIGN.md</div><p class="b">One design generator, one aesthetic family. Two active generators give the workforce contradictory style instructions.</p></div></div><div class="step ceo"><span class="i">CEO</span><div><div class="t">You approve the design</div><p class="b">Your first decision. The only defence against ten sibling websites.</p></div></div><div class="step "><span class="i">architecture</span><div><div class="t">web-architect and data-architect decide</div><p class="b">Lane A, B, C1, C2 or C3 — exactly one. Schema, grain, retention and the ADR.</p></div></div><div class="step "><span class="i">build</span><div><div class="t">Architects dispatch engineers</div><p class="b">Each engineer returns a candidate, never a merge. Every tool call passes Cedar and leaves an Ed25519 receipt in a hash chain.</p></div></div><div class="step "><span class="i">review</span><div><div class="t">merge-authority reviews</div><p class="b">Read-only, reporting outside the team that wrote the code. Blocks with evidence, never with an opinion.</p></div></div><div class="step ceo"><span class="i">CEO</span><div><div class="t">You approve the merge</div><p class="b">Your second decision. No agent merges its own work.</p></div></div><div class="step "><span class="i">gate</span><div><div class="t">Nine job families run in CI</div><p class="b">Promotion depends on job success, not a pass percentage. A cancelled, timed-out or unscheduled job is a failure.</p></div></div><div class="step stop"><span class="i">vetoes</span><div><div class="t">Three officers may stop it here</div><p class="b">security-engineer on a vulnerability or broken receipt chain · sre on production instability · quality-compliance on documented non-conformance. Only you override.</p></div></div><div class="step "><span class="i">promote</span><div><div class="t">release-manager promotes to main</div><p class="b">Routes failures to the owning officer. Never fixes them.</p></div></div><div class="step "><span class="i">payroll</span><div><div class="t">payroll-controller closes the meter</div><p class="b">Tokens and wall clock per agent, allocated to the project, reconciled against the provider invoice.</p></div></div><div class="step "><span class="i">teardown</span><div><div class="t">dependency-steward uninstalls Tier C</div><p class="b">The step everyone skips, and the reason context budgets rot.</p></div></div></div>
+<h2>Failure routing</h2>
+<p class="sub"><code>release-manager</code> routes. It does not fix. Routing a failure to
+the wrong owner costs a cycle; fixing it yourself costs the separation the whole gate
+depends on.</p>
+<div class="tw"><table>
+<thead><tr><th>Failure</th><th>Goes to</th></tr></thead><tbody>
+<tr><td>Test failure</td><td class="name">testing-architect</td></tr>
+<tr><td>Type error</td><td class="name">owning architect</td></tr>
+<tr><td>Dependency audit or SAST finding</td><td class="name">security-engineer <span class="chip veto">veto</span></td></tr>
+<tr><td>Broken link, Mermaid parse failure</td><td class="name">cto → docgen</td></tr>
+<tr><td>Pin drift, uncertified plugin</td><td class="name">dependency-steward</td></tr>
+<tr><td>Policy receipt chain broken</td><td class="name">security-engineer <span class="chip veto">veto</span></td></tr>
+<tr><td>Cedar policy blocking legitimate work</td><td class="name">platform-architect — loosen from receipts</td></tr>
+<tr><td>E2E failure</td><td class="name">testing-architect</td></tr>
+<tr><td>Golden-trace flip</td><td class="name">dependency-steward — advisory, never blocks</td></tr>
+<tr><td>Missing or stale DESIGN.md</td><td class="name">design-owner</td></tr>
+<tr><td>Production instability</td><td class="name">sre <span class="chip veto">veto</span></td></tr>
+<tr><td>Documented non-conformance</td><td class="name">quality-compliance <span class="chip veto">veto</span></td></tr>
+<tr><td>Privacy finding</td><td class="name">data-protection-officer → quality-compliance</td></tr>
+<tr><td>Budget exhausted</td><td class="name">finance-controller — halts, never warns</td></tr>
+<tr><td>Client-raised incident</td><td class="name">service-management-lead → sre</td></tr>
+</tbody></table></div>
+
+<div class="note"><strong>Two decisions per build.</strong> That is the target shape, and
+the expansion does not change it. Neither <code>coo</code> nor the Data Protection Officer
+sits on the <code>/build</code> path &mdash; corporate escalations stop at an officer, and
+privacy findings reach you only through <code>quality-compliance</code>'s veto.</div>
+
+<footer class="foot">
+  <span>Generated 2026-09-14 from REGISTRY · every figure computed, none asserted</span>
+  <span>278 agents · 19 officers · 3 vetoes</span>
+</footer>
+</main>
+
+<script>
+/* Scroll choreography.
+
+   Sections settle in as they enter the viewport, staggered a little so a long
+   page reads as momentum rather than as a wall arriving at once.
+
+   Deliberately NOT here: hijacking the scroll wheel to interpolate scrollTop.
+   That is what most "smooth scrolling" libraries do, and it costs keyboard
+   paging, screen-reader virtual cursors, trackpad momentum, and find-in-page
+   accuracy. The feel comes from the entrance easing and honest sticky headers,
+   which cost none of those. */
+(function () {
+  var reduce = false;
+  try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (_) {}
+  if (reduce || !('IntersectionObserver' in window)) return;
+
+  var targets = document.querySelectorAll(
+    '.stat, .panel, .tw, .step, details.dept, .chart, .treewrap, h2, .note'
+  );
+  if (!targets.length) return;
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('shown');
+      io.unobserve(entry.target);
+    });
+  }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+
+  targets.forEach(function (el, i) {
+    // Anything already on screen at load skips the entrance entirely — a page
+    // that animates its own first paint just looks slow.
+    var box = el.getBoundingClientRect();
+    if (box.top < window.innerHeight * 0.92) { el.classList.add('shown'); return; }
+    el.setAttribute('data-reveal', '');
+    el.style.transitionDelay = Math.min((i % 5) * 45, 180) + 'ms';
+    io.observe(el);
+  });
+})();
+</script>
+
+</body>
+</html>

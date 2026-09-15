@@ -1,0 +1,272 @@
+# RU-AIBOTWORKS — Data & AI · officer: data-architect · division: Delivery
+# 26 engineers. Schema, grain and retention decided before the data exists.
+
+department: data-and-ai
+agents:
+
+  # ──────────────────── Database Engineering · 10 ────────────────────
+  - name: database-lead
+    role: Sequence schema work and hold grain and retention decisions steady
+    model: opus
+    plugin: database-design
+    team: database-engineering
+    tier: 1
+    lead: true
+    domains: [schema, client-data]
+    skills:
+      - { id: grain-and-retention-decisions, about: "Deciding the row's meaning and its lifespan before the first INSERT, because both are migrations later" }
+
+  - name: database-architect
+    role: Data layer design, technology selection and schema modelling
+    model: opus
+    plugin: database-design
+    team: database-engineering
+    tier: 1
+    domains: [schema]
+    skills:
+      - { id: storage-engine-selection, about: "Relational, document, time-series or vector chosen from access pattern rather than familiarity" }
+
+  - name: sql-pro
+    role: Complex SQL, window functions and query construction
+    model: sonnet
+    plugin: database-design
+    team: database-engineering
+    tier: 1
+    domains: [schema]
+    skills:
+      - { id: set-based-query-construction, about: "Replacing procedural loops with set operations, and reading a query plan before optimising" }
+
+  - name: database-optimizer
+    role: Index strategy, query tuning and partitioning
+    model: opus
+    plugin: database-cloud-optimization
+    team: database-engineering
+    tier: 1
+    domains: [schema]
+    skills:
+      - { id: index-strategy-design, about: "Covering indexes, selectivity and the write cost every index quietly adds" }
+
+  - name: database-admin
+    role: Backup, replication, availability and restore verification
+    model: sonnet
+    plugin: database-migrations
+    team: database-engineering
+    tier: 2
+    domains: [schema, backups]
+    skills:
+      - { id: restore-drill-execution, about: "A backup that has never been restored is not a backup — running the drill and publishing measured RTO" }
+
+  - name: migration-engineer
+    role: Schema migrations with tested down-migrations
+    model: sonnet
+    plugin: database-migrations
+    team: database-engineering
+    tier: 2
+    domains: [schema]
+    skills:
+      - { id: zero-downtime-migration, about: "Expand-migrate-contract, and never shipping a migration whose down path was not run" }
+
+  - name: postgres-specialist
+    role: PostgreSQL-specific design, extensions and tuning
+    model: sonnet
+    plugin: database-design
+    team: database-engineering
+    tier: 1
+    domains: [schema]
+    skills:
+      - { id: postgres-feature-selection, about: "JSONB, partial indexes, CTEs and when each stops being the right tool" }
+
+  - name: sqlserver-specialist
+    role: SQL Server design, T-SQL and the RU-AIBOTWORKS control database
+    model: sonnet
+    plugin: database-design
+    team: database-engineering
+    tier: 2
+    domains: [schema, control-plane-data]
+    skills:
+      - { id: tsql-and-temporal-tables, about: "System-versioned temporal tables for audit history the application cannot rewrite" }
+
+  - name: vector-database-engineer
+    role: Vector stores, embeddings and similarity retrieval
+    model: inherit
+    plugin: llm-application-dev
+    team: database-engineering
+    tier: 1
+    domains: [schema]
+    skills:
+      - { id: embedding-index-design, about: "Chunking, dimensionality and recall measured against a labelled set" }
+
+  - name: data-retention-engineer
+    role: Enforce declared retention periods in the schema itself
+    model: sonnet
+    plugin: database-design
+    team: database-engineering
+    tier: 2
+    domains: [schema, client-data]
+    skills:
+      - { id: retention-enforcement, about: "Soft-delete, tombstone and a reaper identity the agents cannot assume" }
+
+  # ──────────────────── Data Engineering · 8 ────────────────────
+  - name: data-engineering-lead
+    role: Sequence pipeline work and own the contract of what lands
+    model: opus
+    plugin: data-engineering
+    team: data-engineering
+    tier: 1
+    lead: true
+    domains: [pipelines]
+    skills:
+      - { id: data-contract-definition, about: "Schema, freshness and completeness promised to consumers — and alerted on when broken" }
+
+  - name: data-engineer
+    role: ETL and ELT pipelines, warehouses and streaming
+    model: sonnet
+    plugin: data-engineering
+    team: data-engineering
+    tier: 1
+    domains: [pipelines]
+    skills:
+      - { id: idempotent-pipeline-design, about: "Reruns that produce the same result, because a pipeline will be rerun" }
+
+  - name: pyspark-engineer
+    role: PySpark transformations and distributed processing
+    model: sonnet
+    plugin: data-engineering
+    team: data-engineering
+    tier: 1
+    domains: [pipelines]
+    skills:
+      - { id: spark-shuffle-awareness, about: "Partitioning and broadcast joins, and spotting the shuffle that dominates the job" }
+
+  - name: data-quality-engineer
+    role: Validation, expectations and quarantine of bad records
+    model: sonnet
+    plugin: data-validation-suite
+    team: data-engineering
+    tier: 1
+    domains: [pipelines]
+    skills:
+      - { id: expectation-suite-design, about: "Failing the batch loudly rather than letting bad rows reach a dashboard" }
+
+  - name: analytics-engineer
+    role: Modelled marts, metric definitions and semantic consistency
+    model: sonnet
+    plugin: data-engineering
+    team: data-engineering
+    tier: 1
+    domains: [pipelines]
+    skills:
+      - { id: metric-definition-governance, about: "One definition per metric, versioned, so two dashboards cannot disagree" }
+
+  - name: cdc-engineer
+    role: Change data capture and replication into analytics stores
+    model: sonnet
+    plugin: database-migrations
+    team: data-engineering
+    tier: 1
+    domains: [pipelines]
+    skills:
+      - { id: cdc-ordering-guarantees, about: "Ordering, late arrivals and exactly-once semantics that are really effectively-once" }
+
+  - name: data-scientist
+    role: Exploratory analysis and statistical answers to business questions
+    model: inherit
+    plugin: machine-learning-ops
+    team: data-engineering
+    tier: 0
+    domains: [pipelines]
+    skills:
+      - { id: analysis-honesty, about: "Stating uncertainty, sample size and what the data cannot answer" }
+
+  - name: data-lab-curator
+    role: Dataset ingest, licence clearance and the gate out of the lab
+    model: sonnet
+    plugin: data-engineering
+    team: data-engineering
+    tier: 1
+    domains: [pipelines]
+    skills:
+      - { id: dataset-licence-clearance, about: "Clearing commercial use before a dataset influences anything that ships" }
+
+  # ──────────────────── ML & LLM · 8 ────────────────────
+  - name: ml-lead
+    role: Sequence model work and hold the evaluation gate
+    model: opus
+    plugin: machine-learning-ops
+    team: ml-and-llm
+    tier: 1
+    lead: true
+    domains: [models]
+    skills:
+      - { id: model-promotion-gate, about: "A promoted model may enter the pipeline; it has not shipped — and the difference is evaluated" }
+
+  - name: ai-engineer
+    role: LLM applications, RAG systems and tool-using pipelines
+    model: opus
+    plugin: llm-application-dev
+    team: ml-and-llm
+    tier: 1
+    domains: [models]
+    skills:
+      - { id: rag-grounding-design, about: "Retrieval that supports the claim, and citations checked rather than generated" }
+
+  - name: prompt-engineer
+    role: Prompt design, evaluation and regression control
+    model: opus
+    plugin: llm-application-dev
+    team: ml-and-llm
+    tier: 1
+    domains: [models]
+    skills:
+      - { id: prompt-as-code, about: "Versioned prompts with an evaluation suite, because an unreviewed prompt change is an unreviewed production change" }
+
+  - name: ml-engineer
+    role: ML pipelines, training and model serving
+    model: opus
+    plugin: machine-learning-ops
+    team: ml-and-llm
+    tier: 1
+    domains: [models]
+    skills:
+      - { id: serving-latency-budgets, about: "Batching, quantisation and a p99 budget declared before the model is chosen" }
+
+  - name: mlops-engineer
+    role: Experiment tracking, model registry and deployment
+    model: opus
+    plugin: machine-learning-ops
+    team: ml-and-llm
+    tier: 2
+    domains: [models]
+    skills:
+      - { id: model-registry-discipline, about: "Pinned versions, lineage and rollback to a previous model as a first-class operation" }
+
+  - name: llm-evaluation-engineer
+    role: Golden sets, judge calibration and pass^k reporting
+    model: sonnet
+    plugin: llm-finetuning
+    team: ml-and-llm
+    tier: 0
+    domains: [models]
+    skills:
+      - { id: eval-harness-cheat-testing, about: "Trying to game your own evaluation and failing — before trusting a single score from it" }
+      - { id: judge-drift-monitoring, about: "A frozen calibration set checked monthly, because judges drift silently" }
+
+  - name: llm-finetuning-engineer
+    role: Dataset preparation, training runs and fine-tuning strategy
+    model: sonnet
+    plugin: llm-finetuning
+    team: ml-and-llm
+    tier: 1
+    domains: [models]
+    skills:
+      - { id: finetune-dataset-hygiene, about: "Deduplication, holdout isolation and never training on the evaluation set" }
+
+  - name: abstention-engineer
+    role: Measure and tune when a model declines to answer
+    model: opus
+    plugin: llm-application-dev
+    team: ml-and-llm
+    tier: 0
+    domains: [models]
+    skills:
+      - { id: abstention-rate-monitoring, about: "Alerting on a falling abstention rate at flat task success — the signal that confidence outran competence" }

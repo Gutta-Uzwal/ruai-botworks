@@ -1,0 +1,29 @@
+__pycache__/
+*.py[cod]
+
+# Client project and template build output, for every project/template, not
+# just the first one. Shape is <domain>/<project-or-template-name>/backend|frontend.
+projects/*/*/backend/.venv/
+projects/*/*/backend/*.egg-info/
+projects/*/*/backend/db.sqlite3
+projects/*/*/frontend/node_modules/
+projects/*/*/frontend/dist/
+Templates/*/*/backend/.venv/
+Templates/*/*/backend/*.egg-info/
+Templates/*/*/backend/db.sqlite3
+Templates/*/*/frontend/node_modules/
+Templates/*/*/frontend/dist/
+
+# Session-memory plugin state. Machine-local; never company record.
+.remember/
+.claude/.remember/
+
+# Receipt chains belong at the repository root and nowhere else. The policy hooks
+# write them relative to the current working directory, so any shell that has cd'd
+# into a subfolder starts a second, fragmented chain. A chain that splits by working
+# directory is not an audit trail. Ignore every nested one at any depth; keep the pair
+# at the root, which is the real one.
+receipts/
+review-receipts/
+!/receipts/
+!/review-receipts/

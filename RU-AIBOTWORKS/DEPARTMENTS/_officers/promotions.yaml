@@ -1,0 +1,358 @@
+# RU-AIBOTWORKS promotion register.
+# GENERATED from the registry's team-lead designations, which are reviewed like code.
+
+policy: Promotion above L1 requires an officer's request, a written reason and a date. A team
+  lead is promoted to L2 only where the owning officer is L3 or higher. genome I6 fails the
+  build on any L2 absent from this register.
+promotions:
+- agent: agent-orchestrator
+  to_level: L2
+  team: office-of-the-cto/orchestration
+  requested_by: cto
+  reason: Appointed lead of Orchestration. Promoted to L2 so the team has a coordination layer
+    between its members and cto.
+  date: '2026-09-14'
+- agent: delivery-planner
+  to_level: L2
+  team: office-of-the-cto/delivery-planning
+  requested_by: cto
+  reason: Appointed lead of Delivery Planning. Promoted to L2 so the team has a coordination
+    layer between its members and cto.
+  date: '2026-09-14'
+- agent: requirements-lead
+  to_level: L2
+  team: product/requirements
+  requested_by: product-owner
+  reason: Appointed lead of Requirements. Promoted to L2 so the team has a coordination layer
+    between its members and product-owner.
+  date: '2026-09-14'
+- agent: seo-lead
+  to_level: L2
+  team: product/seo-and-content
+  requested_by: product-owner
+  reason: Appointed lead of SEO & Content. Promoted to L2 so the team has a coordination layer
+    between its members and product-owner.
+  date: '2026-09-14'
+- agent: business-analysis-lead
+  to_level: L2
+  team: product/business-analysis
+  requested_by: product-owner
+  reason: Appointed lead of Business Analysis. Promoted to L2 so the team has a coordination
+    layer between its members and product-owner.
+  date: '2026-09-14'
+- agent: product-design-lead
+  to_level: L2
+  team: design/product-design
+  requested_by: design-owner
+  reason: Appointed lead of Product Design. Promoted to L2 so the team has a coordination
+    layer between its members and design-owner.
+  date: '2026-09-14'
+- agent: design-systems-lead
+  to_level: L2
+  team: design/design-systems
+  requested_by: design-owner
+  reason: Appointed lead of Design Systems. Promoted to L2 so the team has a coordination
+    layer between its members and design-owner.
+  date: '2026-09-14'
+- agent: brand-lead
+  to_level: L2
+  team: design/brand-and-presentation
+  requested_by: design-owner
+  reason: Appointed lead of Brand & Presentation. Promoted to L2 so the team has a coordination
+    layer between its members and design-owner.
+  date: '2026-09-14'
+- agent: frontend-lead
+  to_level: L2
+  team: web-engineering/frontend
+  requested_by: web-architect
+  reason: Appointed lead of Frontend. Promoted to L2 so the team has a coordination layer
+    between its members and web-architect.
+  date: '2026-09-14'
+- agent: backend-lead
+  to_level: L2
+  team: web-engineering/backend
+  requested_by: web-architect
+  reason: Appointed lead of Backend. Promoted to L2 so the team has a coordination layer between
+    its members and web-architect.
+  date: '2026-09-14'
+- agent: languages-lead
+  to_level: L2
+  team: web-engineering/languages
+  requested_by: web-architect
+  reason: Appointed lead of Language Specialists. Promoted to L2 so the team has a coordination
+    layer between its members and web-architect.
+  date: '2026-09-14'
+- agent: modernisation-lead
+  to_level: L2
+  team: web-engineering/modernisation
+  requested_by: web-architect
+  reason: Appointed lead of Modernisation. Promoted to L2 so the team has a coordination layer
+    between its members and web-architect.
+  date: '2026-09-14'
+- agent: android-architect
+  to_level: L2
+  team: mobile-engineering/android-native
+  requested_by: web-architect
+  reason: Appointed lead of Android Native. Promoted to L2 so the team has a coordination
+    layer between its members and web-architect.
+  date: '2026-09-14'
+- agent: flutter-expert
+  to_level: L2
+  team: mobile-engineering/flutter
+  requested_by: web-architect
+  reason: Appointed lead of Flutter Cross-Platform. Promoted to L2 so the team has a coordination
+    layer between its members and web-architect.
+  date: '2026-09-14'
+- agent: react-native-engineer
+  to_level: L2
+  team: mobile-engineering/react-native
+  requested_by: web-architect
+  reason: Appointed lead of React Native Cross-Platform. Promoted to L2 so the team has a
+    coordination layer between its members and web-architect.
+  date: '2026-09-14'
+- agent: mobile-qa-lead
+  to_level: L2
+  team: mobile-engineering/mobile-quality
+  requested_by: web-architect
+  reason: Appointed lead of Mobile Quality & Release. Promoted to L2 so the team has a coordination
+    layer between its members and web-architect.
+  date: '2026-09-14'
+- agent: database-lead
+  to_level: L2
+  team: data-and-ai/database-engineering
+  requested_by: data-architect
+  reason: Appointed lead of Database Engineering. Promoted to L2 so the team has a coordination
+    layer between its members and data-architect.
+  date: '2026-09-14'
+- agent: data-engineering-lead
+  to_level: L2
+  team: data-and-ai/data-engineering
+  requested_by: data-architect
+  reason: Appointed lead of Data Engineering. Promoted to L2 so the team has a coordination
+    layer between its members and data-architect.
+  date: '2026-09-14'
+- agent: ml-lead
+  to_level: L2
+  team: data-and-ai/ml-and-llm
+  requested_by: data-architect
+  reason: Appointed lead of ML & LLM. Promoted to L2 so the team has a coordination layer
+    between its members and data-architect.
+  date: '2026-09-14'
+- agent: cloud-lead
+  to_level: L2
+  team: platform-engineering/cloud-infrastructure
+  requested_by: platform-architect
+  reason: Appointed lead of Cloud & Infrastructure. Promoted to L2 so the team has a coordination
+    layer between its members and platform-architect.
+  date: '2026-09-14'
+- agent: cicd-lead
+  to_level: L2
+  team: platform-engineering/cicd
+  requested_by: platform-architect
+  reason: Appointed lead of CI/CD. Promoted to L2 so the team has a coordination layer between
+    its members and platform-architect.
+  date: '2026-09-14'
+- agent: policy-lead
+  to_level: L2
+  team: platform-engineering/policy-and-receipts
+  requested_by: platform-architect
+  reason: Appointed lead of Policy & Receipts. Promoted to L2 so the team has a coordination
+    layer between its members and platform-architect.
+  date: '2026-09-14'
+- agent: test-engineering-lead
+  to_level: L2
+  team: quality-engineering/test-engineering
+  requested_by: testing-architect
+  reason: Appointed lead of Test Engineering. Promoted to L2 so the team has a coordination
+    layer between its members and testing-architect.
+  date: '2026-09-14'
+- agent: e2e-lead
+  to_level: L2
+  team: quality-engineering/e2e-and-performance
+  requested_by: testing-architect
+  reason: Appointed lead of E2E & Performance. Promoted to L2 so the team has a coordination
+    layer between its members and testing-architect.
+  date: '2026-09-14'
+- agent: review-board-lead
+  to_level: L1
+  team: code-review/review-board
+  requested_by: merge-authority
+  reason: 'Appointed lead of Review Board. Remains L1: merge-authority is itself L2, so there
+    is no room above for a promotion without inverting authority. Coordinates without a reporting
+    line beneath it.'
+  date: '2026-09-14'
+- agent: appsec-lead
+  to_level: L1
+  team: security/application-security
+  requested_by: security-engineer
+  reason: 'Appointed lead of Application Security. Remains L1: security-engineer is itself
+    L2, so there is no room above for a promotion without inverting authority. Coordinates
+    without a reporting line beneath it.'
+  date: '2026-09-14'
+- agent: threat-lead
+  to_level: L1
+  team: security/threat-and-red-team
+  requested_by: security-engineer
+  reason: 'Appointed lead of Threat & Red Team. Remains L1: security-engineer is itself L2,
+    so there is no room above for a promotion without inverting authority. Coordinates without
+    a reporting line beneath it.'
+  date: '2026-09-14'
+- agent: accessibility-lead
+  to_level: L2
+  team: compliance-and-governance/accessibility-compliance
+  requested_by: quality-compliance
+  reason: Appointed lead of Accessibility Compliance. Promoted to L2 so the team has a coordination
+    layer between its members and quality-compliance.
+  date: '2026-09-14'
+- agent: agent-governance-lead
+  to_level: L2
+  team: compliance-and-governance/agent-governance
+  requested_by: quality-compliance
+  reason: Appointed lead of Agent Governance. Promoted to L2 so the team has a coordination
+    layer between its members and quality-compliance.
+  date: '2026-09-14'
+- agent: release-lead
+  to_level: L1
+  team: release-engineering/release-and-deploy
+  requested_by: release-manager
+  reason: 'Appointed lead of Release & Deploy. Remains L1: release-manager is itself L2, so
+    there is no room above for a promotion without inverting authority. Coordinates without
+    a reporting line beneath it.'
+  date: '2026-09-14'
+- agent: documentation-lead
+  to_level: L1
+  team: release-engineering/documentation
+  requested_by: release-manager
+  reason: 'Appointed lead of Documentation. Remains L1: release-manager is itself L2, so there
+    is no room above for a promotion without inverting authority. Coordinates without a reporting
+    line beneath it.'
+  date: '2026-09-14'
+- agent: incident-response-lead
+  to_level: L1
+  team: site-reliability/incident-response
+  requested_by: sre
+  reason: 'Appointed lead of Incident Response. Remains L1: sre is itself L2, so there is
+    no room above for a promotion without inverting authority. Coordinates without a reporting
+    line beneath it.'
+  date: '2026-09-14'
+- agent: observability-lead
+  to_level: L1
+  team: site-reliability/observability
+  requested_by: sre
+  reason: 'Appointed lead of Observability. Remains L1: sre is itself L2, so there is no room
+    above for a promotion without inverting authority. Coordinates without a reporting line
+    beneath it.'
+  date: '2026-09-14'
+- agent: dependency-lead
+  to_level: L1
+  team: supply-chain/dependency-and-certification
+  requested_by: dependency-steward
+  reason: 'Appointed lead of Dependency & Certification. Remains L1: dependency-steward is
+    itself L2, so there is no room above for a promotion without inverting authority. Coordinates
+    without a reporting line beneath it.'
+  date: '2026-09-14'
+- agent: agent-lifecycle-lead
+  to_level: L2
+  team: human-resources/agent-lifecycle
+  requested_by: hr-director
+  reason: Appointed lead of Agent Lifecycle. Promoted to L2 so the team has a coordination
+    layer between its members and hr-director.
+  date: '2026-09-14'
+- agent: training-lead
+  to_level: L2
+  team: human-resources/capability-and-training
+  requested_by: hr-director
+  reason: Appointed lead of Capability & Training. Promoted to L2 so the team has a coordination
+    layer between its members and hr-director.
+  date: '2026-09-14'
+- agent: performance-lead
+  to_level: L2
+  team: human-resources/performance-and-records
+  requested_by: hr-director
+  reason: Appointed lead of Performance & Records. Promoted to L2 so the team has a coordination
+    layer between its members and hr-director.
+  date: '2026-09-14'
+- agent: metering-lead
+  to_level: L2
+  team: payroll/metering
+  requested_by: payroll-controller
+  reason: Appointed lead of Metering. Promoted to L2 so the team has a coordination layer
+    between its members and payroll-controller.
+  date: '2026-09-14'
+- agent: payroll-ops-lead
+  to_level: L2
+  team: payroll/payroll-operations
+  requested_by: payroll-controller
+  reason: Appointed lead of Payroll Operations. Promoted to L2 so the team has a coordination
+    layer between its members and payroll-controller.
+  date: '2026-09-14'
+- agent: fpa-lead
+  to_level: L2
+  team: finance/fpa
+  requested_by: finance-controller
+  reason: Appointed lead of Financial Planning & Analysis. Promoted to L2 so the team has
+    a coordination layer between its members and finance-controller.
+  date: '2026-09-14'
+- agent: controlling-lead
+  to_level: L2
+  team: finance/controlling
+  requested_by: finance-controller
+  reason: Appointed lead of Controlling. Promoted to L2 so the team has a coordination layer
+    between its members and finance-controller.
+  date: '2026-09-14'
+- agent: billing-lead
+  to_level: L2
+  team: finance/revenue-and-billing
+  requested_by: finance-controller
+  reason: Appointed lead of Revenue & Billing. Promoted to L2 so the team has a coordination
+    layer between its members and finance-controller.
+  date: '2026-09-14'
+- agent: service-desk-lead
+  to_level: L2
+  team: service-management/service-desk
+  requested_by: service-management-lead
+  reason: Appointed lead of Service Desk. Promoted to L2 so the team has a coordination layer
+    between its members and service-management-lead.
+  date: '2026-09-14'
+- agent: problem-lead
+  to_level: L2
+  team: service-management/incident-and-problem
+  requested_by: service-management-lead
+  reason: Appointed lead of Incident & Problem. Promoted to L2 so the team has a coordination
+    layer between its members and service-management-lead.
+  date: '2026-09-14'
+- agent: change-lead
+  to_level: L2
+  team: service-management/change-governance
+  requested_by: service-management-lead
+  reason: Appointed lead of Change & Release Governance. Promoted to L2 so the team has a
+    coordination layer between its members and service-management-lead.
+  date: '2026-09-14'
+- agent: service-level-lead
+  to_level: L2
+  team: service-management/service-level
+  requested_by: service-management-lead
+  reason: Appointed lead of Service Level & Catalogue. Promoted to L2 so the team has a coordination
+    layer between its members and service-management-lead.
+  date: '2026-09-14'
+- agent: privacy-engineering-lead
+  to_level: L2
+  team: data-protection-office/privacy-engineering
+  requested_by: data-protection-officer
+  reason: Appointed lead of Privacy Engineering. Promoted to L2 so the team has a coordination
+    layer between its members and data-protection-officer.
+  date: '2026-09-14'
+- agent: rights-lead
+  to_level: L2
+  team: data-protection-office/rights-and-records
+  requested_by: data-protection-officer
+  reason: Appointed lead of Data Subject Rights & Records. Promoted to L2 so the team has
+    a coordination layer between its members and data-protection-officer.
+  date: '2026-09-14'
+- agent: retention-lead
+  to_level: L2
+  team: data-protection-office/residency-and-retention
+  requested_by: data-protection-officer
+  reason: Appointed lead of Residency & Retention. Promoted to L2 so the team has a coordination
+    layer between its members and data-protection-officer.
+  date: '2026-09-14'

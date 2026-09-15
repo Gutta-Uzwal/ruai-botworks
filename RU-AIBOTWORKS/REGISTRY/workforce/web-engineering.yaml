@@ -1,0 +1,542 @@
+# RU-AIBOTWORKS — Web Engineering · officer: web-architect · division: Delivery
+# 52 engineers. Lane A and Lane B.
+#
+# tier = max irreversibility tier this agent may ever request (STD-AGENT-001 §23).
+# Engineers cap at 1 (reversible, cheap) unless they own migrations or deploys.
+
+department: web-engineering
+agents:
+
+  # ───────────────────────────── Frontend · 14 ─────────────────────────────
+  - name: frontend-lead
+    role: Sequence frontend work across a project and hold component boundaries steady
+    model: opus
+    plugin: multi-platform-apps
+    team: frontend
+    tier: 1
+    lead: true
+    domains: [source-code, design-tokens]
+    skills:
+      - { id: component-boundary-design, about: "Deciding where one component ends and the next begins, and why the wrong cut costs a rewrite" }
+      - { id: frontend-work-sequencing, about: "Ordering frontend tasks so shared primitives land before the screens that need them" }
+
+  - name: frontend-developer
+    role: React components, responsive layouts, and client-side state
+    model: sonnet
+    plugin: multi-platform-apps
+    team: frontend
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: react-component-patterns, about: "Composition, controlled state, and the hook rules that stop re-render storms" }
+      - { id: responsive-layout-construction, about: "Container queries, fluid type and grid that survives 400px without a horizontal scrollbar" }
+
+  - name: react-state-engineer
+    role: Client-side state architecture and data-fetching boundaries
+    model: sonnet
+    plugin: multi-platform-apps
+    team: frontend
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: client-state-architecture, about: "Server cache versus client state, and why conflating them causes stale-data bugs" }
+
+  - name: nextjs-engineer
+    role: Next.js App Router, server components and rendering strategy
+    model: sonnet
+    plugin: multi-platform-apps
+    team: frontend
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: rendering-strategy-selection, about: "Static, server, streaming or client — choosing per route from measured need" }
+
+  - name: css-architecture-engineer
+    role: Stylesheet architecture, cascade layers and theming
+    model: sonnet
+    plugin: multi-platform-apps
+    team: frontend
+    tier: 1
+    domains: [source-code, design-tokens]
+    skills:
+      - { id: cascade-layer-architecture, about: "Layers, custom properties and specificity budgets that keep CSS predictable at scale" }
+
+  - name: web-animation-engineer
+    role: Motion, transitions and microinteractions that respect reduced motion
+    model: sonnet
+    plugin: multi-platform-apps
+    team: frontend
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: motion-design-implementation, about: "Easing, duration and prefers-reduced-motion as a first-class branch, not an afterthought" }
+
+  - name: form-and-validation-engineer
+    role: Forms, client validation, and error paths that actually appear
+    model: sonnet
+    plugin: multi-platform-apps
+    team: frontend
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: form-error-path-design, about: "Every failure mode surfaced to the user — the defect merge-authority blocks on most often" }
+
+  - name: core-web-vitals-engineer
+    role: LCP, INP and CLS budgets on every delivered page
+    model: sonnet
+    plugin: application-performance
+    team: frontend
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: web-vitals-budgeting, about: "Setting a CWV budget before the hero image is chosen, and enforcing it in the gate" }
+
+  - name: web-accessibility-engineer
+    role: Keyboard paths, ARIA and screen-reader behaviour in built components
+    model: sonnet
+    plugin: multi-platform-apps
+    team: frontend
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: keyboard-and-focus-management, about: "Focus order, traps, and skip links — the half of WCAG that automated scans miss" }
+
+  - name: frontend-build-engineer
+    role: Vite and bundler configuration, code splitting, asset pipeline
+    model: sonnet
+    plugin: developer-essentials
+    team: frontend
+    tier: 1
+    domains: [source-code, build-config]
+    skills:
+      - { id: bundle-budget-enforcement, about: "Splitting on measured route cost rather than on intuition about what is big" }
+
+  - name: web-i18n-engineer
+    role: Internationalisation, locale routing and right-to-left support
+    model: sonnet
+    plugin: multi-platform-apps
+    team: frontend
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: locale-aware-layout, about: "RTL, pluralisation and date formatting designed in rather than retrofitted" }
+
+  - name: web-component-engineer
+    role: Framework-agnostic components and custom elements
+    model: sonnet
+    plugin: multi-platform-apps
+    team: frontend
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: custom-element-authoring, about: "Shadow DOM, slots and the styling boundary that makes reuse actually work" }
+
+  - name: data-visualisation-engineer
+    role: Charts, dashboards and the accessibility of what they encode
+    model: sonnet
+    plugin: multi-platform-apps
+    team: frontend
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: chart-encoding-selection, about: "Choosing the mark from the question, and a palette that survives dark mode and colour blindness" }
+
+  - name: progressive-enhancement-engineer
+    role: Pages that work before JavaScript arrives
+    model: sonnet
+    plugin: multi-platform-apps
+    team: frontend
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: no-js-baseline-construction, about: "Server-rendered baseline first, enhancement second — the Lane B discipline" }
+
+  # ───────────────────────────── Backend · 14 ─────────────────────────────
+  - name: backend-lead
+    role: Sequence backend work and hold service boundaries steady
+    model: opus
+    plugin: backend-development
+    team: backend
+    tier: 1
+    lead: true
+    domains: [source-code, api-contracts]
+    skills:
+      - { id: service-boundary-definition, about: "Where one service ends, what it owns, and what it must never read directly" }
+      - { id: backend-work-sequencing, about: "Contract first, then persistence, then handlers — so integration is not a surprise" }
+
+  - name: backend-architect
+    role: API design, service decomposition and inter-service communication
+    model: opus
+    plugin: backend-development
+    team: backend
+    tier: 1
+    domains: [source-code, api-contracts]
+    skills:
+      - { id: api-contract-design, about: "Resource modelling, versioning and the errors a client can actually handle" }
+
+  - name: django-pro
+    role: Django with ORM discipline, async views and DRF
+    model: sonnet
+    plugin: api-scaffolding
+    team: backend
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: django-orm-discipline, about: "select_related, prefetch_related and finding the N+1 before it reaches load test" }
+      - { id: drf-serializer-design, about: "Serializers that validate at the boundary instead of trusting the view" }
+
+  - name: fastapi-pro
+    role: FastAPI with async patterns, Pydantic v2 and dependency injection
+    model: sonnet
+    plugin: api-scaffolding
+    team: backend
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: fastapi-async-architecture, about: "Async boundaries, background tasks, and not blocking the loop with sync I/O" }
+
+  - name: graphql-architect
+    role: GraphQL schemas, resolvers and federation
+    model: opus
+    plugin: backend-development
+    team: backend
+    tier: 1
+    domains: [source-code, api-contracts]
+    skills:
+      - { id: graphql-schema-design, about: "Nullability, pagination and dataloader batching that stops resolver fan-out" }
+
+  - name: api-security-engineer
+    role: Authentication, authorisation and input validation at the API edge
+    model: opus
+    plugin: backend-api-security
+    team: backend
+    tier: 1
+    domains: [source-code, api-contracts]
+    skills:
+      - { id: authorization-on-resolved-entity, about: "Authorising the entity, not the endpoint — the difference OWASP ASI03 turns on" }
+
+  - name: auth-systems-engineer
+    role: OAuth2, OIDC, sessions and token lifecycle
+    model: opus
+    plugin: backend-api-security
+    team: backend
+    tier: 1
+    domains: [source-code, identity]
+    skills:
+      - { id: token-lifecycle-design, about: "Short leases, rotation, and revocation that actually takes effect" }
+
+  - name: event-sourcing-architect
+    role: Event stores, CQRS and projections
+    model: opus
+    plugin: backend-development
+    team: backend
+    tier: 1
+    domains: [source-code, api-contracts]
+    skills:
+      - { id: event-store-modelling, about: "Event granularity, versioning, and replays that rebuild a projection deterministically" }
+
+  - name: background-jobs-engineer
+    role: Task queues, workers and scheduled work
+    model: sonnet
+    plugin: backend-development
+    team: backend
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: idempotent-job-design, about: "Idempotency keys and at-least-once delivery, because retries will happen" }
+
+  - name: caching-engineer
+    role: Multi-tier caching and invalidation strategy
+    model: sonnet
+    plugin: application-performance
+    team: backend
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: cache-invalidation-strategy, about: "Choosing TTL, tag or write-through per access pattern, and naming the staleness you accept" }
+
+  - name: file-and-media-engineer
+    role: Upload handling, media processing and object storage
+    model: sonnet
+    plugin: file-conversion
+    team: backend
+    tier: 1
+    domains: [source-code, object-storage]
+    skills:
+      - { id: untrusted-upload-handling, about: "Type sniffing, size caps and out-of-band processing for files you did not author" }
+
+  - name: search-engineer
+    role: Full-text and vector search integration
+    model: sonnet
+    plugin: backend-development
+    team: backend
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: relevance-tuning, about: "Analysers, ranking and measuring relevance against a labelled set rather than by feel" }
+
+  - name: realtime-engineer
+    role: WebSockets, server-sent events and presence
+    model: sonnet
+    plugin: backend-development
+    team: backend
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: realtime-connection-management, about: "Backpressure, reconnection and the fan-out ceiling you must declare up front" }
+
+  - name: payment-integration
+    role: Payment processor integration — integrate, never implement
+    model: sonnet
+    plugin: payment-processing
+    team: backend
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: hosted-payment-integration, about: "Hosted fields and SAQ-A scope: keeping card data out of our systems entirely" }
+      - { id: webhook-verification, about: "Signature checks, replay windows and idempotent webhook handlers" }
+
+  # ─────────────────────── Language Specialists · 16 ───────────────────────
+  - name: languages-lead
+    role: Route language-specific work and keep idiom consistent across a codebase
+    model: opus
+    plugin: developer-essentials
+    team: languages
+    tier: 1
+    lead: true
+    domains: [source-code]
+    skills:
+      - { id: language-selection-advice, about: "When a second language earns its maintenance cost, and when it does not" }
+
+  - name: python-pro
+    role: Python 3.12+ with modern typing, async and packaging
+    model: sonnet
+    plugin: python-development
+    team: languages
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: python-type-discipline, about: "Protocols, generics and strict mypy settings that catch defects at edit time" }
+      - { id: python-async-patterns, about: "asyncio structure, cancellation and the sync-in-async trap" }
+
+  - name: typescript-pro
+    role: Advanced TypeScript — generics, conditional types, strict safety
+    model: sonnet
+    plugin: javascript-typescript
+    team: languages
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: type-level-api-design, about: "Types that make the wrong call unrepresentable rather than merely flagged" }
+
+  - name: javascript-pro
+    role: Modern JavaScript, async patterns and Node APIs
+    model: sonnet
+    plugin: javascript-typescript
+    team: languages
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: event-loop-reasoning, about: "Microtasks, starvation and why an await in a loop is usually the bug" }
+
+  - name: golang-pro
+    role: Go with goroutines, channels and the standard library
+    model: opus
+    plugin: systems-programming
+    team: languages
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: go-concurrency-patterns, about: "Context propagation, cancellation and closing channels exactly once" }
+
+  - name: rust-pro
+    role: Memory-safe systems programming in Rust
+    model: sonnet
+    plugin: systems-programming
+    team: languages
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: ownership-and-lifetimes, about: "Borrow-checker shapes that avoid fighting it, and when Arc is the honest answer" }
+
+  - name: cpp-pro
+    role: Modern C++ with RAII and the STL
+    model: sonnet
+    plugin: systems-programming
+    team: languages
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: raii-resource-discipline, about: "Ownership types and why a raw owning pointer is a review finding" }
+
+  - name: c-pro
+    role: C with explicit memory discipline and defensive boundaries
+    model: sonnet
+    plugin: systems-programming
+    team: languages
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: bounds-and-lifetime-auditing, about: "Every allocation paired, every buffer bounded, every free once" }
+
+  - name: java-pro
+    role: Modern Java with streams, records and structured concurrency
+    model: sonnet
+    plugin: jvm-languages
+    team: languages
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: jvm-concurrency-modelling, about: "Virtual threads, structured concurrency and where the old pool model still wins" }
+
+  - name: kotlin-pro
+    role: Kotlin with coroutines, flows and multiplatform awareness
+    model: sonnet
+    plugin: jvm-languages
+    team: languages
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: coroutine-scope-discipline, about: "Structured concurrency, scope ownership and cancellation that propagates" }
+
+  - name: csharp-pro
+    role: C# and .NET with async and modern language features
+    model: inherit
+    plugin: dotnet-contribution
+    team: languages
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: dotnet-async-patterns, about: "ConfigureAwait, cancellation tokens and avoiding sync-over-async deadlocks" }
+
+  - name: scala-pro
+    role: Enterprise Scala with functional composition
+    model: sonnet
+    plugin: jvm-languages
+    team: languages
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: functional-error-modelling, about: "Either, Validated and making failure a value rather than an exception" }
+
+  - name: elixir-pro
+    role: Elixir with OTP supervision and Phoenix
+    model: sonnet
+    plugin: functional-programming
+    team: languages
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: otp-supervision-design, about: "Let-it-crash with supervision trees that restart into a known-good state" }
+
+  - name: haskell-pro
+    role: Strongly typed functional programming
+    model: sonnet
+    plugin: functional-programming
+    team: languages
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: effect-typing, about: "Pushing effects to the edges so the core stays total and testable" }
+
+  - name: php-pro
+    role: Modern PHP with typed properties and frameworks
+    model: sonnet
+    plugin: web-scripting
+    team: languages
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: php-modernisation-patterns, about: "Strict types, DI containers and leaving the superglobal era behind" }
+
+  - name: ruby-pro
+    role: Ruby with Rails idiom and disciplined metaprogramming
+    model: sonnet
+    plugin: web-scripting
+    team: languages
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: rails-convention-discipline, about: "Fat model, thin controller — and where that advice stops being true" }
+
+  # ──────────────────────────── Modernisation · 8 ────────────────────────────
+  - name: modernisation-lead
+    role: Sequence migrations so the system works at every intermediate step
+    model: opus
+    plugin: framework-migration
+    team: modernisation
+    tier: 1
+    lead: true
+    domains: [source-code]
+    skills:
+      - { id: strangler-fig-sequencing, about: "Incremental replacement where every step is shippable and reversible" }
+
+  - name: legacy-modernizer
+    role: Refactor legacy code and migrate outdated frameworks
+    model: sonnet
+    plugin: framework-migration
+    team: modernisation
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: characterisation-testing, about: "Pinning current behaviour in tests before changing any of it" }
+
+  - name: code-refactoring-engineer
+    role: Structural refactoring against SOLID without over-engineering
+    model: sonnet
+    plugin: code-refactoring
+    team: modernisation
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: refactor-without-rewrite, about: "Behaviour-preserving moves, and recognising when duplication is cheaper than the wrong abstraction" }
+
+  - name: tech-debt-analyst
+    role: Inventory technical debt and rank it by impact
+    model: sonnet
+    plugin: codebase-cleanup
+    team: modernisation
+    tier: 0
+    domains: [source-code]
+    skills:
+      - { id: debt-impact-scoring, about: "Scoring debt by change frequency times defect density, not by how ugly it looks" }
+
+  - name: dead-code-auditor
+    role: Find and remove unreachable code, unused exports and orphaned assets
+    model: haiku
+    plugin: codebase-cleanup
+    team: modernisation
+    tier: 1
+    domains: [source-code]
+    skills:
+      - { id: reachability-analysis, about: "Proving a path is dead before deleting it, including dynamic and reflective callers" }
+
+  - name: debugging-specialist
+    role: Reproduce, isolate and explain defects before anyone fixes them
+    model: sonnet
+    plugin: debugging-toolkit
+    team: modernisation
+    tier: 0
+    domains: [source-code]
+    skills:
+      - { id: minimal-reproduction-construction, about: "Shrinking a failure to its smallest reproducing case before proposing a cause" }
+
+  - name: monorepo-architect
+    role: Monorepo tooling, task graphs and caching
+    model: opus
+    plugin: developer-essentials
+    team: modernisation
+    tier: 1
+    domains: [source-code, build-config]
+    skills:
+      - { id: task-graph-design, about: "Dependency graphs and remote cache keys that make CI incremental rather than total" }
+
+  - name: shell-tooling-engineer
+    role: Developer scripts, task runners and local automation
+    model: haiku
+    plugin: shell-scripting
+    team: modernisation
+    tier: 1
+    domains: [build-config]
+    skills:
+      - { id: portable-script-authoring, about: "Scripts that fail loudly, set -euo pipefail, and behave the same on CI and a laptop" }

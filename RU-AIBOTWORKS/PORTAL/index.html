@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Overview · RU-AIBOTWORKS</title>
+<script>
+(function(){
+  try{
+    if(localStorage.getItem('ruai-auth')==='ok') return;
+  }catch(e){}
+  var here=location.pathname.split('/').pop()||'index.html';
+  location.replace('login.html?next='+encodeURIComponent(here));
+})();
+window.ruaiLogout=function(){
+  try{localStorage.removeItem('ruai-auth');}catch(e){}
+  location.replace('login.html');
+};
+
+(function(){
+  try{
+    var t=localStorage.getItem('ruai-theme');
+    if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);
+  }catch(e){}
+  window.ruaiToggle=function(){
+    var r=document.documentElement,
+        cur=r.getAttribute('data-theme'),
+        sysDark=window.matchMedia('(prefers-color-scheme: dark)').matches,
+        now=cur?cur:(sysDark?'dark':'light'),
+        next=now==='dark'?'light':'dark';
+    r.setAttribute('data-theme',next);
+    try{localStorage.setItem('ruai-theme',next);}catch(e){}
+  };
+})();
+</script>
+<link rel="stylesheet" href="portal.css">
+</head>
+<body>
+<header class="mast">
+  <div class="mast-in">
+    <div class="brand">RU<span>-</span>AIBOTWORKS</div>
+    <nav class="tabs">
+      <a href="index.html" aria-current="page">Overview</a>
+      <a href="org-chart.html">Reporting</a>
+      <a href="hierarchy.html">Hierarchy</a>
+      <a href="workforce.html">Workforce</a>
+      <a href="projects.html">Projects</a>
+      <a href="workflow.html">Workflow</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="diagram.html">Diagram</a>
+      <a href="governance.html">Governance</a>
+      <button class="theme-btn" onclick="ruaiToggle()" aria-label="Toggle theme">◐ theme</button>
+      <button class="theme-btn" onclick="ruaiLogout()" aria-label="Sign out">sign out</button>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+<div class="phead"><p class="eyebrow">CEO reference</p><h1>The company, as it actually is</h1><p class="lede">Nothing on this page is typed by hand. Every number is counted from the registry when this page is generated, so no two pages can disagree about what the company is.</p></div>
+<div class="stats">
+  <div class="stat "><div class="n">278</div><div class="k">agents total</div><div class="d">Officers plus the whole workforce.</div></div>
+  <div class="stat c"><div class="n">19</div><div class="k">officers</div><div class="d">13 original + <strong>6 added</strong>.</div></div>
+  <div class="stat v"><div class="n">3</div><div class="k">standing vetoes</div><div class="d">Only the CEO overrides. Unchanged by the expansion.</div></div>
+  <div class="stat l"><div class="n">4</div><div class="k">decisions are yours</div><div class="d">What to build · the design · veto override · off-stack.</div></div>
+</div>
+
+<h2>What changed</h2>
+<p class="sub">Six officers were added and two new lanes of work opened. The three things
+that make the quality claim true &mdash; three vetoes, four reserved decisions, and a
+read-only reviewer &mdash; are untouched.</p>
+
+<div class="tw"><table>
+<thead><tr><th>Figure</th><th>Before</th><th>After</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="name">officers</td><td>13</td><td><strong>19</strong></td>
+    <td>+6: coo, hr-director, payroll-controller, finance-controller,
+        service-management-lead, data-protection-officer</td></tr>
+<tr><td class="name">L4 chiefs</td><td>1</td><td><strong>2</strong></td>
+    <td>cto keeps delivery; coo takes the corporate line</td></tr>
+<tr><td class="name">L3 officers</td><td>7</td><td><strong>12</strong></td>
+    <td>4 corporate + the independent DPO</td></tr>
+<tr><td class="name">L2 named authorities</td><td>5</td><td><strong>5</strong></td>
+    <td>unchanged</td></tr>
+<tr><td class="name">standing vetoes</td><td>3</td><td><strong>3</strong></td>
+    <td>the DPO advises; quality-compliance blocks</td></tr>
+<tr><td class="name">CEO direct reports</td><td>1</td><td><strong>3</strong></td>
+    <td>cto, coo, data-protection-officer</td></tr>
+<tr><td class="name">delivery engineers</td><td>202 planned</td><td><strong>202 built</strong></td>
+    <td>the charter baseline, now individually designed</td></tr>
+<tr><td class="name">mobile engineers</td><td>0</td><td><strong>17</strong></td>
+    <td>Lane C: Kotlin/Compose, Flutter, React Native</td></tr>
+<tr><td class="name">corporate staff</td><td>0</td><td><strong>40</strong></td>
+    <td>HR, Payroll, Finance, Service Management, Data Protection</td></tr>
+<tr><td class="name">delivery lanes</td><td>2</td><td><strong>5</strong></td>
+    <td>A, B, plus C1/C2/C3 for mobile</td></tr>
+</tbody></table></div>
+
+<h2>Structure</h2>
+<div class="stats">
+  <div class="stat "><div class="n">3</div><div class="k">divisions</div><div class="d">Delivery · Corporate · Independent.</div></div>
+  <div class="stat "><div class="n">19</div><div class="k">departments</div><div class="d">Each owned by exactly one officer.</div></div>
+  <div class="stat l"><div class="n">49</div><div class="k">teams</div><div class="d">41 led at L2, 8 coordinated at L1.</div></div>
+  <div class="stat "><div class="n">278</div><div class="k">named employees</div><div class="d">Every agent has a person name and a dispatch handle.</div></div>
+</div>
+
+<h2>Safety posture</h2>
+<p class="sub">Measured against STD-AGENT-001. These are the numbers an auditor asks for
+first, and they are read from the registry rather than from intent.</p>
+<div class="stats">
+  <div class="stat "><div class="n">19</div><div class="k">tools registered</div><div class="d">Complete contracts. Unregistered means unreachable.</div></div>
+  <div class="stat v"><div class="n">5</div><div class="k">registered &amp;amp; denied</div><div class="d">Tier 3 and 4 tools, visible and granted to nobody.</div></div>
+  <div class="stat i"><div class="n">2</div><div class="k">highest tier granted</div><div class="d">Tier 2 &mdash; reversible with a recorded rollback.</div></div>
+  <div class="stat v"><div class="n">4</div><div class="k">read-only officers</div><div class="d">No veto holder can write what it blocks.</div></div>
+</div>
+
+<div class="note"><strong>The rule the whole structure rests on.</strong>
+Three officers can stop a release &mdash; <code>security-engineer</code>,
+<code>sre</code>, <code>quality-compliance</code>. Only you can unstop it. The
+<code>cto</code> cannot, and neither can the new <code>coo</code>: an autonomous chief
+under delivery pressure must not reach its own stop buttons.</div>
+
+<h2>Model mix and cost tiers</h2>
+<div class="tw"><table>
+<thead><tr><th>Model</th><th>Agents</th><th>Input $/MTok</th><th>Output $/MTok</th><th>Used for</th></tr></thead>
+<tbody>
+<tr><td class="name">opus</td><td>92</td><td>5.0</td><td>25.0</td><td>Reviewers, vetoes, architects</td></tr><tr><td class="name">sonnet</td><td>139</td><td>3.0</td><td>15.0</td><td>Default engineering tier</td></tr><tr><td class="name">haiku</td><td>24</td><td>1.0</td><td>5.0</td><td>High-volume, low-judgement work</td></tr><tr><td class="name">fable</td><td>0</td><td>10.0</td><td>50.0</td><td>~2.6x Opus. Opt-in only. Never for security agents</td></tr><tr><td class="name">inherit</td><td>4</td><td>&mdash;</td><td>&mdash;</td><td>Takes the caller&#x27;s tier</td></tr>
+</tbody></table></div>
+<p class="sub">No agent runs on the premium tier today. <code>fable</code> costs roughly
+2.6&times; Opus and is opt-in only &mdash; never for a security agent, which the genome
+enforces.</p>
+
+<footer class="foot">
+  <span>Generated 2026-09-14 from REGISTRY · every figure computed, none asserted</span>
+  <span>278 agents · 19 officers · 3 vetoes</span>
+</footer>
+</main>
+
+<script>
+/* Scroll choreography.
+
+   Sections settle in as they enter the viewport, staggered a little so a long
+   page reads as momentum rather than as a wall arriving at once.
+
+   Deliberately NOT here: hijacking the scroll wheel to interpolate scrollTop.
+   That is what most "smooth scrolling" libraries do, and it costs keyboard
+   paging, screen-reader virtual cursors, trackpad momentum, and find-in-page
+   accuracy. The feel comes from the entrance easing and honest sticky headers,
+   which cost none of those. */
+(function () {
+  var reduce = false;
+  try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (_) {}
+  if (reduce || !('IntersectionObserver' in window)) return;
+
+  var targets = document.querySelectorAll(
+    '.stat, .panel, .tw, .step, details.dept, .chart, .treewrap, h2, .note'
+  );
+  if (!targets.length) return;
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('shown');
+      io.unobserve(entry.target);
+    });
+  }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+
+  targets.forEach(function (el, i) {
+    // Anything already on screen at load skips the entrance entirely — a page
+    // that animates its own first paint just looks slow.
+    var box = el.getBoundingClientRect();
+    if (box.top < window.innerHeight * 0.92) { el.classList.add('shown'); return; }
+    el.setAttribute('data-reveal', '');
+    el.style.transitionDelay = Math.min((i % 5) * 45, 180) + 'ms';
+    io.observe(el);
+  });
+})();
+</script>
+
+</body>
+</html>

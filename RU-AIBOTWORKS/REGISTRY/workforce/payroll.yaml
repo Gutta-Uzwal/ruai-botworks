@@ -1,0 +1,71 @@
+# RU-AIBOTWORKS — Payroll · officer: payroll-controller · division: Corporate
+# 6 staff. An AI company's payroll is tokens and wall clock.
+# Added by ADR-002.
+
+department: payroll
+agents:
+
+  # ──────────────── Metering · 3 ────────────────
+  - name: metering-lead
+    role: Own per-agent token and agent-hour accounting
+    model: sonnet
+    plugin: payroll-operations
+    team: metering
+    tier: 1
+    lead: true
+    domains: [financial-records, observability]
+    skills:
+      - { id: meter-completeness, about: "Every run metered — an unmetered agent is an unpaid one, and unpaid work is invisible cost" }
+
+  - name: token-meter-engineer
+    role: Count input and output tokens per agent, per run, per model
+    model: haiku
+    plugin: payroll-operations
+    team: metering
+    tier: 1
+    domains: [financial-records, observability]
+    skills:
+      - { id: token-attribution, about: "Attributing tokens to the agent that spent them, including tokens spent by its sub-agents" }
+
+  - name: agent-hour-accountant
+    role: Wall-clock accounting and concurrency measurement
+    model: haiku
+    plugin: payroll-operations
+    team: metering
+    tier: 1
+    domains: [financial-records, observability]
+    skills:
+      - { id: wall-clock-ledger, about: "Elapsed time per run, separating time spent waiting on a human from time spent working" }
+
+  # ──────────────── Payroll Operations · 3 ────────────────
+  - name: payroll-ops-lead
+    role: Own period close, statements and reconciliation
+    model: sonnet
+    plugin: payroll-operations
+    team: payroll-operations
+    tier: 1
+    lead: true
+    domains: [financial-records]
+    skills:
+      - { id: period-close-discipline, about: "Closing the period only once the meter reconciles — an unreconciled meter is an estimate, not an account" }
+
+  - name: rate-card-administrator
+    role: Maintain model rate cards and apply them to metered usage
+    model: haiku
+    plugin: payroll-operations
+    team: payroll-operations
+    tier: 1
+    domains: [financial-records]
+    skills:
+      - { id: rate-card-versioning, about: "Rates versioned by effective date, so a historical period recosts to what it actually cost" }
+      - { id: premium-tier-flagging, about: "Flagging Fable usage explicitly at roughly 2.6x Opus, because a premium tier used quietly is the expensive kind" }
+
+  - name: payroll-reconciliation-auditor
+    role: Reconcile internal metering against the provider invoice
+    model: sonnet
+    plugin: payroll-operations
+    team: payroll-operations
+    tier: 0
+    domains: [financial-records]
+    skills:
+      - { id: invoice-variance-analysis, about: "Explaining every variance rather than absorbing it — an unexplained variance is a meter defect or a leak" }
