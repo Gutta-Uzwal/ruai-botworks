@@ -69,7 +69,7 @@ python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_generate.py --check
 
 # 3. Push one typo all the way through
 git checkout dev
-echo "." >> RU-AIBOTWORKS/DOCS/charter/RU-AIBOTWORKS-00-START-HERE.md
+echo "." >> RU-AIBOTWORKS/DOCS/charter/RU-AIBOTWORKS-01-start-here.md
 git commit -am "typo" && git push origin dev
 gh pr create --base uat --head dev && gh pr merge --merge
 ```

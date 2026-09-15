@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-check_consistency.py — invariant 11, enforced.
+ru_aibotworks_consistency.py — invariant 11, enforced.
 
 Any figure appearing in two documents must derive from one computed source. That
 source is REGISTRY, read through ru_aibotworks_registry.py. This reads
 the prose and fails the build when a document contradicts it, or uses a name that
 was retired.
 
-    python scripts/check_consistency.py RU-AIBOTWORKS/DOCS docs/charter
+    python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_consistency.py RU-AIBOTWORKS/DOCS
 """
 from __future__ import annotations
 
@@ -15,8 +15,9 @@ import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT / "RU-AIBOTWORKS" / "PLATFORM"))
+PLATFORM = Path(__file__).resolve().parent
+ROOT = PLATFORM.parent.parent
+sys.path.insert(0, str(PLATFORM))
 from ru_aibotworks_registry import Company  # noqa: E402
 
 COMPANY = Company.load()

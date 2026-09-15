@@ -1,6 +1,6 @@
 # Agent safety harness
 
-This repository uses [STD-AGENT-001](../_builddocs/Production-Grade%20Enterprise%20Agentic%20Systems%20-%20Engineering%20Standard%20v1.0.docx)
+This repository uses [STD-AGENT-001](../../_builddocs/Production-Grade%20Enterprise%20Agentic%20Systems%20-%20Engineering%20Standard%20v1.0.docx)
 as the control source for tool-using agents.
 
 ## Enforced controls
@@ -35,8 +35,8 @@ contract is added to the registry.
 
 ## Where the contracts live
 
-[agent-tools.json](../agent-tools.json) is **generated**. It holds the
+[agent-tools.json](../../agent-tools.json) is **generated**. It holds the
 runtime-reachable surface only. The authoritative registry, including the Tier 3
 and Tier 4 tools that are registered and granted to nobody, is
-[ru-aibotworks-tools.yaml](../RU-AIBOTWORKS/REGISTRY/ru-aibotworks-tools.yaml).
+[RU-AIBOTWORKS-tools.yaml](../REGISTRY/RU-AIBOTWORKS-tools.yaml).
 Edit that, then run `ru_aibotworks_generate.py`.

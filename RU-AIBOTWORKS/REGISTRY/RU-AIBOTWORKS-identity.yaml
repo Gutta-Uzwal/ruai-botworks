@@ -9,6 +9,15 @@ company:
   founded:       2026
   repository:    ruaibotworks
 
+# The registry's edition date. Every date a generator writes — registered_on,
+# review_due, "Generated on" — derives from this, never from the wall clock.
+# Stamping today's date made the generated tree drift every midnight, so the
+# "regenerates without drift" gate failed the day after any commit, and every
+# agent's registration date silently moved forward with each run. Bump it
+# deliberately when the registry changes in a way that re-registers agents.
+edition:
+  as_of:         2026-09-14
+
 ceo:
   name:          Uzwal Gutta
   alias:         Ujwal Gutta

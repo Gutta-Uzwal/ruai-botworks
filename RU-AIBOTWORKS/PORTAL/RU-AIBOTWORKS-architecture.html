@@ -98,11 +98,13 @@ bypass the gate.</p>
 <div class="tw"><table>
 <thead><tr><th>Path</th><th>Holds</th><th>Generated?</th></tr></thead><tbody>
 <tr><td class="name">REGISTRY/</td><td>The single source of truth: identity, officers, departments, workforce, tools</td><td>no — reviewed like code</td></tr>
-<tr><td class="name">PLATFORM/</td><td>Registry loader, genome validator, generator, seed builder, this portal</td><td>no</td></tr>
+<tr><td class="name">PLATFORM/</td><td>Registry loader, genome, generator, seed builder, this portal, the document and layout checks</td><td>no</td></tr>
+<tr><td class="name">PLATFORM/templates/</td><td>The archify viewer shell the diagram is rebuilt into</td><td>no — vendored</td></tr>
 <tr><td class="name">DEPARTMENTS/</td><td>278 agent packages — charter, registration, tools, evaluation, skills</td><td><strong>yes</strong></td></tr>
 <tr><td class="name">DATABASE/</td><td>SQL Server schema and the generated seed</td><td>seed: <strong>yes</strong></td></tr>
-<tr><td class="name">PORTAL/</td><td>These six pages</td><td><strong>yes</strong></td></tr>
-<tr><td class="name">DOCS/</td><td>ADRs and the charter</td><td>no</td></tr>
+<tr><td class="name">PORTAL/</td><td>These pages and the architecture diagram</td><td><strong>yes</strong></td></tr>
+<tr><td class="name">DOCS/</td><td>Build plan, ADRs, agent harness; the charter under <code>charter/</code></td><td>charter: <strong>yes</strong></td></tr>
+<tr><td class="name">../projects/</td><td>Client work — one folder per site, built by the company, not part of it</td><td>no</td></tr>
 <tr><td class="name">.claude/agents/</td><td>The 19 officers Claude Code loads</td><td><strong>yes</strong> — synced from the registry</td></tr>
 </tbody></table></div>
 

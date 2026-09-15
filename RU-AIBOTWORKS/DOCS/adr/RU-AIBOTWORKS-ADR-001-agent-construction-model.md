@@ -45,7 +45,7 @@ four of them and declares the other three as deployment obligations:
 | Plane | Owned here | Artifact |
 |---|---|---|
 | 2. Policy | yes | Cedar policy generated from the registry's tiers and scopes |
-| 6. Tool and data | yes | `ru-aibotworks-tools.yaml` — complete contracts, §10 |
+| 6. Tool and data | yes | `RU-AIBOTWORKS-tools.yaml` — complete contracts, §10 |
 | 7. Observability | yes | Hash-chained receipts, append-only, `receipts/` |
 | — Governance | yes | Registration records, autonomy ladder, blast radius |
 | 1. Control | **no — deployment obligation** | Kill switch, lease issuer, run registry |

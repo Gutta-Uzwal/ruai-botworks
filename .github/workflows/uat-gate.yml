@@ -53,10 +53,13 @@ jobs:
           fi
 
       - name: Document consistency
-        run: python scripts/check_consistency.py RU-AIBOTWORKS/DOCS
+        run: python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_consistency.py RU-AIBOTWORKS/DOCS
 
       - name: Authorship
-        run: python scripts/check_authorship.py
+        run: python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_authorship.py
+
+      - name: Folder and file naming
+        run: python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_layout.py
 
   tooling:
     name: Tool contracts and receipts

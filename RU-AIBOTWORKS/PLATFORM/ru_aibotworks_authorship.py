@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-check_authorship.py — the generated tree is written by the generator, not by hand.
+ru_aibotworks_authorship.py — the generated tree is written by the generator, not by hand.
 
 RU-AIBOTWORKS has one source of truth and several derived trees. The failure mode
 this guards against is quiet and common: somebody fixes a typo in a generated
@@ -21,8 +21,8 @@ The rule:
 This is the repository expression of STD-AGENT-001 A1.6: nothing writes its own
 configuration, including us.
 
-    python scripts/check_authorship.py                     # working tree
-    python scripts/check_authorship.py --base origin/main  # a range of commits
+    python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_authorship.py                     # working tree
+    python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_authorship.py --base origin/main  # a range of commits
 """
 from __future__ import annotations
 

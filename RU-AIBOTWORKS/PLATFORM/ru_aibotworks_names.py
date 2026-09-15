@@ -11,7 +11,7 @@ The handle says what it does and must stay machine-stable. The name is how the C
 and the client refer to an employee, and it must stay *personally* stable: nobody's
 name should change because somebody else was hired.
 
-So assignment happens once, into REGISTRY/ru-aibotworks-names.yaml,
+So assignment happens once, into REGISTRY/RU-AIBOTWORKS-names.yaml,
 which is then authoritative. Re-running only fills gaps for new hires. Removing an
 agent retires its name rather than recycling it — a retired name is never reissued,
 because a name that has meant two different things in an audit trail is worse than
@@ -34,7 +34,7 @@ from ru_aibotworks_registry import Company  # noqa: E402
 NAMES_FILE = (
     Path(__file__).resolve().parent.parent
     / "REGISTRY"
-    / "ru-aibotworks-names.yaml"
+    / "RU-AIBOTWORKS-names.yaml"
 )
 
 # One word each. Pronounceable, varied, and distinct enough to be told apart at a

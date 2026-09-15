@@ -24,10 +24,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from ru_aibotworks_generate import BUDGETS, blast_radius_for, grants_for  # noqa: E402
-from ru_aibotworks_registry import Company  # noqa: E402
+from ru_aibotworks_genome import Genome
+from ru_aibotworks_registry import Company, as_of  # noqa: E402
 
 OUT = Path(__file__).resolve().parent.parent / "PORTAL"
-TODAY = date.today()
+AS_OF = as_of()  # registry edition date, never the wall clock
 
 PAGES = [
     ("RU-AIBOTWORKS-index.html", "Overview"),
@@ -430,7 +431,7 @@ def shell(title: str, current: str, body: str, figures: dict, extra_js: str = ""
 <main class="wrap">
 {body}
 <footer class="foot">
-  <span>Generated {TODAY.isoformat()} from REGISTRY · every figure computed, none asserted</span>
+  <span>Generated {AS_OF.isoformat()} from REGISTRY · every figure computed, none asserted</span>
   <span>{figures['agents_total']} agents · {figures['officers']} officers · {figures['vetoes']} vetoes</span>
 </footer>
 </main>
@@ -998,11 +999,13 @@ bypass the gate.</p>
 <div class="tw"><table>
 <thead><tr><th>Path</th><th>Holds</th><th>Generated?</th></tr></thead><tbody>
 <tr><td class="name">REGISTRY/</td><td>The single source of truth: identity, officers, departments, workforce, tools</td><td>no — reviewed like code</td></tr>
-<tr><td class="name">PLATFORM/</td><td>Registry loader, genome validator, generator, seed builder, this portal</td><td>no</td></tr>
+<tr><td class="name">PLATFORM/</td><td>Registry loader, genome, generator, seed builder, this portal, the document and layout checks</td><td>no</td></tr>
+<tr><td class="name">PLATFORM/templates/</td><td>The archify viewer shell the diagram is rebuilt into</td><td>no — vendored</td></tr>
 <tr><td class="name">DEPARTMENTS/</td><td>{f['agents_total']} agent packages — charter, registration, tools, evaluation, skills</td><td><strong>yes</strong></td></tr>
 <tr><td class="name">DATABASE/</td><td>SQL Server schema and the generated seed</td><td>seed: <strong>yes</strong></td></tr>
-<tr><td class="name">PORTAL/</td><td>These six pages</td><td><strong>yes</strong></td></tr>
-<tr><td class="name">DOCS/</td><td>ADRs and the charter</td><td>no</td></tr>
+<tr><td class="name">PORTAL/</td><td>These pages and the architecture diagram</td><td><strong>yes</strong></td></tr>
+<tr><td class="name">DOCS/</td><td>Build plan, ADRs, agent harness; the charter under <code>charter/</code></td><td>charter: <strong>yes</strong></td></tr>
+<tr><td class="name">../projects/</td><td>Client work — one folder per site, built by the company, not part of it</td><td>no</td></tr>
 <tr><td class="name">.claude/agents/</td><td>The {f['officers']} officers Claude Code loads</td><td><strong>yes</strong> — synced from the registry</td></tr>
 </tbody></table></div>
 """
@@ -1013,16 +1016,22 @@ bypass the gate.</p>
 
 def page_governance(c: Company) -> str:
     f = c.figures
+    # Counted by running the genome, never typed: this page said "twenty-four" for a
+    # while after the twenty-fifth check landed, which is invariant 11 failing in the
+    # one page that explains invariant 11.
+    genome = Genome(c)
+    genome.run()
+    checks = len(genome.checks)
     body = phead(
         "Governance",
         "The harness every agent is held in",
-        "Twenty-four checks run over the whole company on every build. Each one exists "
+        f"{checks} checks run over the whole company on every build. Each one exists "
         "because something can go wrong silently, and silence is the failure mode that "
         "matters here.",
     )
     body += f"""
 <div class="stats">
-  {stat(24, 'checks', 'Run by ru_aibotworks_genome.py on every push.')}
+  {stat(checks, 'checks', 'Run by ru_aibotworks_genome.py on every push.')}
   {stat(f['agents_total'], 'agents covered', 'Every agent. No exemptions, no exceptions.')}
   {stat(f['tools_registered_denied'], 'tools denied to all', 'Tier 3 and 4, registered so the refusal is auditable.', 'v')}
   {stat(0, 'dangerous grants', 'Verified in the database, not asserted here.', 'i')}
@@ -1338,7 +1347,7 @@ def main() -> int:
     (OUT / "RU-AIBOTWORKS-company.json").write_text(
         json.dumps(
             {
-                "generated": TODAY.isoformat(),
+                "generated": AS_OF.isoformat(),
                 "figures": c.figures,
                 "officers": [
                     {"name": o.name, "level": o.level, "reports_to": o.reports_to,

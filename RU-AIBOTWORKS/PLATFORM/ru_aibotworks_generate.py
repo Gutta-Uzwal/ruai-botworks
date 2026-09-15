@@ -29,15 +29,15 @@ from pathlib import Path
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from ru_aibotworks_registry import Agent, Company, Officer  # noqa: E402
+from ru_aibotworks_registry import Agent, Company, Officer, as_of  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "DEPARTMENTS"
 OFFICERS_OUT = OUT / "_officers"
 CLAUDE_AGENTS = ROOT.parent / ".claude" / "agents"
 
-TODAY = date.today()
-REVIEW_DUE = TODAY + timedelta(days=182)  # §34.4 — registration reviewed every 6 months
+AS_OF = as_of()  # registry edition date, never the wall clock
+REVIEW_DUE = AS_OF + timedelta(days=182)  # §34.4 — registration reviewed every 6 months
 
 # ── Tool grants. Derived from tier and data domains, never declared per agent, so
 #    a grant cannot be widened by editing one file. §34.2 makes adding a tool a
@@ -340,7 +340,7 @@ def render_registration(agent: Agent, company: Company) -> str:
         "evaluation": f"EVALUATION.yaml@v1",
         "incident_clocks": clocks_for(agent),
         "review_due": REVIEW_DUE.isoformat(),
-        "registered_on": TODAY.isoformat(),
+        "registered_on": AS_OF.isoformat(),
         "registered_by": "hr-director / agent-registrar",
     }
     header = (
@@ -572,7 +572,7 @@ def render_promotions(company: Company) -> str:
                         "without a reporting line beneath it."
                     )
                 ),
-                "date": TODAY.isoformat(),
+                "date": AS_OF.isoformat(),
             }
         )
     doc = {
@@ -609,7 +609,7 @@ def generate(company: Company) -> dict[str, str]:
     for officer in company.officers:
         files[f"_officers/{officer.name}/AGENT.md"] = render_officer_md(officer, company)
 
-    files["_officers/RU-AIBOTWORKS-PROMOTIONS.yaml"] = render_promotions(company)
+    files["_officers/RU-AIBOTWORKS-promotions.yaml"] = render_promotions(company)
     return files
 
 
@@ -618,14 +618,14 @@ def render_agent_tools_json(company: Company) -> str:
     The runtime-reachable tool registry, at the repository root.
 
     Only grantable tools appear: this file is the surface an agent can actually
-    reach. Tier 3 and 4 tools stay in ru-aibotworks-tools.yaml, registered and
+    reach. Tier 3 and 4 tools stay in RU-AIBOTWORKS-tools.yaml, registered and
     granted to nobody, so the refusal remains auditable without being reachable.
     """
     reachable = [t for t in company.tools["tools"] if t.get("granted_to") != []]
     doc = {
         "version": 1,
         "_generated": "PLATFORM/ru_aibotworks_generate.py — do not hand-edit",
-        "_source": "REGISTRY/ru-aibotworks-tools.yaml",
+        "_source": "REGISTRY/RU-AIBOTWORKS-tools.yaml",
         "egress": company.tools["egress"],
         "forbidden_identities": company.tools["forbidden_identities"],
         "tools": [{k: v for k, v in t.items() if k != "granted_to"} for t in reachable],

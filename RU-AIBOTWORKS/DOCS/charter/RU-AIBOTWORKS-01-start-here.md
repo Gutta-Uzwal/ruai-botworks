@@ -91,13 +91,13 @@ not hold the stop button.
 
 | Document | Answers |
 |---|---|
-| `RU-AIBOTWORKS-BUILD-PLAN.md` | Every stage, in order, and where we are |
+| `RU-AIBOTWORKS-build-plan.md` | Every stage, in order, and where we are |
 | `adr/RU-AIBOTWORKS-ADR-001` | Why agents are built rather than forked |
 | `adr/RU-AIBOTWORKS-ADR-002` | The organisation, and why it has 19 officers |
 | `adr/RU-AIBOTWORKS-ADR-003` | The mobile lane and its three stacks |
 | `adr/RU-AIBOTWORKS-ADR-004` | Compliance: what attaches, when, and to which template |
 | `adr/RU-AIBOTWORKS-ADR-005` | What an agent, a sub-agent and a skill actually are |
 | `charter/RU-AIBOTWORKS-02-organisation.md` | **Generated** — officers, vetoes, departments |
-| `charter/RU-AIBOTWORKS-08-roster.md` | **Generated** — every agent in the company |
+| `charter/RU-AIBOTWORKS-03-roster.md` | **Generated** — every agent in the company |
 
 Generated 2026-09-14.

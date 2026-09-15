@@ -1,10 +1,16 @@
 __pycache__/
 *.py[cod]
-projects/school/backend/.venv/
-projects/school/backend/*.egg-info/
-projects/school/backend/db.sqlite3
-projects/school/frontend/node_modules/
-projects/school/frontend/dist/
+
+# Client project build output, for every project, not just the first one.
+projects/*/backend/.venv/
+projects/*/backend/*.egg-info/
+projects/*/backend/db.sqlite3
+projects/*/frontend/node_modules/
+projects/*/frontend/dist/
+
+# Session-memory plugin state. Machine-local; never company record.
+.remember/
+.claude/.remember/
 
 # Receipt chains belong at the repository root and nowhere else. The policy hooks
 # write them relative to the current working directory, so any shell that has cd'd
