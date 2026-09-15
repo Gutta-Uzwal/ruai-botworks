@@ -1,0 +1,124 @@
+# RU-AIBOTWORKS — Site Reliability · officer: sre · division: Delivery
+# 10 engineers. Containment must be automated or it does not exist.
+#
+# Read-only throughout — sre holds a veto (invariant 9). Containment actions are
+# executed through the control plane, which sre signals; it does not hold Write here.
+
+department: site-reliability
+agents:
+
+  # ──────────────── Incident Response · 5 ────────────────
+  - name: incident-response-lead
+    role: Own detection, containment and the agentic annex to the IR plan
+    model: opus
+    plugin: incident-response
+    team: incident-response
+    tier: 0
+    lead: true
+    read_only: true
+    domains: [observability, infrastructure]
+    skills:
+      - { id: agentic-incident-annex, about: "An IR plan that assumes a credentialed agent is the actor, and a tabletop that has been run" }
+
+  - name: kill-switch-operator
+    role: Exercise the out-of-band kill switch and publish measured latency
+    model: opus
+    plugin: incident-response
+    team: incident-response
+    tier: 0
+    read_only: true
+    domains: [observability]
+    skills:
+      - { id: kill-switch-game-day, about: "Pulling it in production on a real agent, quarterly, and publishing per-layer wall-clock figures" }
+      - { id: subagent-and-queue-coverage, about: "Verifying the stop reaches sub-agents and queued work, not just the parent run" }
+
+  - name: runaway-detection-engineer
+    role: Detect loops, fan-out and budget exhaustion before they cost
+    model: opus
+    plugin: incident-response
+    team: incident-response
+    tier: 0
+    read_only: true
+    domains: [observability]
+    skills:
+      - { id: mandate-versus-action-divergence, about: "The cheapest check with the highest catch rate — comparing what the agent was told to do with what it did" }
+
+  - name: forensics-analyst
+    role: Reconstruct a run end to end from the trajectory log
+    model: opus
+    plugin: distributed-debugging
+    team: incident-response
+    tier: 0
+    read_only: true
+    domains: [observability]
+    skills:
+      - { id: trajectory-reconstruction, about: "Answering which content steered the agent, using provenance labels rather than inference" }
+
+  - name: error-diagnostics-analyst
+    role: Triage production errors and identify the failing component
+    model: sonnet
+    plugin: error-diagnostics
+    team: incident-response
+    tier: 0
+    read_only: true
+    domains: [observability]
+    skills:
+      - { id: error-signal-triage, about: "Separating the cause from the hundred downstream symptoms it produced" }
+
+  # ──────────────── Observability · 5 ────────────────
+  - name: observability-lead
+    role: Own traces, SLIs, SLOs and alerts that mean something
+    model: opus
+    plugin: observability-monitoring
+    team: observability
+    tier: 0
+    lead: true
+    read_only: true
+    domains: [observability]
+    skills:
+      - { id: alert-actionability, about: "Every alert names an action; one that does not is deleted rather than tuned" }
+
+  - name: slo-engineer
+    role: Define SLIs, SLOs and error budgets
+    model: sonnet
+    plugin: observability-monitoring
+    team: observability
+    tier: 0
+    read_only: true
+    domains: [observability]
+    skills:
+      - { id: slo-target-selection, about: "Targets from what users notice rather than from a round number of nines" }
+
+  - name: tracing-engineer
+    role: Distributed tracing and span design
+    model: sonnet
+    plugin: observability-monitoring
+    team: observability
+    tier: 0
+    read_only: true
+    domains: [observability]
+    skills:
+      - { id: span-attribute-design, about: "Attributes that answer questions during an incident, not attributes that were easy to add" }
+
+  - name: metrics-engineer
+    role: Metric collection, cardinality control and dashboards
+    model: sonnet
+    plugin: observability-monitoring
+    team: observability
+    tier: 0
+    read_only: true
+    domains: [observability]
+    skills:
+      - { id: cardinality-budgeting, about: "Labels bounded before they are added, because unbounded cardinality kills the metrics store" }
+
+  - name: audit-log-engineer
+    role: The append-only trajectory log the agents cannot reach
+    model: opus
+    plugin: observability-monitoring
+    team: observability
+    tier: 0
+    read_only: true
+    domains: [observability]
+    skills:
+      - { id: append-only-log-integrity, about: "Written under a different principal, hash-chained, and retained to the longest applicable obligation" }
+      - { id: denied-attempt-logging, about: "Logging after the decision and before the effect, so denied attempts survive — the best early signal of a hijacked agent" }

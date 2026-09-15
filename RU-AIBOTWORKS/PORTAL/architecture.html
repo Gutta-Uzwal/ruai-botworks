@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Architecture · RU-AIBOTWORKS</title>
+<script>
+(function(){
+  try{
+    if(localStorage.getItem('ruai-auth')==='ok') return;
+  }catch(e){}
+  var here=location.pathname.split('/').pop()||'index.html';
+  location.replace('login.html?next='+encodeURIComponent(here));
+})();
+window.ruaiLogout=function(){
+  try{localStorage.removeItem('ruai-auth');}catch(e){}
+  location.replace('login.html');
+};
+
+(function(){
+  try{
+    var t=localStorage.getItem('ruai-theme');
+    if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);
+  }catch(e){}
+  window.ruaiToggle=function(){
+    var r=document.documentElement,
+        cur=r.getAttribute('data-theme'),
+        sysDark=window.matchMedia('(prefers-color-scheme: dark)').matches,
+        now=cur?cur:(sysDark?'dark':'light'),
+        next=now==='dark'?'light':'dark';
+    r.setAttribute('data-theme',next);
+    try{localStorage.setItem('ruai-theme',next);}catch(e){}
+  };
+})();
+</script>
+<link rel="stylesheet" href="portal.css">
+</head>
+<body>
+<header class="mast">
+  <div class="mast-in">
+    <div class="brand">RU<span>-</span>AIBOTWORKS</div>
+    <nav class="tabs">
+      <a href="index.html">Overview</a>
+      <a href="org-chart.html">Reporting</a>
+      <a href="hierarchy.html">Hierarchy</a>
+      <a href="workforce.html">Workforce</a>
+      <a href="projects.html">Projects</a>
+      <a href="workflow.html">Workflow</a>
+      <a href="architecture.html" aria-current="page">Architecture</a>
+      <a href="diagram.html">Diagram</a>
+      <a href="governance.html">Governance</a>
+      <button class="theme-btn" onclick="ruaiToggle()" aria-label="Toggle theme">◐ theme</button>
+      <button class="theme-btn" onclick="ruaiLogout()" aria-label="Sign out">sign out</button>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+<div class="phead"><p class="eyebrow">Architecture</p><h1>Seven planes, five lanes, one gate</h1><p class="lede">The line that matters runs between what proposes and what authorises. If the model is on both sides of it, the architecture is wrong.</p></div>
+<h2>The seven planes</h2>
+<p class="sub">This repository is not a runtime, so it owns four planes and declares the
+other three as deployment obligations. Naming the gap is itself a control &mdash; a
+repository that claims to enforce sandboxing it does not run is worse than one that
+says so.</p>
+<div class="tw"><table>
+<thead><tr><th>Plane</th><th>Responsibility</th><th>Trust</th><th>Status</th></tr></thead><tbody>
+<tr><td class="name">1 · Control</td><td>Starts, stops, schedules, budgets. Holds the kill switch.</td><td>Fully trusted</td><td><span class="chip veto">deployment obligation</span></td></tr><tr><td class="name">2 · Policy</td><td>Evaluates every tool call: who, what, where, which tier, what budget.</td><td>Fully trusted, deterministic</td><td><span class="chip">owned here</span></td></tr><tr><td class="name">3 · Identity</td><td>Issues short-lived scoped credentials. Records the human principal.</td><td>Fully trusted</td><td><span class="chip veto">deployment obligation</span></td></tr><tr><td class="name">4 · Reasoning</td><td>The model, the prompt, the planner. Decides what to do next.</td><td>UNTRUSTED</td><td><span class="chip lead">owned here</span></td></tr><tr><td class="name">5 · Execution</td><td>Where model-generated code actually runs.</td><td>HOSTILE — assume compromise</td><td><span class="chip veto">deployment obligation</span></td></tr><tr><td class="name">6 · Tool &amp; data</td><td>The registered tool surface and the systems behind it.</td><td>Trusted code, untrusted callers</td><td><span class="chip">owned here</span></td></tr><tr><td class="name">7 · Observability</td><td>Traces, tool-call log, provenance, receipts.</td><td>Fully trusted, append-only</td><td><span class="chip">owned here</span></td></tr></tbody></table></div>
+<div class="note warn"><strong>What this repository does not do.</strong> It does not run
+a kernel-isolated sandbox, issue credential leases, or host an out-of-band kill switch.
+Those are the control, identity and execution planes, and they are production deployment
+requirements. The database has tables for kill-switch and restore drills
+(<code>ops.KillSwitchDrill</code>, <code>ops.RestoreDrill</code>) precisely so that the
+absence of a dated, measured record is visible rather than assumed.</div>
+
+<h2>Delivery lanes</h2>
+<p class="sub">One lane per project, chosen by <code>web-architect</code> at Architecture
+and recorded in that project's <code>DESIGN.md</code>. A project never carries two.</p>
+<div class="tw"><table>
+<thead><tr><th>Lane</th><th>What it builds</th><th>Stack</th><th>Chosen when</th></tr></thead><tbody>
+<tr><td class="name">A</td><td>Database-backed web</td><td>Django + React</td><td>Accounts, data, workflows</td></tr>
+<tr><td class="name">B</td><td>Static-first web</td><td>Vite + React, no DB</td><td>Content-heavy, Core Web Vitals critical</td></tr>
+<tr><td class="name">C1</td><td>Android native</td><td>Kotlin + Jetpack Compose</td><td>Android-only, premium UX, deep platform integration</td></tr>
+<tr><td class="name">C2</td><td>Cross-platform mobile</td><td>Flutter / Dart 3</td><td>Android and iOS from one budget</td></tr>
+<tr><td class="name">C3</td><td>Mobile companion</td><td>React Native + Expo</td><td>Client already buying the web lane</td></tr>
+</tbody></table></div>
+
+<div class="note warn"><strong>The iOS limit, stated at scoping.</strong> Xcode is
+macOS-only. All three mobile sub-lanes build Android on Windows. C2 and C3 write
+iOS-capable code but cannot compile it here. An iOS deliverable needs a macOS runner
+budgeted before the project starts &mdash; told to the client at scoping, not discovered
+at release.</div>
+
+<h2>The gate</h2>
+<p class="sub">Nine job families. Every one deterministic, every one in CI, so the gate
+costs zero context tokens.</p>
+<div class="tw"><table>
+<thead><tr><th>Family</th><th>Runs</th><th>Blocks</th></tr></thead><tbody>
+<tr><td>Project tests — Lane A</td><td><code>pip-audit</code>, <code>mypy</code>, <code>pytest</code></td><td>yes</td></tr>
+<tr><td>Project tests — Lane B</td><td><code>npm audit</code>, <code>tsc --noEmit</code>, <code>vitest</code></td><td>yes</td></tr>
+<tr><td>Project tests — Lane C</td><td><code>gradle test</code> / <code>flutter test</code> / <code>jest</code>, device matrix</td><td>yes</td></tr>
+<tr><td>Repository</td><td><code>ru_aibotworks_genome.py --validate</code>, <code>ru_aibotworks_generate.py --check</code></td><td>yes</td></tr>
+<tr><td>Links</td><td>internal <strong>and</strong> external</td><td>yes</td></tr>
+<tr><td>Diagrams</td><td>every Mermaid block parsed</td><td>yes</td></tr>
+<tr><td>Plugin integrity</td><td>pins match the lock file; certifications current</td><td>yes</td></tr>
+<tr><td>Policy receipts</td><td>chain verifies <strong>offline</strong></td><td>yes</td></tr>
+<tr><td>Agent regression</td><td>golden-trace diff</td><td><span class="chip lead">advisory</span></td></tr>
+</tbody></table></div>
+<p class="sub">The last row is advisory on purpose. Golden-trace diffing against
+non-deterministic models produces false positives, and a flaky blocker teaches people to
+bypass the gate.</p>
+
+<h2>Where things live</h2>
+<div class="tw"><table>
+<thead><tr><th>Path</th><th>Holds</th><th>Generated?</th></tr></thead><tbody>
+<tr><td class="name">REGISTRY/</td><td>The single source of truth: identity, officers, departments, workforce, tools</td><td>no — reviewed like code</td></tr>
+<tr><td class="name">PLATFORM/</td><td>Registry loader, genome, generator, seed builder, this portal, the document and layout checks</td><td>no</td></tr>
+<tr><td class="name">PLATFORM/templates/</td><td>The archify viewer shell the diagram is rebuilt into</td><td>no — vendored</td></tr>
+<tr><td class="name">DEPARTMENTS/</td><td>278 agent packages — charter, registration, tools, evaluation, skills</td><td><strong>yes</strong></td></tr>
+<tr><td class="name">DATABASE/</td><td>SQL Server schema and the generated seed</td><td>seed: <strong>yes</strong></td></tr>
+<tr><td class="name">PORTAL/</td><td>These pages and the architecture diagram</td><td><strong>yes</strong></td></tr>
+<tr><td class="name">DOCS/</td><td>Build plan, ADRs, agent harness; the charter under <code>charter/</code></td><td>charter: <strong>yes</strong></td></tr>
+<tr><td class="name">../projects/</td><td>Client work — one folder per site, built by the company, not part of it</td><td>no</td></tr>
+<tr><td class="name">.claude/agents/</td><td>The 19 officers Claude Code loads</td><td><strong>yes</strong> — synced from the registry</td></tr>
+</tbody></table></div>
+
+<footer class="foot">
+  <span>Generated 2026-09-14 from REGISTRY · every figure computed, none asserted</span>
+  <span>278 agents · 19 officers · 3 vetoes</span>
+</footer>
+</main>
+
+<script>
+/* Scroll choreography.
+
+   Sections settle in as they enter the viewport, staggered a little so a long
+   page reads as momentum rather than as a wall arriving at once.
+
+   Deliberately NOT here: hijacking the scroll wheel to interpolate scrollTop.
+   That is what most "smooth scrolling" libraries do, and it costs keyboard
+   paging, screen-reader virtual cursors, trackpad momentum, and find-in-page
+   accuracy. The feel comes from the entrance easing and honest sticky headers,
+   which cost none of those. */
+(function () {
+  var reduce = false;
+  try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (_) {}
+  if (reduce || !('IntersectionObserver' in window)) return;
+
+  var targets = document.querySelectorAll(
+    '.stat, .panel, .tw, .step, details.dept, .chart, .treewrap, h2, .note'
+  );
+  if (!targets.length) return;
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('shown');
+      io.unobserve(entry.target);
+    });
+  }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+
+  targets.forEach(function (el, i) {
+    // Anything already on screen at load skips the entrance entirely — a page
+    // that animates its own first paint just looks slow.
+    var box = el.getBoundingClientRect();
+    if (box.top < window.innerHeight * 0.92) { el.classList.add('shown'); return; }
+    el.setAttribute('data-reveal', '');
+    el.style.transitionDelay = Math.min((i % 5) * 45, 180) + 'ms';
+    io.observe(el);
+  });
+})();
+</script>
+
+</body>
+</html>

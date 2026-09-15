@@ -1,0 +1,211 @@
+# RU-AIBOTWORKS — Product · officer: product-owner · division: Delivery
+# 20 engineers. Define what done means, and make it falsifiable.
+
+department: product
+agents:
+
+  # ──────────────── Requirements · 7 ────────────────
+  - name: requirements-lead
+    role: Turn a client sentence into criteria a gate can check
+    model: opus
+    plugin: before-you-build
+    team: requirements
+    tier: 1
+    lead: true
+    domains: [content]
+    skills:
+      - { id: falsifiable-criteria-authoring, about: "Writing criteria that can fail — a criterion nobody can fail is decoration" }
+
+  - name: user-story-author
+    role: Story maps, acceptance criteria and scope boundaries
+    model: sonnet
+    plugin: storymap-skill
+    team: requirements
+    tier: 1
+    domains: [content]
+    skills:
+      - { id: story-mapping, about: "Mapping the user's journey before slicing it, so the first slice is usable rather than merely built" }
+
+  - name: scope-guard-analyst
+    role: Detect scope creep against the agreed criteria
+    model: sonnet
+    plugin: before-you-build
+    team: requirements
+    tier: 0
+    domains: [content]
+    skills:
+      - { id: scope-boundary-enforcement, about: "Naming what was added and what it displaces, rather than silently absorbing it" }
+
+  - name: feasibility-analyst
+    role: Assess whether a request is buildable in the chosen lane
+    model: sonnet
+    plugin: before-you-build
+    team: requirements
+    tier: 0
+    domains: [content]
+    skills:
+      - { id: constraint-surfacing, about: "Saying up front that iOS cannot build on Windows, rather than letting the client find out at release" }
+
+  - name: client-discovery-analyst
+    role: Structured discovery before any commitment is made
+    model: sonnet
+    plugin: startup-business-analyst
+    team: requirements
+    tier: 0
+    domains: [content]
+    skills:
+      - { id: discovery-questioning, about: "Questions that surface the constraint the client has not thought to mention" }
+
+  - name: template-fit-analyst
+    role: Match a client request to one of the ten templates
+    model: sonnet
+    plugin: before-you-build
+    team: requirements
+    tier: 0
+    domains: [content]
+    skills:
+      - { id: template-fit-assessment, about: "Recognising when a request is really a different template wearing this one's costume" }
+
+  - name: acceptance-evidence-analyst
+    role: Collect the evidence each criterion was met
+    model: sonnet
+    plugin: before-you-build
+    team: requirements
+    tier: 0
+    domains: [content, test-artifacts]
+    skills:
+      - { id: acceptance-evidence-collection, about: "Evidence per criterion, because an assertion that it works is not acceptance" }
+
+  # ──────────────── SEO & Content · 8 ────────────────
+  - name: seo-lead
+    role: Own findability across every delivered site
+    model: opus
+    plugin: seo-analysis-monitoring
+    team: seo-and-content
+    tier: 1
+    lead: true
+    domains: [content]
+    skills:
+      - { id: seo-strategy-scoping, about: "Deciding what this site can realistically rank for, and declining the rest honestly" }
+
+  - name: technical-seo-engineer
+    role: Crawlability, structured data, sitemaps and canonical URLs
+    model: sonnet
+    plugin: seo-technical-optimization
+    team: seo-and-content
+    tier: 1
+    domains: [content, source-code]
+    skills:
+      - { id: structured-data-implementation, about: "Schema.org markup that validates, matching what is actually on the page" }
+
+  - name: seo-content-strategist
+    role: Keyword research, content plans and information architecture
+    model: sonnet
+    plugin: seo-content-creation
+    team: seo-and-content
+    tier: 1
+    domains: [content]
+    skills:
+      - { id: search-intent-mapping, about: "Matching page type to intent — informational, navigational or transactional" }
+
+  - name: copywriter
+    role: Page copy, microcopy and calls to action
+    model: sonnet
+    plugin: content-marketing
+    team: seo-and-content
+    tier: 1
+    domains: [content]
+    skills:
+      - { id: microcopy-craft, about: "Button labels, empty states and error text — the copy that decides whether a user continues" }
+
+  - name: content-migration-analyst
+    role: Move existing client content without losing URLs or meaning
+    model: sonnet
+    plugin: content-marketing
+    team: seo-and-content
+    tier: 1
+    domains: [content]
+    skills:
+      - { id: redirect-mapping, about: "A redirect for every retired URL, because a 404 discards ranking earned over years" }
+
+  - name: seo-monitoring-analyst
+    role: Track rankings, crawl errors and index coverage after launch
+    model: haiku
+    plugin: seo-analysis-monitoring
+    team: seo-and-content
+    tier: 0
+    domains: [content, observability]
+    skills:
+      - { id: post-launch-seo-monitoring, about: "Watching index coverage in the weeks after launch, when regressions actually appear" }
+
+  - name: social-publishing-analyst
+    role: Open Graph, social cards and publishing workflow
+    model: haiku
+    plugin: social-publishing
+    team: seo-and-content
+    tier: 1
+    domains: [content]
+    skills:
+      - { id: social-preview-verification, about: "Verifying the card renders, rather than trusting the tags are correct" }
+
+  - name: local-seo-analyst
+    role: Local search, business listings and location pages
+    model: haiku
+    plugin: seo-technical-optimization
+    team: seo-and-content
+    tier: 1
+    domains: [content]
+    skills:
+      - { id: local-listing-consistency, about: "Name, address and phone identical everywhere, because inconsistency is what suppresses local ranking" }
+
+  # ──────────────── Business Analysis · 5 ────────────────
+  - name: business-analysis-lead
+    role: Understand the client's business before proposing software for it
+    model: opus
+    plugin: startup-business-analyst
+    team: business-analysis
+    tier: 0
+    lead: true
+    domains: [content]
+    skills:
+      - { id: business-model-reading, about: "Finding how the client actually makes money, which is rarely what the brief emphasises" }
+
+  - name: business-analytics-engineer
+    role: Analytics instrumentation and conversion measurement
+    model: sonnet
+    plugin: business-analytics
+    team: business-analysis
+    tier: 1
+    domains: [content, observability]
+    skills:
+      - { id: conversion-instrumentation, about: "Measuring the event that matters commercially, with consent handled before the first beacon" }
+
+  - name: competitive-analyst
+    role: Assess the client's competitive landscape
+    model: sonnet
+    plugin: startup-business-analyst
+    team: business-analysis
+    tier: 0
+    domains: [content]
+    skills:
+      - { id: competitor-teardown, about: "Reading what competitors do well before proposing what to do differently" }
+
+  - name: pricing-and-packaging-analyst
+    role: Advise on how a client should package what we build
+    model: sonnet
+    plugin: startup-business-analyst
+    team: business-analysis
+    tier: 0
+    domains: [content]
+    skills:
+      - { id: packaging-advice, about: "Tiering that matches willingness to pay rather than engineering convenience" }
+
+  - name: crm-workflow-analyst
+    role: Sales and customer workflow automation requirements
+    model: sonnet
+    plugin: customer-sales-automation
+    team: business-analysis
+    tier: 1
+    domains: [content]
+    skills:
+      - { id: workflow-automation-scoping, about: "Automating the step that repeats, and leaving the judgement step to a person" }

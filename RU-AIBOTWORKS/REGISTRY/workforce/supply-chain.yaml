@@ -1,0 +1,106 @@
+# RU-AIBOTWORKS — Supply Chain · officer: dependency-steward · division: Delivery
+# 10 engineers. Everything pinned, certified, logged, and torn down after.
+
+department: supply-chain
+agents:
+
+  - name: dependency-lead
+    role: Own pins, certifications and the fork log
+    model: opus
+    plugin: dependency-management
+    team: dependency-and-certification
+    tier: 1
+    lead: true
+    domains: [dependencies]
+    skills:
+      - { id: pin-discipline, about: "Pinning by commit, never by branch name — a branch pin is not a pin" }
+
+  - name: plugin-certification-engineer
+    role: Certify every plugin before first use and on every pin bump
+    model: sonnet
+    plugin: plugin-eval
+    team: dependency-and-certification
+    tier: 1
+    domains: [dependencies]
+    skills:
+      - { id: certification-recording, about: "Recording the certification ID against the exact pin it was issued for" }
+
+  - name: licence-clearance-analyst
+    role: Verify licence terms before any component reaches client work
+    model: opus
+    plugin: dependency-management
+    team: dependency-and-certification
+    tier: 0
+    domains: [dependencies]
+    skills:
+      - { id: commercial-use-clearance, about: "Clearing commercial use explicitly — an unverified licence on a gate-blocking component is a production risk" }
+
+  - name: tier-c-teardown-operator
+    role: Uninstall project-scoped components after every template
+    model: haiku
+    plugin: context-management
+    team: dependency-and-certification
+    tier: 1
+    domains: [dependencies]
+    skills:
+      - { id: teardown-verification, about: "Measuring the context baseline after teardown, because the step everyone skips is the one that rots budgets" }
+
+  - name: upstream-merge-reviewer
+    role: Review upstream changes deliberately; never pull automatically
+    model: opus
+    plugin: dependency-management
+    team: dependency-and-certification
+    tier: 1
+    domains: [dependencies]
+    skills:
+      - { id: deliberate-merge-review, about: "Reading every incoming diff, because an automatic pull is an unreviewed production change" }
+
+  - name: divergence-logger
+    role: Record every divergence from upstream with a reason
+    model: haiku
+    plugin: dependency-management
+    team: dependency-and-certification
+    tier: 1
+    domains: [dependencies]
+    skills:
+      - { id: divergence-recording, about: "Undocumented drift is indistinguishable from an accident" }
+
+  - name: tool-manifest-pinner
+    role: Pin third-party tool manifests by hash and diff them on change
+    model: opus
+    plugin: dependency-management
+    team: dependency-and-certification
+    tier: 1
+    domains: [dependencies, policy]
+    skills:
+      - { id: tool-description-diffing, about: "Tool descriptions are untrusted text in a privileged position — an unexpected change is a supply-chain event" }
+
+  - name: sbom-engineer
+    role: Software bill of materials per release
+    model: sonnet
+    plugin: dependency-management
+    team: dependency-and-certification
+    tier: 1
+    domains: [dependencies]
+    skills:
+      - { id: sbom-generation, about: "A complete component inventory, including transitive dependencies and their licences" }
+
+  - name: version-drift-monitor
+    role: Detect pins that have drifted from the lock file
+    model: haiku
+    plugin: dependency-management
+    team: dependency-and-certification
+    tier: 0
+    domains: [dependencies]
+    skills:
+      - { id: lockfile-reconciliation, about: "Comparing installed against locked, and failing the build on any disagreement" }
+
+  - name: context-budget-analyst
+    role: Measure and report the weekly context baseline
+    model: haiku
+    plugin: context-management
+    team: dependency-and-certification
+    tier: 0
+    domains: [observability]
+    skills:
+      - { id: context-baseline-measurement, about: "Tracking the baseline weekly, because rot is gradual and invisible without a trend" }

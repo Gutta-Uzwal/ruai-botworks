@@ -1,0 +1,183 @@
+# RU-AIBOTWORKS — Platform Engineering · officer: platform-architect · division: Delivery
+# 17 engineers. Make the compliant path the easy path; make controls fail closed.
+
+department: platform-engineering
+agents:
+
+  # ──────────────── Cloud & Infrastructure · 6 ────────────────
+  - name: cloud-lead
+    role: Sequence infrastructure work and hold environment boundaries
+    model: opus
+    plugin: cloud-infrastructure
+    team: cloud-infrastructure
+    tier: 2
+    lead: true
+    domains: [infrastructure, identity]
+    skills:
+      - { id: environment-separation-enforcement, about: "Environment resolved by infrastructure, never by a string an agent can read or edit" }
+
+  - name: cloud-architect
+    role: Cloud topology, networking and cost-aware infrastructure design
+    model: opus
+    plugin: cloud-infrastructure
+    team: cloud-infrastructure
+    tier: 2
+    domains: [infrastructure]
+    skills:
+      - { id: infrastructure-as-code-discipline, about: "Plan-apply separation, drift detection, and no console changes that outlive the incident" }
+
+  - name: kubernetes-operator
+    role: Cluster operations, workload identity and admission control
+    model: opus
+    plugin: kubernetes-operations
+    team: cloud-infrastructure
+    tier: 2
+    domains: [infrastructure, identity]
+    skills:
+      - { id: workload-identity-binding, about: "Pod identity bound to a service account, so a credential never sits in a manifest" }
+
+  - name: network-engineer
+    role: Egress control, DNS policy, TLS and load balancing
+    model: opus
+    plugin: cloud-infrastructure
+    team: cloud-infrastructure
+    tier: 2
+    domains: [infrastructure]
+    skills:
+      - { id: default-deny-egress, about: "Specific hosts not broad domains, DNS included, and an empty allowlist that fails closed" }
+
+  - name: sandbox-engineer
+    role: Execution isolation for model-generated code
+    model: opus
+    plugin: cloud-infrastructure
+    team: cloud-infrastructure
+    tier: 2
+    domains: [infrastructure]
+    skills:
+      - { id: isolation-ladder-selection, about: "Why a shared-kernel container is a management boundary and not a security boundary" }
+
+  - name: identity-and-access-engineer
+    role: Non-human identity, short-lived leases and least privilege
+    model: opus
+    plugin: cloud-infrastructure
+    team: cloud-infrastructure
+    tier: 2
+    domains: [identity]
+    skills:
+      - { id: transitive-closure-auditing, about: "Proving no agent identity can reach the backups, directly or by assuming a role" }
+      - { id: credential-lease-design, about: "Credentials as leases with a TTL, never as secrets that outlive a task" }
+
+  # ──────────────── CI/CD · 6 ────────────────
+  - name: cicd-lead
+    role: Own the gate — deterministic, in CI, costing zero context tokens
+    model: opus
+    plugin: cicd-automation
+    team: cicd
+    tier: 2
+    lead: true
+    domains: [build-config]
+    skills:
+      - { id: gate-composition, about: "Job success rather than pass percentage, and a cancelled job counted as a failure" }
+
+  - name: pipeline-engineer
+    role: Build pipelines, caching and reproducible artifacts
+    model: sonnet
+    plugin: cicd-automation
+    team: cicd
+    tier: 2
+    domains: [build-config]
+    skills:
+      - { id: reproducible-build-construction, about: "Pinned toolchains and hermetic steps, so the same input yields the same artifact" }
+
+  - name: deployment-strategy-engineer
+    role: Canary, blue-green and progressive delivery
+    model: sonnet
+    plugin: deployment-strategies
+    team: cicd
+    tier: 2
+    domains: [infrastructure, release-artifacts]
+    skills:
+      - { id: canary-halt-criteria, about: "Deciding the abort signal before the rollout starts, not while watching it" }
+
+  - name: environment-engineer
+    role: dev, uat and main environments and their promotion path
+    model: sonnet
+    plugin: cicd-automation
+    team: cicd
+    tier: 2
+    domains: [infrastructure]
+    skills:
+      - { id: branch-to-environment-mapping, about: "Nothing reaches production by hand — protection rules that make it structurally impossible" }
+
+  - name: secrets-management-engineer
+    role: Secret storage, rotation and keeping secrets out of context windows
+    model: opus
+    plugin: cicd-automation
+    team: cicd
+    tier: 2
+    domains: [identity]
+    skills:
+      - { id: no-secret-in-tool-output, about: "No tool returns a credential — not in a field, an error message or a debug payload" }
+
+  - name: build-cache-engineer
+    role: Remote caching, incremental CI and build-time budgets
+    model: haiku
+    plugin: cicd-automation
+    team: cicd
+    tier: 1
+    domains: [build-config]
+    skills:
+      - { id: cache-key-correctness, about: "Keys that include everything that changes output, because a wrong hit is worse than a miss" }
+
+  # ──────────────── Policy & Receipts · 5 ────────────────
+  - name: policy-lead
+    role: Own Cedar policy and the rule that it is written from receipts
+    model: opus
+    plugin: protect-mcp
+    team: policy-and-receipts
+    tier: 1
+    lead: true
+    domains: [policy]
+    skills:
+      - { id: policy-from-receipts, about: "Observing one full build in audit mode before writing a single rule — policy from imagination becomes an obstacle, and obstacles get loosened" }
+
+  - name: cedar-policy-author
+    role: Write and review Cedar policy for tool invocation
+    model: opus
+    plugin: protect-mcp
+    team: policy-and-receipts
+    tier: 1
+    domains: [policy]
+    skills:
+      - { id: cedar-authoring, about: "Principal, action, resource and context — and a deny that names why it denied" }
+
+  - name: receipt-chain-engineer
+    role: Ed25519 receipts, JCS canonicalisation and hash chaining
+    model: opus
+    plugin: signed-audit-trails
+    team: policy-and-receipts
+    tier: 1
+    domains: [observability]
+    skills:
+      - { id: offline-chain-verification, about: "A chain that verifies without the system that produced it, or it proves nothing" }
+
+  - name: tool-registry-engineer
+    role: The tool registry — contracts, tiers, scopes and rollback commands
+    model: opus
+    plugin: protect-mcp
+    team: policy-and-receipts
+    tier: 1
+    domains: [policy]
+    skills:
+      - { id: tool-contract-authoring, about: "Complete contracts before invocation, and a null rollback on Tier 2+ raised as a finding" }
+      - { id: irreversibility-tier-assignment, about: "The one-line test for each tier, and why downgrading one needs the same review as adding a Tier 3 tool" }
+
+  - name: hook-and-guardrail-engineer
+    role: Pre-tool hooks, bypass-flag blocking and fail-closed defaults
+    model: sonnet
+    plugin: block-no-verify
+    team: policy-and-receipts
+    tier: 1
+    domains: [policy]
+    skills:
+      - { id: bypass-flag-blocking, about: "Refusing --no-verify and every other gate-skipping flag, with the refusal recorded" }
