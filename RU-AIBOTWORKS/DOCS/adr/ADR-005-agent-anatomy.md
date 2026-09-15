@@ -1,4 +1,4 @@
-# RU-AIBOTWORKS-ADR-005 — Agent anatomy
+# ADR-005 — Agent anatomy
 
 **Status:** Accepted · **Date:** 2026-09-14 · **Decided by:** Enterprise AI Architect
 
@@ -139,5 +139,5 @@ ungoverned agent fails rather than emitting one.
 
 ## Related
 
-- [RU-AIBOTWORKS-ADR-001](RU-AIBOTWORKS-ADR-001-agent-construction-model.md) — agent construction model
-- [RU-AIBOTWORKS-ADR-004](RU-AIBOTWORKS-ADR-004-compliance-posture.md) — compliance posture
+- [ADR-001](ADR-001-agent-construction-model.md) — agent construction model
+- [ADR-004](ADR-004-compliance-posture.md) — compliance posture

@@ -1,6 +1,6 @@
 # RU-AIBOTWORKS — Service Management · officer: service-management-lead · division: Corporate
 # 10 staff. The service layer between clients and delivery.
-# Added by RU-AIBOTWORKS-ADR-002.
+# Added by ADR-002.
 #
 # The division of labour with Site Reliability is deliberate and must stay clear:
 #   service-management coordinates and communicates.  sre executes and stops things.

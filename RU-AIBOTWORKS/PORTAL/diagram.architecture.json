@@ -3,7 +3,7 @@
   "diagram_type": "architecture",
   "meta": {
     "title": "RU-AIBOTWORKS — 278 agents, 19 officers, 3 vetoes",
-    "output": "RU-AIBOTWORKS-diagram.html",
+    "output": "diagram.html",
     "quality_profile": "showcase",
     "visual_preset": "blueprint",
     "generated": "2026-09-14",

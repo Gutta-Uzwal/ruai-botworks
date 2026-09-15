@@ -5,12 +5,12 @@ ru_aibotworks_portal.py — generate the CEO portal from the registry.
 Six pages, one stylesheet, one data file. Every figure on every page is computed
 from REGISTRY, so no page can disagree with another (invariant 11).
 
-    RU-AIBOTWORKS-index.html         the company at a glance
-    RU-AIBOTWORKS-org-chart.html     reporting structure, CEO to engineer
-    RU-AIBOTWORKS-workforce.html     every agent, by division, department and team
-    RU-AIBOTWORKS-workflow.html      how a build reaches production
-    RU-AIBOTWORKS-architecture.html  planes, lanes, and the gate
-    RU-AIBOTWORKS-governance.html    the harness: invariants and standard controls
+    index.html         the company at a glance
+    org-chart.html     reporting structure, CEO to engineer
+    workforce.html     every agent, by division, department and team
+    workflow.html      how a build reaches production
+    architecture.html  planes, lanes, and the gate
+    governance.html    the harness: invariants and standard controls
 
     python ru_aibotworks_portal.py
 """
@@ -31,14 +31,14 @@ OUT = Path(__file__).resolve().parent.parent / "PORTAL"
 AS_OF = as_of()  # registry edition date, never the wall clock
 
 PAGES = [
-    ("RU-AIBOTWORKS-index.html", "Overview"),
-    ("RU-AIBOTWORKS-org-chart.html", "Reporting"),
-    ("RU-AIBOTWORKS-hierarchy.html", "Hierarchy"),
-    ("RU-AIBOTWORKS-workforce.html", "Workforce"),
-    ("RU-AIBOTWORKS-workflow.html", "Workflow"),
-    ("RU-AIBOTWORKS-architecture.html", "Architecture"),
-    ("RU-AIBOTWORKS-diagram.html", "Diagram"),
-    ("RU-AIBOTWORKS-governance.html", "Governance"),
+    ("index.html", "Overview"),
+    ("org-chart.html", "Reporting"),
+    ("hierarchy.html", "Hierarchy"),
+    ("workforce.html", "Workforce"),
+    ("workflow.html", "Workflow"),
+    ("architecture.html", "Architecture"),
+    ("diagram.html", "Diagram"),
+    ("governance.html", "Governance"),
 ]
 
 STYLE = """
@@ -416,7 +416,7 @@ def shell(title: str, current: str, body: str, figures: dict, extra_js: str = ""
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(title)} · RU-AIBOTWORKS</title>
 <script>{THEME_JS}</script>
-<link rel="stylesheet" href="RU-AIBOTWORKS-portal.css">
+<link rel="stylesheet" href="portal.css">
 </head>
 <body>
 <header class="mast">
@@ -728,7 +728,7 @@ def page_workforce(c: Company) -> str:
         f"{f['departments']} departments and {f['teams']} teams. Search by name, role, "
         "skill, department or capability. "
         f'The {f["officers"]} officers are on '
-        '<a href="RU-AIBOTWORKS-org-chart.html">Reporting</a>.',
+        '<a href="org-chart.html">Reporting</a>.',
     )
     body += f"""
 <div class="stats">
@@ -1330,21 +1330,21 @@ def page_hierarchy(c: Company) -> str:
 def main() -> int:
     c = Company.load()
     OUT.mkdir(parents=True, exist_ok=True)
-    (OUT / "RU-AIBOTWORKS-portal.css").write_text(STYLE, encoding="utf-8")
+    (OUT / "portal.css").write_text(STYLE, encoding="utf-8")
 
     pages = {
-        "RU-AIBOTWORKS-index.html": page_index(c),
-        "RU-AIBOTWORKS-org-chart.html": page_org(c),
-        "RU-AIBOTWORKS-hierarchy.html": page_hierarchy(c),
-        "RU-AIBOTWORKS-workforce.html": page_workforce(c),
-        "RU-AIBOTWORKS-workflow.html": page_workflow(c),
-        "RU-AIBOTWORKS-architecture.html": page_architecture(c),
-        "RU-AIBOTWORKS-governance.html": page_governance(c),
+        "index.html": page_index(c),
+        "org-chart.html": page_org(c),
+        "hierarchy.html": page_hierarchy(c),
+        "workforce.html": page_workforce(c),
+        "workflow.html": page_workflow(c),
+        "architecture.html": page_architecture(c),
+        "governance.html": page_governance(c),
     }
     for name, html in pages.items():
         (OUT / name).write_text(html, encoding="utf-8")
 
-    (OUT / "RU-AIBOTWORKS-company.json").write_text(
+    (OUT / "company.json").write_text(
         json.dumps(
             {
                 "generated": AS_OF.isoformat(),
@@ -1378,7 +1378,7 @@ def main() -> int:
     print(f"portal generated — {len(pages)} pages, {total} KB")
     for name in pages:
         print(f"  {name}")
-    print(f"  RU-AIBOTWORKS-portal.css · RU-AIBOTWORKS-company.json")
+    print(f"  portal.css · company.json")
     return 0
 
 

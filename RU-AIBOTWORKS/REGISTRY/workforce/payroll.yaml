@@ -1,6 +1,6 @@
 # RU-AIBOTWORKS — Payroll · officer: payroll-controller · division: Corporate
 # 6 staff. An AI company's payroll is tokens and wall clock.
-# Added by RU-AIBOTWORKS-ADR-002.
+# Added by ADR-002.
 
 department: payroll
 agents:

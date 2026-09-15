@@ -93,9 +93,9 @@ jobs:
       - name: Seed regenerates without drift
         shell: pwsh
         run: |
-          $before = Get-FileHash RU-AIBOTWORKS/DATABASE/RU-AIBOTWORKS-seed.sql
+          $before = Get-FileHash RU-AIBOTWORKS/DATABASE/seed.sql
           python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_seed_sql.py
-          $after = Get-FileHash RU-AIBOTWORKS/DATABASE/RU-AIBOTWORKS-seed.sql
+          $after = Get-FileHash RU-AIBOTWORKS/DATABASE/seed.sql
           if ($before.Hash -ne $after.Hash) {
             Write-Error "seed is stale - run ru_aibotworks_seed_sql.py and commit the result"
             exit 1

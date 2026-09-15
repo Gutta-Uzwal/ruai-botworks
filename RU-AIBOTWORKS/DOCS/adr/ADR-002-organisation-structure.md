@@ -1,4 +1,4 @@
-# RU-AIBOTWORKS-ADR-002 — Organisation structure
+# ADR-002 — Organisation structure
 
 **Status:** Accepted · **Date:** 2026-09-14 · **Decider:** CEO Uzwal Gutta
 **Author:** Enterprise AI Architect
@@ -107,5 +107,5 @@ unaffected: neither `coo` nor the DPO sits on the `/build` path.
 
 ## Related
 
-- [RU-AIBOTWORKS-ADR-001](RU-AIBOTWORKS-ADR-001-agent-construction-model.md) — agent construction model
-- [RU-AIBOTWORKS-ADR-003](RU-AIBOTWORKS-ADR-003-mobile-lane.md) — mobile lane
+- [ADR-001](ADR-001-agent-construction-model.md) — agent construction model
+- [ADR-003](ADR-003-mobile-lane.md) — mobile lane

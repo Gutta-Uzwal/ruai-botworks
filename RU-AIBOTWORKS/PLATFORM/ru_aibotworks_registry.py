@@ -22,7 +22,7 @@ from typing import Any
 import yaml
 
 REGISTRY_DIR = Path(__file__).resolve().parent.parent / "REGISTRY"
-NAMES_FILE = "RU-AIBOTWORKS-names.yaml"
+NAMES_FILE = "names.yaml"
 WORKFORCE_DIR = REGISTRY_DIR / "workforce"
 
 # Levels. Team leads are L2 by logged promotion; every other engineer is L1.
@@ -118,7 +118,7 @@ class Officer:
 
 def as_of() -> date:
     """The registry's edition date. Generators use this, never date.today()."""
-    value = _load("RU-AIBOTWORKS-identity.yaml")["edition"]["as_of"]
+    value = _load("identity.yaml")["edition"]["as_of"]
     return value if isinstance(value, date) else date.fromisoformat(str(value))
 
 
@@ -133,7 +133,7 @@ class Company:
     # ─────────────────────────── loading ───────────────────────────
     @classmethod
     def load(cls) -> "Company":
-        identity = _load("RU-AIBOTWORKS-identity.yaml")
+        identity = _load("identity.yaml")
         names = (
             (_load(NAMES_FILE) or {}).get("assigned", {})
             if (REGISTRY_DIR / NAMES_FILE).exists()
@@ -156,16 +156,16 @@ class Company:
                 refuses=" ".join(o["refuses"].split()),
                 person=names.get(o["name"], ""),
             )
-            for o in _load("RU-AIBOTWORKS-officers.yaml")["officers"]
+            for o in _load("officers.yaml")["officers"]
         ]
-        departments = _load("RU-AIBOTWORKS-departments.yaml")["departments"]
-        tools = _load("RU-AIBOTWORKS-tools.yaml")
+        departments = _load("departments.yaml")["departments"]
+        tools = _load("tools.yaml")
 
         officer_level = {o.name: o.level for o in officers}
         department_officer = {d["id"]: d["officer"] for d in departments}
 
         agents: list[Agent] = []
-        for path in sorted(WORKFORCE_DIR.glob("RU-AIBOTWORKS-*.yaml")):
+        for path in sorted(WORKFORCE_DIR.glob("*.yaml")):
             with path.open(encoding="utf-8") as handle:
                 doc = yaml.safe_load(handle)
             dept = doc["department"]

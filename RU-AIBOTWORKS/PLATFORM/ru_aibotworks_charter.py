@@ -9,9 +9,9 @@ stop typing figures into documents at all.
 
 Emits into DOCS/charter/:
 
-    RU-AIBOTWORKS-01-start-here.md     the constitution and the standing rules
-    RU-AIBOTWORKS-02-organisation.md   officers, vetoes, departments, dispatch
-    RU-AIBOTWORKS-03-roster.md         every agent, by division and team
+    01-start-here.md     the constitution and the standing rules
+    02-organisation.md   officers, vetoes, departments, dispatch
+    03-roster.md         every agent, by division and team
 
     python ru_aibotworks_charter.py
 """
@@ -127,14 +127,14 @@ not hold the stop button.
 
 | Document | Answers |
 |---|---|
-| `RU-AIBOTWORKS-build-plan.md` | Every stage, in order, and where we are |
-| `adr/RU-AIBOTWORKS-ADR-001` | Why agents are built rather than forked |
-| `adr/RU-AIBOTWORKS-ADR-002` | The organisation, and why it has {f['officers']} officers |
-| `adr/RU-AIBOTWORKS-ADR-003` | The mobile lane and its three stacks |
-| `adr/RU-AIBOTWORKS-ADR-004` | Compliance: what attaches, when, and to which template |
-| `adr/RU-AIBOTWORKS-ADR-005` | What an agent, a sub-agent and a skill actually are |
-| `charter/RU-AIBOTWORKS-02-organisation.md` | **Generated** — officers, vetoes, departments |
-| `charter/RU-AIBOTWORKS-03-roster.md` | **Generated** — every agent in the company |
+| `build-plan.md` | Every stage, in order, and where we are |
+| `adr/ADR-001` | Why agents are built rather than forked |
+| `adr/ADR-002` | The organisation, and why it has {f['officers']} officers |
+| `adr/ADR-003` | The mobile lane and its three stacks |
+| `adr/ADR-004` | Compliance: what attaches, when, and to which template |
+| `adr/ADR-005` | What an agent, a sub-agent and a skill actually are |
+| `charter/02-organisation.md` | **Generated** — officers, vetoes, departments |
+| `charter/03-roster.md` | **Generated** — every agent in the company |
 
 Generated {AS_OF.isoformat()}.
 """
@@ -316,9 +316,9 @@ def main() -> int:
     c = Company.load()
     OUT.mkdir(parents=True, exist_ok=True)
     files = {
-        "RU-AIBOTWORKS-01-start-here.md": start_here(c),
-        "RU-AIBOTWORKS-02-organisation.md": organisation(c),
-        "RU-AIBOTWORKS-03-roster.md": roster(c),
+        "01-start-here.md": start_here(c),
+        "02-organisation.md": organisation(c),
+        "03-roster.md": roster(c),
     }
     for name, text in files.items():
         (OUT / name).write_text(text, encoding="utf-8")

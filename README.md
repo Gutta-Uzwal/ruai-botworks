@@ -3,8 +3,8 @@
 Agentic AI employees that build and look after websites and Android apps.
 CEO: Uzwal Gutta.
 
-Start with the charter: [RU-AIBOTWORKS/DOCS/charter/RU-AIBOTWORKS-01-start-here.md](RU-AIBOTWORKS/DOCS/charter/RU-AIBOTWORKS-01-start-here.md).
-Open the CEO portal: [RU-AIBOTWORKS/PORTAL/RU-AIBOTWORKS-index.html](RU-AIBOTWORKS/PORTAL/RU-AIBOTWORKS-index.html).
+Start with the charter: [RU-AIBOTWORKS/DOCS/charter/01-start-here.md](RU-AIBOTWORKS/DOCS/charter/01-start-here.md).
+Open the CEO portal: [RU-AIBOTWORKS/PORTAL/index.html](RU-AIBOTWORKS/PORTAL/index.html).
 
 ## Where things live
 
@@ -45,8 +45,8 @@ repository root on purpose: the policy hooks resolve them from there.
 |---|---|---|
 | Section | `UPPERCASE` | `REGISTRY/` |
 | Folder below a section | `lowercase-kebab` | `workforce/`, `frontend-engineering/` |
-| Data, doc or page file | `RU-AIBOTWORKS-<kebab>.<ext>` | `RU-AIBOTWORKS-tools.yaml` |
-| Decision record | `RU-AIBOTWORKS-ADR-NNN-<kebab>.md` | `RU-AIBOTWORKS-ADR-003-mobile-lane.md` |
+| Data, doc or page file | `<kebab>.<ext>` | `tools.yaml` |
+| Decision record | `ADR-NNN-<kebab>.md` | `ADR-003-mobile-lane.md` |
 | Python module | `ru_aibotworks_<snake>.py` | `ru_aibotworks_genome.py` |
 | Agent package | fixed names | `AGENT.md`, `SKILL.md` |
 

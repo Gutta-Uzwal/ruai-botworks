@@ -38,5 +38,5 @@ contract is added to the registry.
 [agent-tools.json](../../agent-tools.json) is **generated**. It holds the
 runtime-reachable surface only. The authoritative registry, including the Tier 3
 and Tier 4 tools that are registered and granted to nobody, is
-[RU-AIBOTWORKS-tools.yaml](../REGISTRY/RU-AIBOTWORKS-tools.yaml).
+[tools.yaml](../REGISTRY/tools.yaml).
 Edit that, then run `ru_aibotworks_generate.py`.

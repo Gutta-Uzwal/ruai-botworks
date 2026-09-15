@@ -12,8 +12,11 @@ The rule, in full:
     .../<nested>/                     every folder below a section is lowercase-kebab
                                       (a leading underscore marks a non-department,
                                       e.g. DEPARTMENTS/_officers)
-    RU-AIBOTWORKS-<kebab>.<ext>       every data, doc and page file
-    RU-AIBOTWORKS-ADR-NNN-<kebab>.md  a decision record keeps its identifier in caps
+    <kebab>.<ext>                     every data, doc and page file — no company
+                                      prefix; the section folder already says whose
+                                      it is (reopened 2026-09-15: the prefix inside
+                                      RU-AIBOTWORKS/ was judged redundant and dropped)
+    ADR-NNN-<kebab>.md                a decision record keeps its own identifier
     ru_aibotworks_<snake>.py          Python modules — hyphens cannot be imported
     AGENT.md REGISTRATION.yaml ...    the agent package: fixed names the Claude
                                       agent and skill formats expect
@@ -40,8 +43,8 @@ FILE_RULES: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r"^(AGENT\.md|REGISTRATION\.yaml|TOOLS\.yaml|EVALUATION\.yaml|SKILL\.md)$"), "DEPARTMENTS"),
     (re.compile(r"^ru_aibotworks_[a-z0-9]+(?:_[a-z0-9]+)*\.py$"), "PLATFORM"),
     (re.compile(rf"^{KEBAB}\.html$"), "PLATFORM/templates"),
-    (re.compile(rf"^{COMPANY}-ADR-\d{{3}}-{KEBAB}\.md$"), "DOCS/adr"),
-    (re.compile(rf"^{COMPANY}-{KEBAB}(?:\.{KEBAB})?\.(?:md|yaml|sql|html|css|json)$"), ""),
+    (re.compile(rf"^ADR-\d{{3}}-{KEBAB}\.md$"), "DOCS/adr"),
+    (re.compile(rf"^{KEBAB}(?:\.{KEBAB})?\.(?:md|yaml|sql|html|css|json)$"), ""),
 ]
 
 

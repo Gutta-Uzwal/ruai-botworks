@@ -2,7 +2,7 @@
 """
 ru_aibotworks_seed_sql.py — emit the SQL Server seed from the registry.
 
-Writes DATABASE/RU-AIBOTWORKS-seed.sql, which loads the whole company
+Writes DATABASE/seed.sql, which loads the whole company
 into RU_AIBOTWORKS. Generated rather than hand-written for the same reason every other
 artifact here is: the registry is the only place a company fact may originate.
 
@@ -11,7 +11,7 @@ that changes nothing writes no history. gov.Officer and gov.Agent are system-ver
 touching an unchanged row would fabricate an org change that never happened.
 
     python ru_aibotworks_seed_sql.py
-    sqlcmd -S localhost -E -C -b -i DATABASE/RU-AIBOTWORKS-seed.sql
+    sqlcmd -S localhost -E -C -b -i DATABASE/seed.sql
 """
 from __future__ import annotations
 
@@ -28,7 +28,7 @@ from ru_aibotworks_generate import (  # noqa: E402
 )
 from ru_aibotworks_registry import Company, as_of  # noqa: E402
 
-OUT = Path(__file__).resolve().parent.parent / "DATABASE" / "RU-AIBOTWORKS-seed.sql"
+OUT = Path(__file__).resolve().parent.parent / "DATABASE" / "seed.sql"
 AS_OF = as_of()  # registry edition date, never the wall clock
 REVIEW_DUE = AS_OF + timedelta(days=182)
 

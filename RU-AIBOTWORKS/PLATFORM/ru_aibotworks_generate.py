@@ -2,7 +2,7 @@
 """
 ru_aibotworks_generate.py — emit every agent package from the registry.
 
-Per RU-AIBOTWORKS-ADR-005, an agent is a package of five artifacts:
+Per ADR-005, an agent is a package of five artifacts:
 
     <department>/<team>/<agent>/
         AGENT.md                 charter, harness, refusals
@@ -609,7 +609,7 @@ def generate(company: Company) -> dict[str, str]:
     for officer in company.officers:
         files[f"_officers/{officer.name}/AGENT.md"] = render_officer_md(officer, company)
 
-    files["_officers/RU-AIBOTWORKS-promotions.yaml"] = render_promotions(company)
+    files["_officers/promotions.yaml"] = render_promotions(company)
     return files
 
 
@@ -618,14 +618,14 @@ def render_agent_tools_json(company: Company) -> str:
     The runtime-reachable tool registry, at the repository root.
 
     Only grantable tools appear: this file is the surface an agent can actually
-    reach. Tier 3 and 4 tools stay in RU-AIBOTWORKS-tools.yaml, registered and
+    reach. Tier 3 and 4 tools stay in tools.yaml, registered and
     granted to nobody, so the refusal remains auditable without being reachable.
     """
     reachable = [t for t in company.tools["tools"] if t.get("granted_to") != []]
     doc = {
         "version": 1,
         "_generated": "PLATFORM/ru_aibotworks_generate.py — do not hand-edit",
-        "_source": "REGISTRY/RU-AIBOTWORKS-tools.yaml",
+        "_source": "REGISTRY/tools.yaml",
         "egress": company.tools["egress"],
         "forbidden_identities": company.tools["forbidden_identities"],
         "tools": [{k: v for k, v in t.items() if k != "granted_to"} for t in reachable],

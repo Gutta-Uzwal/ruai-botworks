@@ -1,4 +1,4 @@
-# RU-AIBOTWORKS-ADR-004 — Compliance posture
+# ADR-004 — Compliance posture
 
 **Status:** Accepted · **Date:** 2026-09-14 · **Decided by:** Enterprise AI Architect
 **Delegated by:** CEO Uzwal Gutta — *"Any Data Compliance or HIPAA, GDPR applicable the
@@ -92,5 +92,5 @@ ceiling. That is priced at scoping, not absorbed at build.
 
 ## Related
 
-- [RU-AIBOTWORKS-ADR-002](RU-AIBOTWORKS-ADR-002-organisation-structure.md) — organisation structure
-- [RU-AIBOTWORKS-ADR-005](RU-AIBOTWORKS-ADR-005-agent-anatomy.md) — agent anatomy
+- [ADR-002](ADR-002-organisation-structure.md) — organisation structure
+- [ADR-005](ADR-005-agent-anatomy.md) — agent anatomy

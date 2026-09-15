@@ -1,4 +1,4 @@
-# RU-AIBOTWORKS-ADR-003 — Mobile lane
+# ADR-003 — Mobile lane
 
 **Status:** Accepted · **Date:** 2026-09-14 · **Decider:** CEO Uzwal Gutta
 **Author:** Enterprise AI Architect
@@ -71,5 +71,5 @@ keeping plugin ownership 1:1 with an officer as invariant 5 requires.
 
 ## Related
 
-- [RU-AIBOTWORKS-ADR-002](RU-AIBOTWORKS-ADR-002-organisation-structure.md) — organisation structure
-- [RU-AIBOTWORKS-ADR-004](RU-AIBOTWORKS-ADR-004-compliance-posture.md) — compliance posture
+- [ADR-002](ADR-002-organisation-structure.md) — organisation structure
+- [ADR-004](ADR-004-compliance-posture.md) — compliance posture

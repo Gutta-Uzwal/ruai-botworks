@@ -57,7 +57,7 @@ lanes:
   C3: { label: "Mobile companion",      stack: "React Native + Expo",      gate: full }
 
 # Company-level regimes, always in force. Project-level regimes attach per
-# template — see RU-AIBOTWORKS-ADR-004.
+# template — see ADR-004.
 compliance:
   always:
     - STD-AGENT-001

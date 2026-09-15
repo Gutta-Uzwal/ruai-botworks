@@ -4,7 +4,7 @@
 
 <!-- The original build plan remains in _builddocs as the historical input. It is
      correct about the gate and wrong about where the workforce comes from — see
-     RU-AIBOTWORKS-ADR-001. This document is the plan we are executing. -->
+     ADR-001. This document is the plan we are executing. -->
 
 Every figure below is computed by `PLATFORM/ru_aibotworks_registry.py`.
 None is typed by hand.
@@ -15,10 +15,10 @@ None is typed by hand.
 
 | | v1 | v2 | Why |
 |---|---|---|---|
-| Workforce source | fork `wshobson/agents` | **built natively from a registry** | The fork was never vendored, and forked agents carry no registration record, blast radius or tool contract. See [ADR-001](adr/RU-AIBOTWORKS-ADR-001-agent-construction-model.md). |
-| Officers | 13 | **19** | HR, Payroll, Finance, Service Management and an independent DPO, under a new COO. See [ADR-002](adr/RU-AIBOTWORKS-ADR-002-organisation-structure.md). |
-| Lanes | A, B | **A, B, C1, C2, C3** | Android is now first-class, in all three stacks. See [ADR-003](adr/RU-AIBOTWORKS-ADR-003-mobile-lane.md). |
-| Compliance | implied | **matrix, attached per template** | See [ADR-004](adr/RU-AIBOTWORKS-ADR-004-compliance-posture.md). |
+| Workforce source | fork `wshobson/agents` | **built natively from a registry** | The fork was never vendored, and forked agents carry no registration record, blast radius or tool contract. See [ADR-001](adr/ADR-001-agent-construction-model.md). |
+| Officers | 13 | **19** | HR, Payroll, Finance, Service Management and an independent DPO, under a new COO. See [ADR-002](adr/ADR-002-organisation-structure.md). |
+| Lanes | A, B | **A, B, C1, C2, C3** | Android is now first-class, in all three stacks. See [ADR-003](adr/ADR-003-mobile-lane.md). |
+| Compliance | implied | **matrix, attached per template** | See [ADR-004](adr/ADR-004-compliance-posture.md). |
 | Structure | officer → 34 engineers | **officer → team lead → engineers** | 34 direct reports is not an organisation. |
 | Control database | none | **SQL Server `RU_AIBOTWORKS`** | The org, the contracts, the trajectory log, the meter. |
 
@@ -69,7 +69,7 @@ python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_generate.py --check
 
 # 3. Push one typo all the way through
 git checkout dev
-echo "." >> RU-AIBOTWORKS/DOCS/charter/RU-AIBOTWORKS-01-start-here.md
+echo "." >> RU-AIBOTWORKS/DOCS/charter/01-start-here.md
 git commit -am "typo" && git push origin dev
 gh pr create --base uat --head dev && gh pr merge --merge
 ```
@@ -290,7 +290,7 @@ python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_portal.py
 
 # rebuild and load the control database
 python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_seed_sql.py
-sqlcmd -S localhost -E -C -b -i RU-AIBOTWORKS/DATABASE/RU-AIBOTWORKS-seed.sql
+sqlcmd -S localhost -E -C -b -i RU-AIBOTWORKS/DATABASE/seed.sql
 ```
 
 **To hire an agent:** add ~12 lines to a file in `REGISTRY/workforce/`,

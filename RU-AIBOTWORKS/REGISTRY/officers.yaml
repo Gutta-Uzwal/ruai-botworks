@@ -1,7 +1,7 @@
 # RU-AIBOTWORKS — the 19 officers
 #
 # The decision layer. Hand-authored, owned, genome-validated.
-# 13 original + 6 added by RU-AIBOTWORKS-ADR-002.
+# 13 original + 6 added by ADR-002.
 #
 # Invariants enforced over this file:
 #   - every reports_to resolves          (genome I1)

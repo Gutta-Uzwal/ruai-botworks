@@ -4,7 +4,7 @@
 # department. A team sits inside a department and has one lead.
 #
 # Team leads are L2 by deliberate, logged promotion — see
-# RU-AIBOTWORKS-promotions.yaml. A lead coordinates and sequences; it still cannot
+# promotions.yaml. A lead coordinates and sequences; it still cannot
 # decide scope, merge, or ship.
 
 departments:

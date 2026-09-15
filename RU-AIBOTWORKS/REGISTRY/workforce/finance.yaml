@@ -1,6 +1,6 @@
 # RU-AIBOTWORKS — Finance · officer: finance-controller · division: Corporate
 # 8 staff. Budgets that halt rather than warn.
-# Added by RU-AIBOTWORKS-ADR-002.
+# Added by ADR-002.
 
 department: finance
 agents:

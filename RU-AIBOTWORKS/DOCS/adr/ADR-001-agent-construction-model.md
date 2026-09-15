@@ -1,4 +1,4 @@
-# RU-AIBOTWORKS-ADR-001 — Agent construction model
+# ADR-001 — Agent construction model
 
 **Status:** Accepted · **Date:** 2026-09-14 · **Decider:** CEO Uzwal Gutta
 **Author:** Enterprise AI Architect · **Supersedes:** Build plan Stage 4 (fork strategy)
@@ -45,7 +45,7 @@ four of them and declares the other three as deployment obligations:
 | Plane | Owned here | Artifact |
 |---|---|---|
 | 2. Policy | yes | Cedar policy generated from the registry's tiers and scopes |
-| 6. Tool and data | yes | `RU-AIBOTWORKS-tools.yaml` — complete contracts, §10 |
+| 6. Tool and data | yes | `tools.yaml` — complete contracts, §10 |
 | 7. Observability | yes | Hash-chained receipts, append-only, `receipts/` |
 | — Governance | yes | Registration records, autonomy ladder, blast radius |
 | 1. Control | **no — deployment obligation** | Kill switch, lease issuer, run registry |
@@ -76,5 +76,5 @@ The generator becomes load-bearing infrastructure and must itself be tested.
 
 ## Related
 
-- [RU-AIBOTWORKS-ADR-002](RU-AIBOTWORKS-ADR-002-organisation-structure.md) — organisation structure
-- [RU-AIBOTWORKS-ADR-003](RU-AIBOTWORKS-ADR-003-mobile-lane.md) — mobile lane
+- [ADR-002](ADR-002-organisation-structure.md) — organisation structure
+- [ADR-003](ADR-003-mobile-lane.md) — mobile lane

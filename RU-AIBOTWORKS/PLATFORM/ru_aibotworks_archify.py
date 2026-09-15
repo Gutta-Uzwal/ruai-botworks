@@ -37,8 +37,8 @@ from ru_aibotworks_registry import Company, as_of  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 SHELL = Path(__file__).resolve().parent / "templates" / "archify-shell.html"
 OUT_DIR = ROOT / "PORTAL"
-OUT_HTML = OUT_DIR / "RU-AIBOTWORKS-diagram.html"
-OUT_JSON = OUT_DIR / "RU-AIBOTWORKS-diagram.architecture.json"
+OUT_HTML = OUT_DIR / "diagram.html"
+OUT_JSON = OUT_DIR / "diagram.architecture.json"
 
 CANVAS_W, CANVAS_H = 1380, 950
 NS = "http://www.w3.org/2000/svg"

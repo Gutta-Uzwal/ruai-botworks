@@ -2,7 +2,7 @@
    RU-AIBOTWORKS — control database schema
    SQL Server 2025 · Windows Authentication · database RU_AIBOTWORKS
 
-   Four schemas, matching the planes this repository owns (RU-AIBOTWORKS-ADR-001):
+   Four schemas, matching the planes this repository owns (ADR-001):
 
      gov   governance   the org, the agents, their contracts and registrations
      ops   observability the trajectory log and the receipt chain — APPEND ONLY
@@ -168,7 +168,7 @@ CREATE TABLE gov.Skill (
     About           NVARCHAR(500) NOT NULL,
     Grants          NVARCHAR(16)  NOT NULL CONSTRAINT DF_Skill_Grants DEFAULT 'none',
     CONSTRAINT UQ_Skill UNIQUE (OwnerAgentId, Code),
-    /* A skill grants nothing. Ever. RU-AIBOTWORKS-ADR-005. */
+    /* A skill grants nothing. Ever. ADR-005. */
     CONSTRAINT CK_Skill_GrantsNothing CHECK (Grants = 'none')
 );
 GO
@@ -433,6 +433,35 @@ CREATE TABLE fin.Engagement (
 );
 GO
 
+/* An engagement IS a project — one client, one template lineage, one open/close
+   date. The task board is the plan against it: the product owner (the PM
+   function today; there is no separate project-manager officer) breaks the
+   engagement into numbered tasks and names, per task, the one gov.Team that
+   must do it. TaskNumber is PM-assigned, not identity-generated — the sequence
+   is the plan, not the order tasks happened to be typed in. Closure follows the
+   same rule as svc.Request: no task is done on say-so, only against evidence. */
+IF OBJECT_ID('fin.EngagementTask') IS NULL
+CREATE TABLE fin.EngagementTask (
+    TaskId          INT IDENTITY(1,1) CONSTRAINT PK_EngagementTask PRIMARY KEY,
+    EngagementId    INT           NOT NULL CONSTRAINT FK_Task_Engagement REFERENCES fin.Engagement(EngagementId),
+    TaskNumber      INT           NOT NULL,
+    Summary         NVARCHAR(300) NOT NULL,
+    RequiredTeamId  INT           NOT NULL CONSTRAINT FK_Task_Team REFERENCES gov.Team(TeamId),
+    Status          NVARCHAR(16)  NOT NULL CONSTRAINT DF_Task_Status DEFAULT N'planned',
+    OwnerAgentName  NVARCHAR(64)  NULL,
+    DueOn           DATE          NULL,
+    RaisedAt        DATETIME2     NOT NULL CONSTRAINT DF_Task_Raised DEFAULT SYSUTCDATETIME(),
+    ClosedAt        DATETIME2     NULL,
+    ClosureEvidence NVARCHAR(600) NULL,
+    CONSTRAINT UQ_EngagementTask UNIQUE (EngagementId, TaskNumber),
+    CONSTRAINT CK_Task_Number CHECK (TaskNumber > 0),
+    CONSTRAINT CK_Task_Status CHECK (Status IN (N'planned', N'in_progress', N'blocked', N'done')),
+    /* Closed against evidence, never closed for age — same rule as svc.Request. */
+    CONSTRAINT CK_Task_ClosureEvidence
+        CHECK (Status <> N'done' OR (ClosedAt IS NOT NULL AND ClosureEvidence IS NOT NULL))
+);
+GO
+
 /* ────────────────────────────────────────────────────────────────────────────
    svc — service management. ITSM between clients and delivery.
    ──────────────────────────────────────────────────────────────────────────── */
@@ -590,6 +619,40 @@ SELECT  m.PeriodCode,
 FROM fin.MeterEntry m
 JOIN gov.Agent      a ON a.AgentId = m.AgentId
 GROUP BY m.PeriodCode, a.Name, a.Model;
+GO
+
+/* "Which team(s) does this project need" is never hand-typed — it's every
+   distinct team a task on the board already requires, plus how much of that
+   team's slice of the plan is actually done. */
+CREATE OR ALTER VIEW fin.vw_EngagementTeams AS
+SELECT  e.EngagementId,
+        e.ClientCode,
+        t.TeamId,
+        t.Code                                          AS TeamCode,
+        t.Name                                           AS TeamName,
+        COUNT(*)                                         AS Tasks,
+        SUM(CASE WHEN et.Status = N'done' THEN 1 ELSE 0 END) AS TasksDone
+FROM fin.Engagement     e
+JOIN fin.EngagementTask et ON et.EngagementId = e.EngagementId
+JOIN gov.Team           t  ON t.TeamId = et.RequiredTeamId
+GROUP BY e.EngagementId, e.ClientCode, t.TeamId, t.Code, t.Name;
+GO
+
+CREATE OR ALTER VIEW fin.vw_ProjectBoard AS
+SELECT  e.EngagementId,
+        e.ClientCode,
+        e.Status                                         AS EngagementStatus,
+        et.TaskNumber,
+        et.Summary,
+        t.Code                                           AS RequiredTeam,
+        et.Status                                         AS TaskStatus,
+        et.OwnerAgentName,
+        et.DueOn,
+        et.ClosedAt,
+        et.ClosureEvidence
+FROM fin.Engagement     e
+JOIN fin.EngagementTask et ON et.EngagementId = e.EngagementId
+JOIN gov.Team           t  ON t.TeamId = et.RequiredTeamId;
 GO
 
 PRINT 'RU_AIBOTWORKS schema ready.';
