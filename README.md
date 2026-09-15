@@ -21,7 +21,12 @@ RU-AIBOTWORKS/                 the company
   DOCS/                        build plan, ADRs, agent harness
     adr/                       decision records
     charter/                   GENERATED — start here, organisation, roster
-projects/                      client work, one folder per site; built by the company
+Design/                        the design standard, plus one brief per domain
+  <domain>/                    e.g. school — emotional target, colour, page architecture
+Templates/                     reference builds shown to prospective clients
+  <domain>/<template-name>/    e.g. school/premium-v1
+projects/                      real client work, copied from a template and diverged
+  <domain>/<client-project>/
 .claude/agents/                GENERATED — the officers Claude Code loads
 .github/                       the UAT gate, instructions, the agentic-safety skill
 scripts/agent_harness.py       repo-level tool-contract and receipt checks
