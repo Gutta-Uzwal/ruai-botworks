@@ -7,6 +7,18 @@
 <script>
 (function(){
   try{
+    if(localStorage.getItem('ruai-auth')==='ok') return;
+  }catch(e){}
+  var here=location.pathname.split('/').pop()||'index.html';
+  location.replace('login.html?next='+encodeURIComponent(here));
+})();
+window.ruaiLogout=function(){
+  try{localStorage.removeItem('ruai-auth');}catch(e){}
+  location.replace('login.html');
+};
+
+(function(){
+  try{
     var t=localStorage.getItem('ruai-theme');
     if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);
   }catch(e){}
@@ -32,18 +44,20 @@
       <a href="org-chart.html">Reporting</a>
       <a href="hierarchy.html">Hierarchy</a>
       <a href="workforce.html">Workforce</a>
+      <a href="projects.html">Projects</a>
       <a href="workflow.html">Workflow</a>
       <a href="architecture.html">Architecture</a>
       <a href="diagram.html">Diagram</a>
       <a href="governance.html" aria-current="page">Governance</a>
       <button class="theme-btn" onclick="ruaiToggle()" aria-label="Toggle theme">◐ theme</button>
+      <button class="theme-btn" onclick="ruaiLogout()" aria-label="Sign out">sign out</button>
     </nav>
   </div>
 </header>
 <main class="wrap">
-<div class="phead"><p class="eyebrow">Governance</p><h1>The harness every agent is held in</h1><p class="lede">25 checks run over the whole company on every build. Each one exists because something can go wrong silently, and silence is the failure mode that matters here.</p></div>
+<div class="phead"><p class="eyebrow">Governance</p><h1>The harness every agent is held in</h1><p class="lede">24 checks run over the whole company on every build. Each one exists because something can go wrong silently, and silence is the failure mode that matters here.</p></div>
 <div class="stats">
-  <div class="stat "><div class="n">25</div><div class="k">checks</div><div class="d">Run by ru_aibotworks_genome.py on every push.</div></div>
+  <div class="stat "><div class="n">24</div><div class="k">checks</div><div class="d">Run by ru_aibotworks_genome.py on every push.</div></div>
   <div class="stat "><div class="n">278</div><div class="k">agents covered</div><div class="d">Every agent. No exemptions, no exceptions.</div></div>
   <div class="stat v"><div class="n">5</div><div class="k">tools denied to all</div><div class="d">Tier 3 and 4, registered so the refusal is auditable.</div></div>
   <div class="stat i"><div class="n">0</div><div class="k">dangerous grants</div><div class="d">Verified in the database, not asserted here.</div></div>

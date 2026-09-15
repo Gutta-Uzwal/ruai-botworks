@@ -22,12 +22,16 @@ from datetime import date
 from html import escape
 from pathlib import Path
 
+import yaml
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from ru_aibotworks_generate import BUDGETS, blast_radius_for, grants_for  # noqa: E402
 from ru_aibotworks_genome import Genome
 from ru_aibotworks_registry import Company, as_of  # noqa: E402
 
-OUT = Path(__file__).resolve().parent.parent / "PORTAL"
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
+OUT = REPO_ROOT / "RU-AIBOTWORKS" / "PORTAL"
+PROJECTS_DIR = REPO_ROOT / "projects"
 AS_OF = as_of()  # registry edition date, never the wall clock
 
 PAGES = [
@@ -35,6 +39,7 @@ PAGES = [
     ("org-chart.html", "Reporting"),
     ("hierarchy.html", "Hierarchy"),
     ("workforce.html", "Workforce"),
+    ("projects.html", "Projects"),
     ("workflow.html", "Workflow"),
     ("architecture.html", "Architecture"),
     ("diagram.html", "Diagram"),
@@ -169,6 +174,7 @@ td.name{font-family:var(--mono);font-size:12.5px;color:var(--ink);white-space:no
 .chip.l4{color:var(--corp);border-color:var(--corp);background:var(--corp-soft)}
 .chip.new{color:var(--indep);border-color:var(--indep);background:var(--indep-soft)}
 .chip.t0{opacity:.7} .chip.t2{color:var(--lead);border-color:var(--lead)}
+.chiprow{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 
 /* ── org chart ──────────────────────────────────────────────── */
 .chart{overflow-x:auto;background:var(--panel);border:1px solid var(--line);
@@ -347,6 +353,78 @@ THEME_JS = """
 })();
 """
 
+# Gate script, run before paint on every page except login.html itself.
+#
+# This is a convenience gate, not a security boundary: the page source, and the
+# hash it checks against, are visible to anyone who opens the file. It stops a
+# casual visitor from landing on the portal; it stops nobody who opens devtools.
+AUTH_JS = """
+(function(){
+  try{
+    if(localStorage.getItem('ruai-auth')==='ok') return;
+  }catch(e){}
+  var here=location.pathname.split('/').pop()||'index.html';
+  location.replace('login.html?next='+encodeURIComponent(here));
+})();
+window.ruaiLogout=function(){
+  try{localStorage.removeItem('ruai-auth');}catch(e){}
+  location.replace('login.html');
+};
+"""
+
+# SHA-256("Changeme") — checked client-side by login.html. Never the plaintext,
+# so at least a glance at the page source doesn't hand over the password.
+LOGIN_PASSWORD_HASH = "9370287b2e0de984e2a3b46a2f5841f2fd843a376a7a014f2598ac85ebac232b"
+
+LOGIN_CSS = """
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.login-card{width:100%;max-width:360px;background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--r);padding:28px}
+.login-card .brand{margin-bottom:18px}
+.login-card h1{font-size:20px;margin:0 0 6px}
+.login-card p{font-size:13px;color:var(--muted);margin:0 0 20px}
+.login-card input[type=password]{width:100%;font:14px var(--mono);padding:11px 13px;
+  border-radius:8px;border:1px solid var(--line);background:var(--panel-2);color:var(--ink);
+  margin-bottom:12px;box-sizing:border-box}
+.login-card input:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:var(--accent)}
+.login-card button{width:100%;font:13px var(--mono);letter-spacing:.04em;padding:11px 13px;
+  border-radius:8px;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);
+  cursor:pointer;text-transform:uppercase}
+.login-card button:hover{background:var(--accent);color:var(--panel)}
+.login-err{font-size:12.5px;color:var(--veto);margin:0 0 12px;min-height:1.2em}
+"""
+
+LOGIN_JS = """
+(function(){
+  var f=document.getElementById('f'), pw=document.getElementById('pw'),
+      err=document.getElementById('err');
+
+  function sha256Hex(text){
+    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(text))
+      .then(function(buf){
+        return Array.prototype.map.call(new Uint8Array(buf), function(b){
+          return ('0'+b.toString(16)).slice(-2);
+        }).join('');
+      });
+  }
+
+  f.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    sha256Hex(pw.value).then(function(h){
+      if(h===EXPECTED_HASH){
+        try{localStorage.setItem('ruai-auth','ok');}catch(e){}
+        var next=new URLSearchParams(location.search).get('next');
+        location.replace(next||'index.html');
+      }else{
+        err.textContent='Wrong password.';
+        pw.value='';
+        pw.focus();
+      }
+    });
+  });
+})();
+"""
+
 
 REVEAL_JS = """
 <script>
@@ -415,7 +493,7 @@ def shell(title: str, current: str, body: str, figures: dict, extra_js: str = ""
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(title)} · RU-AIBOTWORKS</title>
-<script>{THEME_JS}</script>
+<script>{AUTH_JS}{THEME_JS}</script>
 <link rel="stylesheet" href="portal.css">
 </head>
 <body>
@@ -425,6 +503,7 @@ def shell(title: str, current: str, body: str, figures: dict, extra_js: str = ""
     <nav class="tabs">
 {tabs}
       <button class="theme-btn" onclick="ruaiToggle()" aria-label="Toggle theme">◐ theme</button>
+      <button class="theme-btn" onclick="ruaiLogout()" aria-label="Sign out">sign out</button>
     </nav>
   </div>
 </header>
@@ -449,6 +528,40 @@ def phead(eyebrow: str, h1: str, lede: str) -> str:
 def stat(n, k, d="", cls="") -> str:
     dd = f'<div class="d">{d}</div>' if d else ""
     return f'<div class="stat {cls}"><div class="n">{n}</div><div class="k">{e(k)}</div>{dd}</div>'
+
+
+# ═══════════════════════════ page: login ═══════════════════════════
+#
+# The one page that never goes through shell() — shell() is what the gate
+# protects, and a protected page cannot also be the gate.
+
+def page_login() -> str:
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in · RU-AIBOTWORKS</title>
+<script>{THEME_JS}</script>
+<link rel="stylesheet" href="portal.css">
+<style>{LOGIN_CSS}</style>
+</head>
+<body>
+<div class="login-wrap">
+  <form class="login-card" id="f" autocomplete="off">
+    <div class="brand">RU<span>-</span>AIBOTWORKS</div>
+    <h1>Sign in</h1>
+    <p>This gate keeps casual visitors out. It is not a security boundary —
+       treat the portal as internal-only regardless.</p>
+    <p class="login-err" id="err" role="alert"></p>
+    <input type="password" id="pw" placeholder="Password" autofocus required>
+    <button type="submit">Enter</button>
+  </form>
+</div>
+<script>var EXPECTED_HASH={json.dumps(LOGIN_PASSWORD_HASH)};{LOGIN_JS}</script>
+</body>
+</html>
+"""
 
 
 # ═══════════════════════════ page: overview ═══════════════════════════
@@ -847,6 +960,130 @@ def page_workforce(c: Company) -> str:
 </script>
 """
     return shell("Workforce", "Workforce", body, f, js)
+
+
+# ═══════════════════════════ page: projects ═══════════════════════════
+#
+# There is no execution engine behind the registry yet — the 278 agents are
+# organisational, not running. So this page never claims to show live agent
+# activity. It reads projects/<domain>/<client-project>/STATUS.yaml, a status
+# a project declares for itself, and cross-checks every assigned handle
+# against the registry so a typo shows up here instead of silently doing
+# nothing. See projects/README.md for the schema.
+
+STATUS_ORDER = ["active", "blocked", "paused", "planning", "complete"]
+STATUS_LABEL = {
+    "active": "Active", "blocked": "Blocked", "paused": "Paused",
+    "planning": "Planning", "complete": "Complete", "unknown": "Unknown",
+}
+STATUS_CLASS = {"active": "i", "blocked": "v", "paused": "l"}
+
+
+def discover_projects() -> list[dict]:
+    found: list[dict] = []
+    if not PROJECTS_DIR.is_dir():
+        return found
+    for domain_dir in sorted(p for p in PROJECTS_DIR.iterdir() if p.is_dir()):
+        for proj_dir in sorted(p for p in domain_dir.iterdir() if p.is_dir()):
+            status_file = proj_dir / "STATUS.yaml"
+            raw: dict = {}
+            error = ""
+            if status_file.is_file():
+                try:
+                    loaded = yaml.safe_load(status_file.read_text(encoding="utf-8"))
+                except yaml.YAMLError:
+                    loaded = None
+                    error = "STATUS.yaml did not parse"
+                if isinstance(loaded, dict):
+                    raw = loaded
+                elif loaded is not None and not error:
+                    error = "STATUS.yaml is not a mapping"
+            found.append({
+                "domain": domain_dir.name,
+                "project": proj_dir.name,
+                "path": f"projects/{domain_dir.name}/{proj_dir.name}",
+                "status": str(raw.get("status") or "unknown"),
+                "assigned": [str(h) for h in (raw.get("assigned") or [])],
+                "started": str(raw.get("started") or ""),
+                "notes": str(raw.get("notes") or ""),
+                "has_status_file": status_file.is_file(),
+                "error": error,
+            })
+    return found
+
+
+def page_projects(c: Company) -> str:
+    f = c.figures
+    projects = discover_projects()
+
+    body = phead(
+        "Command view",
+        "What's running, across every project at once",
+        "Read from <code>projects/&lt;domain&gt;/&lt;client-project&gt;/STATUS.yaml</code> "
+        "&mdash; a project declares its own status and who is assigned to it; this page "
+        "never infers one. There is no live execution telemetry wired up yet, so "
+        "&ldquo;assigned&rdquo; means declared, not observed.",
+    )
+
+    known_handles = set(c.agent_by_name) | set(c.officer_by_name)
+    active = sum(1 for p in projects if p["status"] == "active")
+    blocked = sum(1 for p in projects if p["status"] == "blocked")
+    assigned_handles = {h for p in projects for h in p["assigned"] if h in known_handles}
+    bench = f["agents_total"] - len(assigned_handles)
+
+    body += f"""
+<div class="stats">
+  {stat(len(projects), 'projects found', 'Folders under projects/, one per client build.')}
+  {stat(active, 'active', 'Declared in STATUS.yaml.', 'i')}
+  {stat(blocked, 'blocked', 'Needs attention.', 'v')}
+  {stat(bench, 'agents on the bench', f"Of {f['agents_total']}, not named in any project&rsquo;s assigned list.", 'l')}
+</div>
+"""
+
+    if not projects:
+        body += f"""
+<div class="note"><strong>No projects declared yet.</strong> {f['agents_total']} agents
+are registered and none are named on any project. Copy a template into
+<code>projects/&lt;domain&gt;/&lt;client-project&gt;/</code> and add a
+<code>STATUS.yaml</code> next to its <code>DESIGN.md</code> to see it here &mdash; see
+<code>projects/README.md</code> for the schema.</div>
+"""
+    else:
+        def sort_key(p: dict):
+            rank = STATUS_ORDER.index(p["status"]) if p["status"] in STATUS_ORDER else 99
+            return (rank, p["path"])
+
+        cards = []
+        for p in sorted(projects, key=sort_key):
+            unknown = [h for h in p["assigned"] if h not in known_handles]
+            chips = "".join(
+                f'<span class="chip">{e(person_of(c, h))}</span>'
+                for h in p["assigned"] if h not in unknown
+            )
+            chips += "".join(f'<span class="chip veto">unknown: {e(h)}</span>' for h in unknown)
+            if not p["assigned"]:
+                chips = '<span class="chip">bench</span>'
+            status_cls = STATUS_CLASS.get(p["status"], "")
+            meta_bits = [p["path"]]
+            if p["started"]:
+                meta_bits.append(f"started {e(p['started'])}")
+            warn = ""
+            if p["error"]:
+                warn = f'<div class="note warn">{e(p["error"])}</div>'
+            elif not p["has_status_file"]:
+                warn = '<div class="note warn">No STATUS.yaml &mdash; status shown as unknown.</div>'
+            cards.append(f"""
+<div class="panel">
+  <h3>{e(p['project'])} <span class="chip {status_cls}">{e(STATUS_LABEL.get(p['status'], p['status']))}</span></h3>
+  <p class="sub">{' · '.join(meta_bits)}</p>
+  <p>{e(p['notes']) if p['notes'] else 'No notes.'}</p>
+  <div class="chiprow">{chips}</div>
+  {warn}
+</div>
+""")
+        body += '<div class="grid2">' + "".join(cards) + "</div>"
+
+    return shell("Projects", "Projects", body, f)
 
 
 # ═══════════════════════════ page: workflow ═══════════════════════════
@@ -1331,12 +1568,14 @@ def main() -> int:
     c = Company.load()
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "portal.css").write_text(STYLE, encoding="utf-8")
+    (OUT / "login.html").write_text(page_login(), encoding="utf-8")
 
     pages = {
         "index.html": page_index(c),
         "org-chart.html": page_org(c),
         "hierarchy.html": page_hierarchy(c),
         "workforce.html": page_workforce(c),
+        "projects.html": page_projects(c),
         "workflow.html": page_workflow(c),
         "architecture.html": page_architecture(c),
         "governance.html": page_governance(c),
@@ -1378,6 +1617,7 @@ def main() -> int:
     print(f"portal generated — {len(pages)} pages, {total} KB")
     for name in pages:
         print(f"  {name}")
+    print("  login.html  (not in nav — the gate)")
     print(f"  portal.css · company.json")
     return 0
 

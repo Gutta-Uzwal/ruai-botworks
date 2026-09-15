@@ -126,6 +126,7 @@ td.name{font-family:var(--mono);font-size:12.5px;color:var(--ink);white-space:no
 .chip.l4{color:var(--corp);border-color:var(--corp);background:var(--corp-soft)}
 .chip.new{color:var(--indep);border-color:var(--indep);background:var(--indep-soft)}
 .chip.t0{opacity:.7} .chip.t2{color:var(--lead);border-color:var(--lead)}
+.chiprow{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 
 /* ── org chart ──────────────────────────────────────────────── */
 .chart{overflow-x:auto;background:var(--panel);border:1px solid var(--line);

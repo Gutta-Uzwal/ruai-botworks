@@ -20,3 +20,11 @@ Design/<domain>/                       the design brief for that domain
 projects/<domain>/<client-project>/    real client work, copied from a template
 RU-AIBOTWORKS/                         the generated agent company — see its own README
 ```
+
+## Project status tracking
+
+Any `projects/<domain>/<client-project>/` folder may carry a `STATUS.yaml`
+declaring its status and which registry agents are assigned to it. The
+RU-AIBOTWORKS portal's Projects page reads every one of these to show what is
+running across all client projects at once. See
+[`projects/README.md`](projects/README.md) for the schema.

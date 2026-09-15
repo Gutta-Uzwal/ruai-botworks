@@ -7,6 +7,18 @@
 <script>
 (function(){
   try{
+    if(localStorage.getItem('ruai-auth')==='ok') return;
+  }catch(e){}
+  var here=location.pathname.split('/').pop()||'index.html';
+  location.replace('login.html?next='+encodeURIComponent(here));
+})();
+window.ruaiLogout=function(){
+  try{localStorage.removeItem('ruai-auth');}catch(e){}
+  location.replace('login.html');
+};
+
+(function(){
+  try{
     var t=localStorage.getItem('ruai-theme');
     if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);
   }catch(e){}
@@ -32,11 +44,13 @@
       <a href="org-chart.html" aria-current="page">Reporting</a>
       <a href="hierarchy.html">Hierarchy</a>
       <a href="workforce.html">Workforce</a>
+      <a href="projects.html">Projects</a>
       <a href="workflow.html">Workflow</a>
       <a href="architecture.html">Architecture</a>
       <a href="diagram.html">Diagram</a>
       <a href="governance.html">Governance</a>
       <button class="theme-btn" onclick="ruaiToggle()" aria-label="Toggle theme">◐ theme</button>
+      <button class="theme-btn" onclick="ruaiLogout()" aria-label="Sign out">sign out</button>
     </nav>
   </div>
 </header>
