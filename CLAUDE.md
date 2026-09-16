@@ -3,8 +3,8 @@
 ## Website design work
 
 Before writing or reviewing any website's markup, styling, or layout, read
-[`Design/premium-web-design-standard.md`](Design/premium-web-design-standard.md)
-and, if one exists, the matching `Design/<domain>/` brief. Every project and
+[`designs/premium-web-design-standard.md`](designs/premium-web-design-standard.md)
+and, if one exists, the matching `designs/<domain>/` brief. Every project and
 template's `DESIGN.md` must declare compliance with that standard by name and
 version — this applies regardless of which agent persona is doing the work.
 
@@ -15,10 +15,10 @@ current version.
 ## Folder structure
 
 ```text
-Templates/<domain>/<template-name>/   reference builds shown to clients
-Design/<domain>/                       the design brief for that domain
+templates/<domain>/<template-name>/   reference builds shown to clients
+designs/<domain>/                       the design brief for that domain
 projects/<domain>/<client-project>/    real client work, copied from a template
-RU-AIBOTWORKS/                         the generated agent company — see its own README
+ru-aibotworks/                         the generated agent company — see its own README
 ```
 
 ## Project status tracking

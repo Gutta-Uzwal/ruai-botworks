@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "_generated": "PLATFORM/ru_aibotworks_generate.py — do not hand-edit",
-  "_source": "REGISTRY/tools.yaml",
+  "_generated": "platform/ru_aibotworks_generate.py — do not hand-edit",
+  "_source": "registry/tools.yaml",
   "egress": {
     "default": "deny",
     "allowlist": [],
