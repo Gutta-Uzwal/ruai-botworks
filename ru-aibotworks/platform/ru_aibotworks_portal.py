@@ -30,7 +30,10 @@ from ru_aibotworks_genome import Genome
 from ru_aibotworks_registry import Company, as_of  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-OUT = REPO_ROOT / "RU-AIBOTWORKS" / "portal"
+# Derived from this file, never from a hard-coded company folder name: the
+# tree was renamed once already, and a stale segment here only shows up on a
+# case-sensitive filesystem (CI), never on Windows.
+OUT = Path(__file__).resolve().parent.parent / "portal"
 PROJECTS_DIR = REPO_ROOT / "projects"
 AS_OF = as_of()  # registry edition date, never the wall clock
 
