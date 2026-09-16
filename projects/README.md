@@ -1,6 +1,6 @@
 # projects/
 
-One folder per real client build, copied from a `Templates/<domain>/<template-name>/`
+One folder per real client build, copied from a `templates/<domain>/<template-name>/`
 reference and then customized. Layout: `projects/<domain>/<client-project>/`.
 
 ## STATUS.yaml
@@ -17,7 +17,7 @@ agent working the project update it, whenever status actually changes.
 
 ```yaml
 status: active            # planning | active | paused | blocked | complete
-assigned:                 # registry handles — checked against RU-AIBOTWORKS/REGISTRY
+assigned:                 # registry handles — checked against ru-aibotworks/registry
   - web-architect
   - frontend-engineer-07
 started: 2026-09-15
