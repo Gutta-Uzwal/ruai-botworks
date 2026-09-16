@@ -28,38 +28,38 @@ jobs:
         run: pip install --quiet pyyaml
 
       - name: Company figures compute
-        run: python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_registry.py --table
+        run: python ru-aibotworks/platform/ru_aibotworks_registry.py --table
 
       - name: Everyone is named
-        run: python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_names.py --check
+        run: python ru-aibotworks/platform/ru_aibotworks_names.py --check
 
       # 13 company invariants plus the STD-AGENT-001 controls, over every agent.
       # An ungoverned agent fails the build here.
       - name: Governance genome
-        run: python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_genome.py --validate --verbose
+        run: python ru-aibotworks/platform/ru_aibotworks_genome.py --validate --verbose
 
       # Catches the failure mode where someone edits a generated AGENT.md instead
       # of the registry, and the next generation silently reverts it.
       - name: Generated tree is current
-        run: python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_generate.py --check
+        run: python ru-aibotworks/platform/ru_aibotworks_generate.py --check
 
       - name: Charter regenerates without drift
         run: |
-          python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_charter.py
-          if ! git diff --quiet -- RU-AIBOTWORKS/DOCS/charter; then
+          python ru-aibotworks/platform/ru_aibotworks_charter.py
+          if ! git diff --quiet -- ru-aibotworks/docs/charter; then
             echo "::error::charter is stale - run ru_aibotworks_charter.py and commit"
-            git diff --stat -- RU-AIBOTWORKS/DOCS/charter
+            git diff --stat -- ru-aibotworks/docs/charter
             exit 1
           fi
 
       - name: Document consistency
-        run: python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_consistency.py RU-AIBOTWORKS/DOCS
+        run: python ru-aibotworks/platform/ru_aibotworks_consistency.py ru-aibotworks/docs
 
       - name: Authorship
-        run: python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_authorship.py
+        run: python ru-aibotworks/platform/ru_aibotworks_authorship.py
 
       - name: Folder and file naming
-        run: python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_layout.py
+        run: python ru-aibotworks/platform/ru_aibotworks_layout.py
 
   tooling:
     name: Tool contracts and receipts
@@ -93,9 +93,9 @@ jobs:
       - name: Seed regenerates without drift
         shell: pwsh
         run: |
-          $before = Get-FileHash RU-AIBOTWORKS/DATABASE/seed.sql
-          python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_seed_sql.py
-          $after = Get-FileHash RU-AIBOTWORKS/DATABASE/seed.sql
+          $before = Get-FileHash ru-aibotworks/database/seed.sql
+          python ru-aibotworks/platform/ru_aibotworks_seed_sql.py
+          $after = Get-FileHash ru-aibotworks/database/seed.sql
           if ($before.Hash -ne $after.Hash) {
             Write-Error "seed is stale - run ru_aibotworks_seed_sql.py and commit the result"
             exit 1
@@ -113,11 +113,11 @@ jobs:
 
       - name: Portal and diagram regenerate without drift
         run: |
-          python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_portal.py
-          python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_archify.py
-          if ! git diff --quiet -- RU-AIBOTWORKS/PORTAL; then
+          python ru-aibotworks/platform/ru_aibotworks_portal.py
+          python ru-aibotworks/platform/ru_aibotworks_archify.py
+          if ! git diff --quiet -- ru-aibotworks/portal; then
             echo "::error::portal is stale - run ru_aibotworks_portal.py and commit the result"
-            git diff --stat -- RU-AIBOTWORKS/PORTAL
+            git diff --stat -- ru-aibotworks/portal
             exit 1
           fi
 

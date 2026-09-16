@@ -8,11 +8,11 @@ projects/*/*/backend/*.egg-info/
 projects/*/*/backend/db.sqlite3
 projects/*/*/frontend/node_modules/
 projects/*/*/frontend/dist/
-Templates/*/*/backend/.venv/
-Templates/*/*/backend/*.egg-info/
-Templates/*/*/backend/db.sqlite3
-Templates/*/*/frontend/node_modules/
-Templates/*/*/frontend/dist/
+templates/*/*/backend/.venv/
+templates/*/*/backend/*.egg-info/
+templates/*/*/backend/db.sqlite3
+templates/*/*/frontend/node_modules/
+templates/*/*/frontend/dist/
 
 # Session-memory plugin state. Machine-local; never company record.
 .remember/

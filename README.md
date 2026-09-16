@@ -3,27 +3,27 @@
 Agentic AI employees that build and look after websites and Android apps.
 CEO: Uzwal Gutta.
 
-Start with the charter: [RU-AIBOTWORKS/DOCS/charter/01-start-here.md](RU-AIBOTWORKS/DOCS/charter/01-start-here.md).
-Open the CEO portal: [RU-AIBOTWORKS/PORTAL/index.html](RU-AIBOTWORKS/PORTAL/index.html).
+Start with the charter: [ru-aibotworks/docs/charter/01-start-here.md](ru-aibotworks/docs/charter/01-start-here.md).
+Open the CEO portal: [ru-aibotworks/portal/index.html](ru-aibotworks/portal/index.html).
 
 ## Where things live
 
 ```text
-RU-AIBOTWORKS/                 the company
-  REGISTRY/                    single source of truth — edit here, nowhere else
+ru-aibotworks/                 the company
+  registry/                    single source of truth — edit here, nowhere else
     workforce/                 one file per department
-  PLATFORM/                    the tooling that reads the registry
+  platform/                    the tooling that reads the registry
     templates/                 vendored inputs to the generators
-  DEPARTMENTS/                 GENERATED — one package per agent
+  departments/                 GENERATED — one package per agent
     _officers/                 GENERATED — the officers and team-lead promotions
-  DATABASE/                    SQL Server schema (authored) and seed (GENERATED)
-  PORTAL/                      GENERATED — CEO pages and the architecture diagram
-  DOCS/                        build plan, ADRs, agent harness
+  database/                    SQL Server schema (authored) and seed (GENERATED)
+  portal/                      GENERATED — CEO pages and the architecture diagram
+  docs/                        build plan, ADRs, agent harness
     adr/                       decision records
     charter/                   GENERATED — start here, organisation, roster
-Design/                        the design standard, plus one brief per domain
+designs/                        the design standard, plus one brief per domain
   <domain>/                    e.g. school — emotional target, colour, page architecture
-Templates/                     reference builds shown to prospective clients
+templates/                     reference builds shown to prospective clients
   <domain>/<template-name>/    e.g. school/premium-v1
 projects/                      real client work, copied from a template and diverged
   <domain>/<client-project>/
@@ -43,7 +43,7 @@ repository root on purpose: the policy hooks resolve them from there.
 
 | Kind | Form | Example |
 |---|---|---|
-| Section | `UPPERCASE` | `REGISTRY/` |
+| Section | `lowercase` | `registry/` |
 | Folder below a section | `lowercase-kebab` | `workforce/`, `frontend-engineering/` |
 | Data, doc or page file | `<kebab>.<ext>` | `tools.yaml` |
 | Decision record | `ADR-NNN-<kebab>.md` | `ADR-003-mobile-lane.md` |
@@ -55,10 +55,10 @@ repository root on purpose: the policy hooks resolve them from there.
 ## After changing the registry
 
 ```text
-python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_genome.py --validate
-python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_generate.py
-python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_charter.py
-python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_portal.py
-python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_archify.py
-python RU-AIBOTWORKS/PLATFORM/ru_aibotworks_seed_sql.py
+python ru-aibotworks/platform/ru_aibotworks_genome.py --validate
+python ru-aibotworks/platform/ru_aibotworks_generate.py
+python ru-aibotworks/platform/ru_aibotworks_charter.py
+python ru-aibotworks/platform/ru_aibotworks_portal.py
+python ru-aibotworks/platform/ru_aibotworks_archify.py
+python ru-aibotworks/platform/ru_aibotworks_seed_sql.py
 ```
