@@ -96,6 +96,14 @@ back to `ui-designer`/`web-architect`, not to review:
 - **Agency test** — "what would a professional creative director change?" —
   apply one visible refinement pass before declaring done.
 
+## Section prompt templates
+
+For briefing a landing page one section at a time (hero, features, pricing,
+testimonials, CTA, footer), see
+[`references/landing-section-prompt-templates.md`](references/landing-section-prompt-templates.md).
+It pairs each section with market inspiration pulled from 21st.dev — use it to
+calibrate a brief, not as code to install verbatim.
+
 ## Domain briefs
 
 A domain-specific brief narrows this standard for one vertical's emotional

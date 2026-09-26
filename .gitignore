@@ -24,7 +24,17 @@ templates/*/*/frontend/dist/
 graphify-out/cost.json
 graphify-out/cache/
 graphify-out/.graphify_root
-graphify-out/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]/   # rolling local safety backups before an overwrite
+# Rolling local safety backups before an overwrite. (gitignore has no inline
+# comment syntax — trailing "# ..." text becomes part of the pattern, so this
+# must stay on its own line above or the rule silently stops matching.)
+graphify-out/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]/
+# Rebuildable extraction cache/state emitted alongside the shared map files.
+graphify-out/.graphify_ast.json
+graphify-out/.graphify_chunk_*.json
+graphify-out/.graphify_detect.json
+graphify-out/.graphify_incremental.json
+graphify-out/.graphify_python
+graphify-out/.graphify_uncached.txt
 
 # Receipt chains belong at the repository root and nowhere else. The policy hooks
 # write them relative to the current working directory, so any shell that has cd'd

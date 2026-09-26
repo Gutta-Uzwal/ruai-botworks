@@ -210,10 +210,10 @@
     "semantic_hash": "352664926f614b08cb937612bed96958"
   },
   "templates/school/premium-v1/frontend/package.json": {
-    "mtime": 1789369736.915255,
-    "seen": 1790390300.0116549,
-    "ast_hash": "e413f978a5f3e007b32df5e52a8f215a",
-    "semantic_hash": "e413f978a5f3e007b32df5e52a8f215a"
+    "mtime": 1790390643.8624456,
+    "seen": 1790436058.3175774,
+    "ast_hash": "4faccfe483f345e971fb32c0a5f4f050",
+    "semantic_hash": ""
   },
   "templates/school/premium-v1/frontend/src/App.jsx": {
     "mtime": 1789369736.946283,
@@ -516,9 +516,9 @@
     "semantic_hash": ""
   },
   "designs/premium-web-design-standard.md": {
-    "mtime": 1789528110.331931,
-    "seen": 1790390454.352072,
-    "ast_hash": "894415a78971eb38dd53f426167c658c",
+    "mtime": 1790391176.5477688,
+    "seen": 1790436058.3176768,
+    "ast_hash": "5a33dcfbde3dfda7e27148af5425707a",
     "semantic_hash": ""
   },
   "designs/school/school-design-brief.md": {
@@ -8889,6 +8889,54 @@
     "mtime": 1789369736.9232554,
     "seen": 1790390454.3530657,
     "ast_hash": "31c747eb9530e336ce5c10ebf712a3ea",
+    "semantic_hash": ""
+  },
+  ".claude/skills/image-to-code-skill/SKILL.md": {
+    "mtime": 1790390541.4247239,
+    "seen": 1790436058.3176374,
+    "ast_hash": "442613e4710f0005b94f1c4b1d3ac246",
+    "semantic_hash": ""
+  },
+  ".claude/skills/taste-skill/SKILL.md": {
+    "mtime": 1790390451.842152,
+    "seen": 1790436058.3176394,
+    "ast_hash": "6f73606d20cd948b471b1ce1767aab50",
+    "semantic_hash": ""
+  },
+  ".claude/skills/thinking-orbs/REFERENCES.md": {
+    "mtime": 1790391006.9200642,
+    "seen": 1790436058.3176415,
+    "ast_hash": "f3b73cdfa9f4ed8d2daaee489bf5b214",
+    "semantic_hash": ""
+  },
+  ".claude/skills/thinking-orbs/SKILL.md": {
+    "mtime": 1790391006.4311368,
+    "seen": 1790436058.317643,
+    "ast_hash": "bc3df1b4bcf9f0762c1392dfc4dbdf03",
+    "semantic_hash": ""
+  },
+  ".claude/skills/thinking-orbs/agents/openai.yaml": {
+    "mtime": 1790391007.370879,
+    "seen": 1790436058.3176448,
+    "ast_hash": "97c384b0f098c98ddc4726d3ad36325e",
+    "semantic_hash": ""
+  },
+  ".claude/skills/web-design-guidelines/SKILL.md": {
+    "mtime": 1790390545.433269,
+    "seen": 1790436058.317646,
+    "ast_hash": "98087aedd18375666dbb093c859b2949",
+    "semantic_hash": ""
+  },
+  "designs/references/awesome-claude-design.md": {
+    "mtime": 1790390871.863428,
+    "seen": 1790436058.3176785,
+    "ast_hash": "af9715fd145bdd56063d9cd71c78c3ab",
+    "semantic_hash": ""
+  },
+  "designs/references/landing-section-prompt-templates.md": {
+    "mtime": 1790391164.9157753,
+    "seen": 1790436058.3176801,
+    "ast_hash": "cf6edbd14b23415afb4de9f91298db7a",
     "semantic_hash": ""
   }
 }
