@@ -24,6 +24,7 @@ templates/*/*/frontend/dist/
 graphify-out/cost.json
 graphify-out/cache/
 graphify-out/.graphify_root
+graphify-out/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]/   # rolling local safety backups before an overwrite
 
 # Receipt chains belong at the repository root and nowhere else. The policy hooks
 # write them relative to the current working directory, so any shell that has cd'd
