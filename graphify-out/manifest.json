@@ -236,13 +236,13 @@
   "ru-aibotworks/database/schema.sql": {
     "mtime": 1789528110.3605967,
     "seen": 1790390454.3520045,
-    "ast_hash": "f64bb284fee529ad7811731337687507",
+    "ast_hash": "",
     "semantic_hash": ""
   },
   "ru-aibotworks/database/seed.sql": {
     "mtime": 1789528319.3623338,
     "seen": 1790390454.3520062,
-    "ast_hash": "32fdd701ae1ad853700aa95761e9c022",
+    "ast_hash": "",
     "semantic_hash": ""
   },
   ".claude/CLAUDE.md": {
@@ -8934,9 +8934,9 @@
     "semantic_hash": ""
   },
   "designs/references/landing-section-prompt-templates.md": {
-    "mtime": 1790391164.9157753,
-    "seen": 1790436058.3176801,
-    "ast_hash": "cf6edbd14b23415afb4de9f91298db7a",
+    "mtime": 1790436435.868163,
+    "seen": 1790436461.780594,
+    "ast_hash": "6afc15cab854f0089dfd67ee194714a7",
     "semantic_hash": ""
   }
 }

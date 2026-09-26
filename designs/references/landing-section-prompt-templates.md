@@ -28,6 +28,25 @@ that passes the standard's checklist.
 
 ---
 
+## Nav bar
+
+**Prompt template:**
+
+> Design the nav bar for `[project name]`. Links: `[list nav items, must match
+> the sections actually built on the page]`. Primary CTA: `[primary CTA]`.
+> Decide `[sticky-on-scroll / static]` and specify the mobile breakpoint
+> behavior (disclosure menu vs. off-canvas drawer). This is persistent chrome,
+> not a scroll section, so the standard's section-rhythm and blur-test rules
+> don't apply here — but it must stay visually quiet enough not to compete
+> with the hero directly beneath it.
+
+**Market inspiration (21st.dev):**
+- [Header Navbar](https://21st.dev/@karthikmudunuri/components/header-02) — responsive header with animated logo, optional banner slot, animated mobile disclosure menu
+- [Navbar Menu](https://21st.dev/@manuarora700/components/navbar-menu) — hover-animated big-nav dropdown for link-heavy nav structures
+- [Floating Navbar](https://21st.dev/@preetsuthar17/components/navbar-1) — floating, responsive, animated on scroll
+
+---
+
 ## Hero
 
 **Prompt template:**
@@ -46,6 +65,24 @@ that passes the standard's checklist.
 - [Enterprise Hero with Dual CTAs](https://21st.dev/@uniquesonu/components/hero-section-enterprise-ready-landing-page-hero-with-dual-ctas) — theme-aware, dual-CTA structure
 - [Marketing Hero with Spotlight](https://21st.dev/@uiable/components/block-hero) — stats pill + mouse-following spotlight as the signature motion moment
 - [Agency Hero with Logo Marquee](https://21st.dev/@shadcnspace/components/hero-01) — trust avatars + client-logo marquee for social proof up top
+
+---
+
+## Stats / metrics strip
+
+**Prompt template:**
+
+> Design the stats section for `[project name]` highlighting these metrics:
+> `[list metrics with real numbers — flag "TBD — placeholder numbers only" if
+> real figures aren't available yet]`. Use count-up animation on scroll-into-
+> view at the standard's fast/subtle micro-motion tier, not a jarring jump.
+> Background and layout shape must differ from the section immediately above
+> per the section-rhythm rule.
+
+**Market inspiration (21st.dev):**
+- [Real-Time Metrics Counter](https://21st.dev/@shadcnspace/components/number-ticker-05) — animated counter with a live "active" pulse indicator
+- [Stats Grid](https://21st.dev/@shadcnui-blocks/components/stats-04) — bordered-cell metric grid under a heading
+- [Statistic Pairing](https://21st.dev/@shadcnstore/components/statistic-2) — growth headline paired with a metric-card grid
 
 ---
 
@@ -68,6 +105,24 @@ that passes the standard's checklist.
 
 ---
 
+## Team grid
+
+**Prompt template:**
+
+> Design the team section for `[project name]` featuring:
+> `[list members, or "TBD — placeholder names/roles only" if not finalized]`.
+> Choose `[photo / illustration / initials]` for avatar treatment, consistent
+> with the testimonials section's avatar treatment elsewhere on the page.
+> `[Include / do not include]` hover-revealed social links or a "we're hiring"
+> closing CTA.
+
+**Market inspiration (21st.dev):**
+- [Team Grid Section](https://21st.dev/@shadcnspace/components/team-02) — hover-revealed social links on each member card
+- [Team Section with Glow Cards](https://21st.dev/@ncdai/components/team-01) — glowing avatar + border hover effect
+- [Team Section](https://21st.dev/@efferd/components/team-2) — bordered layout with a "we're hiring" CTA at the bottom
+
+---
+
 ## Pricing
 
 **Prompt template:**
@@ -83,6 +138,24 @@ that passes the standard's checklist.
 - [Banner Tiers Pricing Table](https://21st.dev/@arihantcodes_1f7b8c4d/components/banner-tiers) — brutalist styling, banner-highlighted featured plan, animated digit rollers
 - [Pricing Table with feature matrix](https://21st.dev/@kokonutd/components/pricing-table) — full comparison matrix, animated price transitions
 - [Annual Savings Pricing Grid](https://21st.dev/@7ovr/components/pricing-4) — shows yearly-billed total under the monthly price for transparency
+
+---
+
+## FAQ accordion
+
+**Prompt template:**
+
+> Design the FAQ section for `[project name]` covering:
+> `[list questions, or "TBD — placeholder questions only, flag for real
+> copy"]`. Use `[single-open / multiple-open]` accordion behavior. If there
+> are more than ~6 questions, group them into categories rather than one long
+> list. Include a "still have questions" contact/support link if `[support
+> channel]` exists.
+
+**Market inspiration (21st.dev):**
+- [FAQ Accordion Columns](https://21st.dev/@diarmuradi/components/faq-11) — three-column categorized FAQ with a contact-support CTA
+- [FAQ 3](https://21st.dev/@shadcnblockscom/components/faq3) — centered single-column accordion FAQ
+- [Accordion Multiple](https://21st.dev/@uiable/components/accordion-multiple) — several panels open at once, for shorter FAQ lists
 
 ---
 
@@ -141,8 +214,8 @@ that passes the standard's checklist.
 
 ## Adding a new section template
 
-When a project needs a section not covered here (nav bar, stats/metrics
-strip, FAQ accordion, team grid, etc.), pull 3-5 inspiration results from
+When a project needs a section not covered here (logo cloud, comparison
+table, integrations grid, blog preview, etc.), pull 3-5 inspiration results from
 21st.dev (`get_inspiration` / `search` tools), write the prompt template
 following the pattern above, and append it to this file rather than starting
 a new doc — this keeps one canonical library, the same way the design
