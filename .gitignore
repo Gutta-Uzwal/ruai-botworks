@@ -18,6 +18,13 @@ templates/*/*/frontend/dist/
 .remember/
 .claude/.remember/
 
+# graphify-out/ itself is committed on purpose (README: "meant to be committed
+# to git so everyone on the team starts with a map"). Only the per-machine
+# cost ledger and the rebuildable extraction cache are local.
+graphify-out/cost.json
+graphify-out/cache/
+graphify-out/.graphify_root
+
 # Receipt chains belong at the repository root and nowhere else. The policy hooks
 # write them relative to the current working directory, so any shell that has cd'd
 # into a subfolder starts a second, fragmented chain. A chain that splits by working

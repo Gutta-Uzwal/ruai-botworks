@@ -1,0 +1,486 @@
+{
+  "communities": {
+    "0": [
+      "argparse",
+      "builddocs_superseded_check_authorship",
+      "builddocs_superseded_check_authorship_is_agent",
+      "builddocs_superseded_check_authorship_main",
+      "builddocs_superseded_check_authorship_rationale_2",
+      "builddocs_superseded_check_authorship_sh",
+      "builddocs_superseded_check_consistency",
+      "builddocs_superseded_check_consistency_check",
+      "builddocs_superseded_check_consistency_py_path",
+      "builddocs_superseded_check_consistency_rationale_2",
+      "builddocs_superseded_company",
+      "builddocs_superseded_company_own",
+      "builddocs_superseded_company_rationale_2",
+      "builddocs_superseded_company_selfcheck",
+      "builddocs_superseded_roster",
+      "builddocs_superseded_roster_main",
+      "builddocs_superseded_roster_parse_agent",
+      "builddocs_superseded_roster_py_path",
+      "builddocs_superseded_roster_rationale_2",
+      "builddocs_superseded_roster_rationale_29",
+      "builddocs_superseded_roster_render",
+      "builddocs_superseded_roster_scan",
+      "collections",
+      "django_core_wsgi",
+      "os",
+      "re",
+      "ru_aibotworks_platform_ru_aibotworks_authorship",
+      "ru_aibotworks_platform_ru_aibotworks_authorship_changed_files",
+      "ru_aibotworks_platform_ru_aibotworks_authorship_main",
+      "ru_aibotworks_platform_ru_aibotworks_authorship_rationale_2",
+      "ru_aibotworks_platform_ru_aibotworks_authorship_sh",
+      "ru_aibotworks_platform_ru_aibotworks_consistency",
+      "ru_aibotworks_platform_ru_aibotworks_consistency_check",
+      "ru_aibotworks_platform_ru_aibotworks_consistency_py_path",
+      "ru_aibotworks_platform_ru_aibotworks_consistency_rationale_2",
+      "ru_aibotworks_platform_ru_aibotworks_genome",
+      "ru_aibotworks_platform_ru_aibotworks_genome_rationale_2",
+      "ru_aibotworks_platform_ru_aibotworks_layout",
+      "ru_aibotworks_platform_ru_aibotworks_layout_check",
+      "ru_aibotworks_platform_ru_aibotworks_layout_paths",
+      "ru_aibotworks_platform_ru_aibotworks_layout_rationale_2",
+      "ru_aibotworks_platform_ru_aibotworks_names",
+      "ru_aibotworks_platform_ru_aibotworks_names_assign",
+      "ru_aibotworks_platform_ru_aibotworks_names_load_existing",
+      "ru_aibotworks_platform_ru_aibotworks_names_main",
+      "ru_aibotworks_platform_ru_aibotworks_names_rationale_2",
+      "subprocess",
+      "sys",
+      "templates_school_premium_v1_backend_config_wsgi",
+      "templates_school_premium_v1_backend_manage",
+      "templates_school_premium_v1_backend_manage_main"
+    ],
+    "1": [
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_fail",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_i10_every_project_has_design",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_i11_figures_from_one_source",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_i12_read_only_agents_declared",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_i13_one_lane_per_project",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_i1_reporting_lines_resolve",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_i2_authority_never_inverts",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_i3_exactly_three_vetoes",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_i4_reserved_decisions_intact",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_i5_every_agent_governed",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_i6_no_undeclared_promotion",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_i7_every_plugin_owned",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_i8_no_orchestrator_at_entry_point",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_i9_no_veto_holder_holds_write",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_passed",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_run",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_std_backups_unreachable",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_std_default_deny_egress",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_std_delegation_depth",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_std_every_agent_named",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_std_every_team_staffed",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_std_fable_not_on_security",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_std_names_unique",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_std_no_hard_delete_verb",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_std_no_self_modification",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_std_no_tier_four_granted",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_std_rollback_on_tier_two_plus",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_std_tool_contracts_complete",
+      "ru_aibotworks_platform_ru_aibotworks_genome_rationale_139",
+      "ru_aibotworks_platform_ru_aibotworks_genome_rationale_167",
+      "ru_aibotworks_platform_ru_aibotworks_genome_rationale_216",
+      "ru_aibotworks_platform_ru_aibotworks_genome_rationale_240",
+      "ru_aibotworks_platform_ru_aibotworks_genome_rationale_257",
+      "ru_aibotworks_platform_ru_aibotworks_genome_rationale_270",
+      "ru_aibotworks_platform_ru_aibotworks_genome_rationale_286",
+      "ru_aibotworks_platform_ru_aibotworks_genome_rationale_296",
+      "ru_aibotworks_platform_ru_aibotworks_genome_rationale_305",
+      "ru_aibotworks_platform_ru_aibotworks_genome_rationale_319",
+      "ru_aibotworks_platform_ru_aibotworks_genome_rationale_347",
+      "ru_aibotworks_platform_ru_aibotworks_genome_rationale_357",
+      "ru_aibotworks_platform_ru_aibotworks_genome_rationale_377"
+    ],
+    "2": [
+      "ref_react",
+      "ref_react_dom",
+      "ref_vite",
+      "ref_vitejs_plugin_react",
+      "ref_vitest",
+      "templates_school_premium_v1_frontend_package",
+      "templates_school_premium_v1_frontend_package_dependencies",
+      "templates_school_premium_v1_frontend_package_dependencies_react",
+      "templates_school_premium_v1_frontend_package_dependencies_react_dom",
+      "templates_school_premium_v1_frontend_package_dependencies_vite",
+      "templates_school_premium_v1_frontend_package_dependencies_vitejs_plugin_react",
+      "templates_school_premium_v1_frontend_package_devdependencies",
+      "templates_school_premium_v1_frontend_package_devdependencies_vitest",
+      "templates_school_premium_v1_frontend_package_name",
+      "templates_school_premium_v1_frontend_package_private",
+      "templates_school_premium_v1_frontend_package_scripts",
+      "templates_school_premium_v1_frontend_package_scripts_build",
+      "templates_school_premium_v1_frontend_package_scripts_dev",
+      "templates_school_premium_v1_frontend_package_scripts_test",
+      "templates_school_premium_v1_frontend_package_type",
+      "templates_school_premium_v1_frontend_package_version",
+      "templates_school_premium_v1_frontend_src_app",
+      "templates_school_premium_v1_frontend_src_app_app",
+      "templates_school_premium_v1_frontend_src_app_navigation",
+      "templates_school_premium_v1_frontend_src_main",
+      "templates_school_premium_v1_frontend_src_styles",
+      "templates_school_premium_v1_frontend_vite_config"
+    ],
+    "3": [
+      "ru_aibotworks_platform_ru_aibotworks_portal",
+      "ru_aibotworks_platform_ru_aibotworks_portal_discover_projects",
+      "ru_aibotworks_platform_ru_aibotworks_portal_e",
+      "ru_aibotworks_platform_ru_aibotworks_portal_main",
+      "ru_aibotworks_platform_ru_aibotworks_portal_page_architecture",
+      "ru_aibotworks_platform_ru_aibotworks_portal_page_governance",
+      "ru_aibotworks_platform_ru_aibotworks_portal_page_hierarchy",
+      "ru_aibotworks_platform_ru_aibotworks_portal_page_hierarchy_render",
+      "ru_aibotworks_platform_ru_aibotworks_portal_page_hierarchy_sort_key",
+      "ru_aibotworks_platform_ru_aibotworks_portal_page_hierarchy_subtree_size",
+      "ru_aibotworks_platform_ru_aibotworks_portal_page_index",
+      "ru_aibotworks_platform_ru_aibotworks_portal_page_login",
+      "ru_aibotworks_platform_ru_aibotworks_portal_page_org",
+      "ru_aibotworks_platform_ru_aibotworks_portal_page_projects",
+      "ru_aibotworks_platform_ru_aibotworks_portal_page_projects_sort_key",
+      "ru_aibotworks_platform_ru_aibotworks_portal_page_workflow",
+      "ru_aibotworks_platform_ru_aibotworks_portal_page_workforce",
+      "ru_aibotworks_platform_ru_aibotworks_portal_person_of",
+      "ru_aibotworks_platform_ru_aibotworks_portal_phead",
+      "ru_aibotworks_platform_ru_aibotworks_portal_rationale_1371",
+      "ru_aibotworks_platform_ru_aibotworks_portal_rationale_2",
+      "ru_aibotworks_platform_ru_aibotworks_portal_rationale_481",
+      "ru_aibotworks_platform_ru_aibotworks_portal_rationale_665",
+      "ru_aibotworks_platform_ru_aibotworks_portal_shell",
+      "ru_aibotworks_platform_ru_aibotworks_portal_stat",
+      "ru_aibotworks_platform_ru_aibotworks_portal_svg_org",
+      "ru_aibotworks_platform_ru_aibotworks_portal_svg_org_meta"
+    ],
+    "4": [
+      "html",
+      "ru_aibotworks_platform_ru_aibotworks_archify",
+      "ru_aibotworks_platform_ru_aibotworks_archify_build_model",
+      "ru_aibotworks_platform_ru_aibotworks_archify_build_model_bottom",
+      "ru_aibotworks_platform_ru_aibotworks_archify_build_model_left",
+      "ru_aibotworks_platform_ru_aibotworks_archify_build_model_link",
+      "ru_aibotworks_platform_ru_aibotworks_archify_build_model_node",
+      "ru_aibotworks_platform_ru_aibotworks_archify_build_model_right",
+      "ru_aibotworks_platform_ru_aibotworks_archify_build_model_top",
+      "ru_aibotworks_platform_ru_aibotworks_archify_e",
+      "ru_aibotworks_platform_ru_aibotworks_archify_elbow",
+      "ru_aibotworks_platform_ru_aibotworks_archify_main",
+      "ru_aibotworks_platform_ru_aibotworks_archify_midpoint",
+      "ru_aibotworks_platform_ru_aibotworks_archify_node_box",
+      "ru_aibotworks_platform_ru_aibotworks_archify_rationale_118",
+      "ru_aibotworks_platform_ru_aibotworks_archify_rationale_2",
+      "ru_aibotworks_platform_ru_aibotworks_archify_rationale_93",
+      "ru_aibotworks_platform_ru_aibotworks_archify_render_boundary",
+      "ru_aibotworks_platform_ru_aibotworks_archify_render_boundary_label",
+      "ru_aibotworks_platform_ru_aibotworks_archify_render_cards",
+      "ru_aibotworks_platform_ru_aibotworks_archify_render_edge",
+      "ru_aibotworks_platform_ru_aibotworks_archify_render_edge_label",
+      "ru_aibotworks_platform_ru_aibotworks_archify_render_legend",
+      "ru_aibotworks_platform_ru_aibotworks_archify_render_node",
+      "ru_aibotworks_platform_ru_aibotworks_archify_render_svg",
+      "ru_aibotworks_platform_ru_aibotworks_archify_transplant"
+    ],
+    "5": [
+      "django_http",
+      "django_urls",
+      "hashlib",
+      "json",
+      "scripts_agent_harness",
+      "scripts_agent_harness_load_json",
+      "scripts_agent_harness_main",
+      "scripts_agent_harness_py_any",
+      "scripts_agent_harness_py_path",
+      "scripts_agent_harness_rationale_2",
+      "scripts_agent_harness_receipt_digest",
+      "scripts_agent_harness_validate_registry",
+      "scripts_agent_harness_verify_receipts",
+      "templates_school_premium_v1_backend_apps_contact_urls",
+      "templates_school_premium_v1_backend_apps_contact_urls_submit_inquiry",
+      "templates_school_premium_v1_backend_apps_content_urls",
+      "templates_school_premium_v1_backend_apps_content_urls_published_content",
+      "templates_school_premium_v1_backend_config_urls",
+      "typing"
+    ],
+    "6": [
+      "ru_aibotworks_platform_ru_aibotworks_generate",
+      "ru_aibotworks_platform_ru_aibotworks_generate_clocks_for",
+      "ru_aibotworks_platform_ru_aibotworks_generate_digest",
+      "ru_aibotworks_platform_ru_aibotworks_generate_generate",
+      "ru_aibotworks_platform_ru_aibotworks_generate_main",
+      "ru_aibotworks_platform_ru_aibotworks_generate_rationale_2",
+      "ru_aibotworks_platform_ru_aibotworks_generate_rationale_597",
+      "ru_aibotworks_platform_ru_aibotworks_generate_rationale_617",
+      "ru_aibotworks_platform_ru_aibotworks_generate_render_agent_tools_json",
+      "ru_aibotworks_platform_ru_aibotworks_generate_render_evaluation",
+      "ru_aibotworks_platform_ru_aibotworks_generate_render_officer_md",
+      "ru_aibotworks_platform_ru_aibotworks_generate_render_promotions",
+      "ru_aibotworks_platform_ru_aibotworks_generate_render_skill",
+      "ru_aibotworks_platform_ru_aibotworks_generate_render_tools",
+      "shutil"
+    ],
+    "7": [
+      "ru_aibotworks_platform_ru_aibotworks_charter",
+      "ru_aibotworks_platform_ru_aibotworks_charter_main",
+      "ru_aibotworks_platform_ru_aibotworks_charter_organisation",
+      "ru_aibotworks_platform_ru_aibotworks_charter_rationale_2",
+      "ru_aibotworks_platform_ru_aibotworks_charter_roster",
+      "ru_aibotworks_platform_ru_aibotworks_charter_start_here",
+      "ru_aibotworks_platform_ru_aibotworks_genome_genome_init",
+      "ru_aibotworks_platform_ru_aibotworks_registry_company",
+      "ru_aibotworks_platform_ru_aibotworks_registry_company_department_by_id",
+      "ru_aibotworks_platform_ru_aibotworks_registry_company_figures",
+      "ru_aibotworks_platform_ru_aibotworks_registry_company_team_by_key",
+      "ru_aibotworks_platform_ru_aibotworks_registry_company_teams",
+      "ru_aibotworks_platform_ru_aibotworks_registry_py_any"
+    ],
+    "8": [
+      "ru_aibotworks_platform_ru_aibotworks_generate_blast_radius_for",
+      "ru_aibotworks_platform_ru_aibotworks_generate_classification_for",
+      "ru_aibotworks_platform_ru_aibotworks_generate_grants_for",
+      "ru_aibotworks_platform_ru_aibotworks_generate_rationale_149",
+      "ru_aibotworks_platform_ru_aibotworks_generate_render_registration",
+      "ru_aibotworks_platform_ru_aibotworks_seed_sql",
+      "ru_aibotworks_platform_ru_aibotworks_seed_sql_build",
+      "ru_aibotworks_platform_ru_aibotworks_seed_sql_main",
+      "ru_aibotworks_platform_ru_aibotworks_seed_sql_merge",
+      "ru_aibotworks_platform_ru_aibotworks_seed_sql_q",
+      "ru_aibotworks_platform_ru_aibotworks_seed_sql_rationale_2",
+      "ru_aibotworks_platform_ru_aibotworks_seed_sql_rationale_37",
+      "ru_aibotworks_platform_ru_aibotworks_seed_sql_rationale_48"
+    ],
+    "9": [
+      "dataclasses",
+      "date",
+      "datetime",
+      "functools",
+      "pathlib",
+      "ru_aibotworks_platform_ru_aibotworks_registry",
+      "ru_aibotworks_platform_ru_aibotworks_registry_as_of",
+      "ru_aibotworks_platform_ru_aibotworks_registry_load",
+      "ru_aibotworks_platform_ru_aibotworks_registry_rationale_120",
+      "ru_aibotworks_platform_ru_aibotworks_registry_rationale_2",
+      "templates_school_premium_v1_backend_config_settings",
+      "yaml"
+    ],
+    "10": [
+      "ru_aibotworks_platform_ru_aibotworks_generate_claude_tools_for",
+      "ru_aibotworks_platform_ru_aibotworks_generate_rationale_126",
+      "ru_aibotworks_platform_ru_aibotworks_generate_render_agent_md",
+      "ru_aibotworks_platform_ru_aibotworks_registry_agent",
+      "ru_aibotworks_platform_ru_aibotworks_registry_agent_cohort",
+      "ru_aibotworks_platform_ru_aibotworks_registry_company_agent_by_name",
+      "ru_aibotworks_platform_ru_aibotworks_registry_company_agents_in",
+      "ru_aibotworks_platform_ru_aibotworks_registry_company_reports_to_of",
+      "ru_aibotworks_platform_ru_aibotworks_registry_rationale_234",
+      "ru_aibotworks_platform_ru_aibotworks_registry_rationale_72"
+    ],
+    "11": [
+      "django_apps",
+      "templates_school_premium_v1_backend_apps_contact_apps",
+      "templates_school_premium_v1_backend_apps_contact_apps_contactconfig",
+      "templates_school_premium_v1_backend_apps_contact_apps_py_appconfig",
+      "templates_school_premium_v1_backend_apps_content_apps",
+      "templates_school_premium_v1_backend_apps_content_apps_contentconfig",
+      "templates_school_premium_v1_backend_apps_content_apps_py_appconfig"
+    ],
+    "12": [
+      "ru_aibotworks_platform_ru_aibotworks_genome_main",
+      "ru_aibotworks_platform_ru_aibotworks_registry_company_load",
+      "ru_aibotworks_platform_ru_aibotworks_registry_company_officer_by_name",
+      "ru_aibotworks_platform_ru_aibotworks_registry_company_officer_of",
+      "ru_aibotworks_platform_ru_aibotworks_registry_main",
+      "ru_aibotworks_platform_ru_aibotworks_registry_officer",
+      "ru_aibotworks_platform_ru_aibotworks_registry_officer_read_only"
+    ],
+    "13": [
+      "ru_aibotworks_platform_ru_aibotworks_registry_company_deepest_chain",
+      "ru_aibotworks_platform_ru_aibotworks_registry_company_deepest_chain_officer_depth",
+      "ru_aibotworks_platform_ru_aibotworks_registry_rationale_323"
+    ],
+    "14": [
+      "pkg_ruai_school_backend"
+    ],
+    "15": [
+      "templates_school_premium_v1_backend_apps_contact_init"
+    ],
+    "16": [
+      "templates_school_premium_v1_backend_apps_content_init"
+    ],
+    "17": [
+      "templates_school_premium_v1_backend_apps_init"
+    ],
+    "18": [
+      "templates_school_premium_v1_backend_config_init"
+    ]
+  },
+  "cohesion": {
+    "0": 0.05803921568627451,
+    "1": 0.10569105691056911,
+    "2": 0.08262108262108261,
+    "3": 0.21367521367521367,
+    "4": 0.15692307692307692,
+    "5": 0.15789473684210525,
+    "6": 0.20952380952380953,
+    "7": 0.28205128205128205,
+    "8": 0.2692307692307692,
+    "9": 0.18181818181818182,
+    "10": 0.2222222222222222,
+    "11": 0.2857142857142857,
+    "12": 0.2857142857142857,
+    "13": 0.6666666666666666,
+    "14": 1.0,
+    "15": 1.0,
+    "16": 1.0,
+    "17": 1.0,
+    "18": 1.0
+  },
+  "gods": [
+    {
+      "id": "ru_aibotworks_platform_ru_aibotworks_registry_company",
+      "label": "Company",
+      "degree": 53
+    },
+    {
+      "id": "ru_aibotworks_platform_ru_aibotworks_genome_genome",
+      "label": "Genome",
+      "degree": 34
+    },
+    {
+      "id": "ru_aibotworks_platform_ru_aibotworks_registry_agent",
+      "label": "Agent",
+      "degree": 19
+    },
+    {
+      "id": "ru_aibotworks_platform_ru_aibotworks_portal_e",
+      "label": "e()",
+      "degree": 14
+    },
+    {
+      "id": "ru_aibotworks_platform_ru_aibotworks_portal_main",
+      "label": "main()",
+      "degree": 14
+    },
+    {
+      "id": "ru_aibotworks_platform_ru_aibotworks_portal_page_hierarchy",
+      "label": "page_hierarchy()",
+      "degree": 11
+    },
+    {
+      "id": "ru_aibotworks_platform_ru_aibotworks_generate_generate",
+      "label": "generate()",
+      "degree": 11
+    },
+    {
+      "id": "ru_aibotworks_platform_ru_aibotworks_portal_page_projects",
+      "label": "page_projects()",
+      "degree": 10
+    },
+    {
+      "id": "ru_aibotworks_platform_ru_aibotworks_portal_phead",
+      "label": "phead()",
+      "degree": 10
+    },
+    {
+      "id": "ru_aibotworks_platform_ru_aibotworks_portal_shell",
+      "label": "shell()",
+      "degree": 10
+    }
+  ],
+  "surprises": [
+    {
+      "source": "Genome",
+      "target": "Company",
+      "source_files": [
+        "ru-aibotworks/platform/ru_aibotworks_genome.py",
+        "ru-aibotworks/platform/ru_aibotworks_registry.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "uses",
+      "why": "inferred connection - not explicitly stated in source; bridges separate communities"
+    },
+    {
+      "source": "blast_radius_for()",
+      "target": "Agent",
+      "source_files": [
+        "ru-aibotworks/platform/ru_aibotworks_generate.py",
+        "ru-aibotworks/platform/ru_aibotworks_registry.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "uses",
+      "why": "inferred connection - not explicitly stated in source; bridges separate communities"
+    },
+    {
+      "source": "classification_for()",
+      "target": "Agent",
+      "source_files": [
+        "ru-aibotworks/platform/ru_aibotworks_generate.py",
+        "ru-aibotworks/platform/ru_aibotworks_registry.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "uses",
+      "why": "inferred connection - not explicitly stated in source; bridges separate communities"
+    },
+    {
+      "source": "clocks_for()",
+      "target": "Agent",
+      "source_files": [
+        "ru-aibotworks/platform/ru_aibotworks_generate.py",
+        "ru-aibotworks/platform/ru_aibotworks_registry.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "uses",
+      "why": "inferred connection - not explicitly stated in source; bridges separate communities"
+    },
+    {
+      "source": "grants_for()",
+      "target": "Agent",
+      "source_files": [
+        "ru-aibotworks/platform/ru_aibotworks_generate.py",
+        "ru-aibotworks/platform/ru_aibotworks_registry.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "uses",
+      "why": "inferred connection - not explicitly stated in source; bridges separate communities"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `Company` connect `Company Charter Generation` to `Authorship & Consistency Checks`, `Genome Invariant Checks`, `Portal Page Rendering`, `Org Chart Diagram Generator`, `Agent Package Generation`, `SQL Seed Data Generation`, `Agent Registry Core Model`, `Agent Reporting Hierarchy`, `Officer Registry Lookup`, `Reporting Chain Depth`?",
+      "why": "High betweenness centrality (0.262) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `Genome` connect `Genome Invariant Checks` to `Authorship & Consistency Checks`, `Portal Page Rendering`, `Officer Registry Lookup`, `Company Charter Generation`?",
+      "why": "High betweenness centrality (0.219) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `build_model()` connect `Org Chart Diagram Generator` to `Agent Registry Core Model`, `Company Charter Generation`?",
+      "why": "High betweenness centrality (0.033) - this node is a cross-community bridge."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 32 inferred relationships involving `Company` (e.g. with `build_model()` and `main()`) actually correct?",
+      "why": "`Company` has 32 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 10 inferred relationships involving `Agent` (e.g. with `blast_radius_for()` and `classification_for()`) actually correct?",
+      "why": "`Agent` has 10 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `ruai-school-backend`, `react`, `react-dom` to the rest of the system?",
+      "why": "15 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Authorship & Consistency Checks` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.05803921568627451 - nodes in this community are weakly interconnected."
+    }
+  ]
+}
